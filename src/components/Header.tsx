@@ -13,6 +13,7 @@ import {
 import { MobileSearch, Search } from '@/components/Search'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { CloseButton } from '@headlessui/react'
+import { VICINAE_GITHUB_REPO_URL } from '@/lib/constants'
 
 function TopLevelNavItem({
   href,
@@ -47,7 +48,8 @@ function GitHubIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function GithubLink() {
   return (
-    <button
+    <a
+	  href={VICINAE_GITHUB_REPO_URL}
       type="button"
       className="flex size-6 items-center justify-center rounded-md transition hover:bg-zinc-900/5 dark:hover:bg-white/5"
       aria-label={'Github Link'}
@@ -55,7 +57,7 @@ export function GithubLink() {
       <span className="absolute size-12 pointer-fine:hidden" />
       <GitHubIcon className="h-5 w-5 fill-black dark:hidden" />
       <GitHubIcon className="hidden h-5 w-5 fill-white dark:block" />
-    </button>
+    </a>
   )
 }
 
