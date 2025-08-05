@@ -1,0 +1,54 @@
+# Installation
+
+This guide will teach you how to install Vicinae on your Linux system, be it from an already built executable or by compiling the software from source. {{ className: 'lead' }}
+
+
+## Runtime dependencies
+
+The following dependencies must be installed regardless of your installation method. Each distribution has its own conventions when it comes to package names so we won't attempt to make a list here.
+
+- `qtbase`
+- `libQt6Svg` (should be separate from `qtbase`)
+- `libcmark-gfm`
+- `libprotobuf`
+- `libqalculate`
+- `libminizip`
+- `libLayerShellQtInterface` *(optional — only if your compositor supports the `wlr-layer-shell` protocol)*
+- `nodejs >= 18` *(optional — required only if you want to run or develop third-party extensions using React/TypeScript. `npm` is **not** required at runtime.)*
+
+## Install from repository
+
+Vicinae is a new project and is not yet packaged for most distributions.  
+As packaging efforts progress, supported distros will be listed here.
+
+## Install from latest release
+
+You can fetch the latest release archive, which contains:
+- The compiled Vicinae binary
+- A `.desktop` file (required for URL scheme support)
+- A few optional themes
+
+## Build from source
+
+Building from source is entirely supported and the recommended way to install Vicinae if you plan on contributing later on. The build process is being tested on rolling release distributions such as Gentoo or Arch. You may run into trouble compiling if you are using a distribution that has old package versions. 
+
+### Build requirements
+
+> ⚠️ **Note:** GCC 15 has a [known bug with `std::expected`](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=119714), which is used in the codebase.  
+> If using GCC, make sure you're running an older or patched version.
+
+- A C++23-capable compiler (GCC is recommended; Clang should also work)
+- `cmake`
+- `libprotoc` — the Protocol Buffers compiler (different from the runtime `libprotobuf`)
+- `npm` (any version bundled with Node.js ≥ 18 should work)
+
+### Build
+
+You can execute the following commands in order to compile a release build. You should expect the build process to take about 10 minutes on modern hardware.
+
+```sh
+cmake -G Ninja -B build
+cmake --build build 
+sudo cmake --install build
+```
+
