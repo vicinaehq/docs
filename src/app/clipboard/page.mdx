@@ -1,0 +1,62 @@
+# Clipboard Management
+
+Vicinae fully integrates with your system clipboard and includes a powerful clipboard history module. In practice, this makes Vicinae a capable standalone clipboard manager as well. This document explains how it works and outlines its key features. {{ className: 'lead' }}
+
+## Environment Support
+
+Clipboard behavior can vary significantly depending on the desktop environment or compositor in use. Below is a table showing which environments Vicinae currently supports.
+
+If you’d like to contribute support for an environment that isn’t yet compatible, please [read this guide](#).
+
+| Name | Supported | Comment |
+|------|-----------|---------|
+| X11 | ❌ | Planned for future implementation |
+| KDE Wayland | ✅ | Uses the `wlr-data-control` protocol |
+| Gnome | ❌ | Requires a custom clipboard server implementation |
+| Hyprland | ✅ | |
+| Sway | ✅ | |
+| Other Wayland compositors | - | Works if the compositor implements `wlr-data-control` (most do) |
+
+## Introduction
+
+When launched, Vicinae starts a clipboard server that monitors clipboard activity in the current environment.
+
+You can quickly check whether clipboard management is active by opening the clipboard history command.
+
+<img src="/vicinae-clipboard-history-ok.png" />
+
+If the option shows `Pause clipboard` or `Resume clipboard`, it means a working clipboard server is currently tracking clipboard activity.  
+If it displays an error instead, your environment may not be supported, or another issue may have occurred. The logs can help you pinpoint the cause.
+
+## Understanding Clipboard Selections
+
+When an application copies something to the clipboard, it creates a **clipboard selection**. This selection contains a set of MIME types—often called *data offers*—that represent the various formats in which the content can be provided. This allows the receiving application to choose the most suitable format.
+
+For example, copying the URL `https://docs.vicinae.com` from a Chromium browser results in the following:
+
+``` {{ title: 'wl-paste -l' }}
+STRING  
+UTF8_STRING  
+text/plain  
+text/plain;charset=utf-8  
+text/plain;charset=utf-8  
+TEXT
+```
+
+The clipboard server integrated with Vicinae notifies the clipboard service whenever a new selection appears. The service then indexes the content and adds a new entry to the clipboard history.
+
+<Note> Every data offer is stored and indexed. For example, copying an image from a browser may store both the image and its full-text URL—allowing you to search for it later via its URL. </Note>
+
+## Tagging Selections
+
+The clipboard history module allows you to tag selections with custom keywords.
+Simply activate the Edit keywords action on any selection and enter the desired keywords. These tags make it easier to locate a selection later through search.
+
+<img src="/vicinae-clipboard-history-edit-keywords.png" />
+
+## Security
+
+By default, Vicinae reads and stores all data offers from each unique selection on disk, fully encrypted with AES256-GCM.
+Text-only content is also stored in a full-text search SQLite index to enable content-based search.
+
+However, because the SQLite database is not yet encrypted (this feature is planned), some clipboard history data may remain unencrypted.
