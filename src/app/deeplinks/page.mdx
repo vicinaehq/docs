@@ -10,11 +10,21 @@ You can pass Vicinae URLs using the `vicinae` binary directly. For instance, her
 vicinae vicinae://toggle
 ```
 
-Assuming the `vicinae` url scheme has been registered system-wide, you can also directly use it with tools such as `vicinae`, or even from the browser if custom schemes are supported.
+Assuming the `vicinae` url scheme has been registered system-wide, you can also directly use it with tools such as `xdg-open`:
 
 ```bash
-vicinae vicinae://toggle
+xdg-open vicinae://toggle
 ```
+
+Browsers can also execute custom url schemes, with a few caveats.
+If Vicinae is currently running, [clicking this link](vicinae://toggle) should toggle the window.
+
+<Note>
+	For security reasons clicking a URL with a custom url scheme on a browser page will only work the first time on most browsers until you refresh the page. This is by design and can't really be worked around cleanly.
+</Note>
+
+## Deeplinks as keyboard shortcuts
+
 
 Deeplinks are the preferred way to bind keyboard shortcuts using your favorite window manager.
 
@@ -25,7 +35,7 @@ bind = $mainMod, Space, exec, vicinae vicinae://toggle
 ```
 
 <Note>
-	If you are invoking deeplinks directly, it is recommended to execute them using the `vicinae` binary directly instead of using `vicinae` or a similar tool, which will perform additional lookups and therefore be slower.
+	If you are invoking deeplinks directly, it is recommended to execute them using the `vicinae` binary directly instead of using `xdg-open` or a similar tool, which will perform additional lookups and therefore be slower.
 </Note>
 
 
@@ -39,7 +49,7 @@ vicinae://extensions/<author>/<extension_name>/<command_name>
 
 The `author` field matches the author of the extension. Built-in extensions always have `vicinae` as their author. 
 
-As an example, this is how to open the clipboard history command using a deeplink:
+As an example, this is how to open the [clipboard history command](vicinae://extensions/vicinae/clipboard/history) using a deeplink:
 
 ```bash
 vicinae vicinae://extensions/vicinae/clipboard/history
@@ -70,6 +80,14 @@ vicinae://pop_to_root
 vicinae://pop_current
 ```
 
+## Settings controls
+
+Deeplinks are available to control the settings window as well:
+
+```bash
+vicinae://settings/open?tab=about
+vicinae://settings/close
+```
 
 
 ## Raycast compatiblity
