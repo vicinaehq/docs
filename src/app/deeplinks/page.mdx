@@ -1,0 +1,77 @@
+# Deeplinks
+
+Deeplinks is a mechanism allowing your to control Vicinae using the `vicinae://` url scheme. It allows you to toggle the window visibility, launch a specific command, and much more.
+
+## Using Deeplinks
+
+You can pass Vicinae URLs using the `vicinae` binary directly. For instance, here is how you can toggle the window visibility:
+
+```bash
+vicinae vicinae://toggle
+```
+
+Assuming the `vicinae` url scheme has been registered system-wide, you can also directly use it with tools such as `vicinae`, or even from the browser if custom schemes are supported.
+
+```bash
+vicinae vicinae://toggle
+```
+
+Deeplinks are the preferred way to bind keyboard shortcuts using your favorite window manager.
+
+For instance, someone using Hyprland would create this binding to toggle the Vicinae window when `Super + Space` is pressed:
+
+```bash
+bind = $mainMod, Space, exec, vicinae vicinae://toggle
+```
+
+<Note>
+	If you are invoking deeplinks directly, it is recommended to execute them using the `vicinae` binary directly instead of using `vicinae` or a similar tool, which will perform additional lookups and therefore be slower.
+</Note>
+
+
+## Launching specific commands
+
+You can launch a specific command using the following deeplink syntax:
+
+```bash
+vicinae://extensions/<author>/<extension_name>/<command_name>
+```
+
+The `author` field matches the author of the extension. Built-in extensions always have `vicinae` as their author. 
+
+As an example, this is how to open the clipboard history command using a deeplink:
+
+```bash
+vicinae vicinae://extensions/vicinae/clipboard/history
+```
+
+### Pass fallback text to command
+
+The query parameter `fallbackText` can be used to set a fallback search text when launching the command:
+
+```bash
+vicinae 'vicinae://extensions/vicinae/clipboard/history?fallbackText=text'
+```
+
+
+### Get deeplink for any command
+
+You can get the deeplink for a command directly from the root search. Select the command you want to get the deeplink for, open the action panel and select the `Copy deeplink` item.
+
+## Window controls
+
+The following deeplinks can be used to control the window and the navigation:
+
+```bash
+vicinae://toggle
+vicinae://open
+vicinae://close
+vicinae://pop_to_root
+vicinae://pop_current
+```
+
+
+
+## Raycast compatiblity
+
+In order to remain compatible with Raycast, the `raycast://` scheme can be used interchangeably with `vicinae://`.

@@ -241,6 +241,12 @@ export const navigation: Array<NavGroup> = [
       { title: 'Contributing', href: '/contribute' },
     ],
   },
+  {
+    title: 'Manual',
+    links: [
+      { title: 'Deeplinks', href: '/deeplinks' },
+    ],
+  },
 ]
 
 export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
