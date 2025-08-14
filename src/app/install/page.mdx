@@ -5,32 +5,45 @@ This guide will teach you how to install Vicinae on your Linux system, be it fro
 
 ## Runtime dependencies
 
-The following dependencies must be installed regardless of your installation method. Each distribution has its own conventions when it comes to package names so we won't attempt to make a list here.
+The following dependencies must be installed regardless of your installation method. You will find the list of package to install for popular distributions below. If your distribution is not listed, you should normally be able to infer the package names you need from these lists. If you got it to work on your distribution, feel free to contribute your own package list!
 
-- `qtbase`
-- `libQt6Svg` (should be separate from `qtbase`)
-- `libcmark-gfm`
-- `libprotobuf`
-- `libqalculate`
-- `libminizip`
-- `libLayerShellQtInterface` *(optional — only if your compositor supports the `wlr-layer-shell` protocol)*
-- `nodejs >= 18` *(optional — required only if you want to run or develop third-party extensions using React/TypeScript. `npm` is **not** required at runtime.)*
+<CodeGroup title="Install dependencies">
+```bash {{ title: 'Arch Linux' }}
+pacman -Syu			\
+    nodejs			\
+    qt6-base		\
+    qt6-svg			\
+    protobuf		\
+    cmark-gfm		\
+    layer-shell-qt 	\
+    libqalculate 	\
+    minizip			\
+    qtkeychain-qt6	\
+```
+```bash {{ title: 'Gentoo Linux' }}
+emerge -av			\
+	qtkeychain		\
+	qtbase			\
+	minizip-ng		\
+	layer-shell-qt	\
+	libqalculate	\
+	nodejs			\
+	cmark-gfm		\
+	dev-qt/qtsvg	\
+	protobuf		\
+```
+</CodeGroup>
 
 ## Install from repository
 
 Vicinae is a new project and is not yet packaged for most distributions.  
 As packaging efforts progress, supported distros will be listed here.
 
-## Install from latest release
 
-You can fetch the latest release archive, which contains:
-- The compiled Vicinae binary
-- A `.desktop` file (required for URL scheme support)
-- A few optional themes
 
-## Build from source
+## Build from source (recommended)
 
-Building from source is entirely supported and the recommended way to install Vicinae if you plan on contributing later on. The build process is being tested on rolling release distributions such as Gentoo or Arch. You may run into trouble compiling if you are using a distribution that has old package versions. 
+Building from source is the recommended way to install Vicinae if you plan on contributing later on. The build process is being tested on rolling release distributions such as Gentoo or Arch. You may run into trouble compiling if you are using a distribution that has old package versions. 
 
 ### Build requirements
 
@@ -86,6 +99,16 @@ cmake -G Ninja -B build
 cmake --build build 
 sudo cmake --install build
 ```
+
+## Install from latest release
+
+You can fetch the [latest release archive](https://github.com/vicinaehq/vicinae/releases), which contains:
+- The compiled Vicinae binary
+- A `.desktop` file (required for URL scheme support)
+
+<Note>
+Currently, the pre-built binary is dynamically linked to `libprotobuf` which upgrades quite often, and is generally not retro-compatible. If you are running an older system you will most likely run into an error when launching the binary. For now, the only workaround is to compile it from source. 
+</Note>
 
 ## Basic usage
 
