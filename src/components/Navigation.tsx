@@ -239,6 +239,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Introduction', href: '/' },
       { title: 'Installation', href: '/install' },
       { title: 'Manual Installation', href: '/manual-install' },
+      { title: 'Getting Started', href: '/getting-started' },
       { title: 'Contributing', href: '/contribute' },
     ],
   },

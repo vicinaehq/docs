@@ -103,20 +103,4 @@ You can fetch the [latest release archive](https://github.com/vicinaehq/vicinae/
 Currently, the pre-built binary is dynamically linked to `libprotobuf` which upgrades quite often, and is generally not retro-compatible. If you are running an older system you will most likely run into an error when launching the binary. For now, the only workaround is to compile it from source. 
 </Note>
 
-## Basic usage
 
-The install rule will install the `vicinae` binary on your system.
-
-To start the vicinae daemon, simply run:
-
-```bash {{ title: 'Start daemon' }}
-vicinae server
-```
-
-Starting the daemon can take up to a few seconds when doing so for the very first time. The Vicinae window should then appear:
-
-<img src="/vicinae-window.png" />
-
-To toggle the window visiblity, you can just run `vicinae` without an argument, or use [deeplinks](#).
-
-Vicinae doesn't deal with system keyboard shortcuts itself because every environment does it differently, so it's up to you to setup proper bindings.
