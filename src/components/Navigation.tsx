@@ -245,6 +245,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Manual',
     links: [
       { title: 'Clipboard Management', href: '/clipboard' },
+      { title: 'Theming', href: '/theming' },
       { title: 'Deeplinks', href: '/deeplinks' },
     ],
   },
