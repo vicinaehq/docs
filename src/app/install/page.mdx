@@ -15,3 +15,13 @@ paru -S vicinae-git
 # yay
 yay -S vicinae-git
 ```
+
+## Gentoo (jaredallard's overlay)
+
+Thanks to [jaredallard](https://github.com/jaredallard) for providing an [ebuild](https://github.com/jaredallard/overlay/tree/main/gui-apps/vicinae)!
+
+```bash
+eselect repository add jaredallard-overlay git https://github.com/jaredallard/overlay.git
+emerge --sync jaredallard-overlay
+emerge gui-apps/vicinae
+```
