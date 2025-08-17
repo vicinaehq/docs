@@ -11,7 +11,7 @@ vicinae server
 If you prefer systemd service, run:
 
 ```bash {{ title: 'Start systemd service' }}
-systemctl enable vicinae.service
+systemctl enable --now --user vicinae.service
 ```
 
 Starting the daemon can take up to a few seconds when doing so for the very first time. 
