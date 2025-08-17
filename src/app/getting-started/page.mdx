@@ -8,6 +8,12 @@ To start the vicinae daemon, simply run:
 vicinae server
 ```
 
+If you prefer systemd service, run:
+
+```bash {{ title: 'Start systemd service' }}
+systemctl enable --now --user vicinae.service
+```
+
 Starting the daemon can take up to a few seconds when doing so for the very first time. 
 
 Once the server is started, you can run `vicinae` again without an argument to make the Vicinae launcher window appear:
