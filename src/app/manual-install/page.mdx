@@ -37,7 +37,10 @@ dnf install -y \
     glibc-static \
     libstdc++-static \
     zlib-devel \
-    zlib-static
+    zlib-static \
+    protobuf \
+    cmark-gfm
+# cmark-gfm requires a copr (https://copr.fedorainfracloud.org/coprs/quadratech188/cmark-gfm/)
 ```
 
 ```bash {{ title: 'Gentoo Linux' }}
@@ -103,7 +106,11 @@ dnf install -y \
     glibc-static \
     libstdc++-static \
     zlib-devel \
-    zlib-static
+    zlib-static \
+    abseil-cpp-devel \
+    protobuf-devel \
+    cmark-gfm-devel
+# cmark-gfm requires a copr (https://copr.fedorainfracloud.org/coprs/quadratech188/cmark-gfm/)
 ```
 
 ```bash {{ title: 'Gentoo Linux' }}
