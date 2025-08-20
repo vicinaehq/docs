@@ -4,18 +4,21 @@ Most direct ways to install Vicinae on your system. If your system is not listed
 
 ## Arch Linux (AUR)
 
-Vicinae is packaged as `vicinae` [on the AUR](https://aur.archlinux.org/packages/vicinae) and `vicinae-git` [on the AUR](https://aur.archlinux.org/packages/vicinae-git).
+Vicinae is available on the Arch User Repository (AUR) in three variants:
 
-You can install it using any AUR helper:
+- **Source build**  
+  - [vicinae](https://aur.archlinux.org/packages/vicinae) – stable release, compiled from source  
+  - [vicinae-git](https://aur.archlinux.org/packages/vicinae-git) – latest development version, compiled from source  
+
+- **Prebuilt binary**  
+  - [vicinae-bin](https://aur.archlinux.org/packages/vicinae-bin) – stable release, precompiled binary  
+
+---
+
+You can install Vicinae using your preferred AUR helper.
 
 ```bash
-yay -S vicinae
-```
-
-For git version:
-
-```bash
-yay -S vicinae-git
+yay -S vicinae-bin
 ```
 
 ## Gentoo (jaredallard's overlay)
@@ -26,4 +29,5 @@ Thanks to [jaredallard](https://github.com/jaredallard) for providing an [ebuild
 eselect repository add jaredallard-overlay git https://github.com/jaredallard/overlay.git
 emerge --sync jaredallard-overlay
 emerge gui-apps/vicinae
-``
+```
+
