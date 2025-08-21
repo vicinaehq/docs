@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Then access the website on `http://localhost:3000".
+Then access the website on `http://localhost:3000`.
 
 ## Contributing
 
