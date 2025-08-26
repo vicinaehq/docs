@@ -1,0 +1,37 @@
+import { FEATURE_REQUEST_URL, VICINAE_GENERAL_SETTINGS_URL } from '@/lib/constants';
+
+# Launcher Window
+
+This page documents how to customize the Vicinae launcher window. If you are looking for ways to programatically control the window, consider using [deeplinks](/deeplinks#window-controls). {{ className: 'lead' }}
+
+
+## Window sizing
+
+For now it is not possible to change window dimensions. If you really need this, feel free to create a <a href={FEATURE_REQUEST_URL}>feature request</a>.
+
+## Hyprland blur
+
+All you need are the following layer rules in your Hyprland config:
+
+```bash
+layerrule = blur,vicinae
+layerrule = ignorealpha 0, vicinae
+```
+
+You also need to make sure the window opacity is less than `1.0` in the Vicinae settings. It should default to a slightly transparent value.
+
+## Window scaling
+
+It is possible to enable window scaling for Vicinae by setting the `QT_SCALE_FACTOR` environment variable to an appropriate value:
+
+```bash
+QT_SCALE_FACTOR=1.5 vicinae server
+```
+
+<Note>
+It is not recommended to set this value globally as it will force scaling for every QT app. If you need desktop-wide scaling you probably want your Wayland compositor to handle this for you. Only use this if you only need the Vicinae window to scale up or down.
+</Note>
+
+## Font size
+
+It is possible to change the base font size from within the <a href={VICINAE_GENERAL_SETTINGS_URL}>settings</a>.
