@@ -237,10 +237,10 @@ export const navigation: Array<NavGroup> = [
     title: 'Guides',
     links: [
       { title: 'Introduction', href: '/' },
+      { title: 'Operating System Support', href: '/os-support' },
       { title: 'Installation', href: '/install' },
       { title: 'Manual Installation', href: '/manual-install' },
       { title: 'Getting Started', href: '/getting-started' },
-      { title: 'Contributing', href: '/contribute' },
     ],
   },
   {
