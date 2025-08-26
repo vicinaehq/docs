@@ -24,6 +24,10 @@ You can also open the settings window and select your preferred theme. This work
 
 <img src="/vicinae-set-theme-settings.png" />
 
+### 3. Using deeplink
+
+See [here](/deeplinks#set-theme).
+
 ## Creating a Custom Theme
 
 Creating a custom theme is simple: just provide a JSON file with your theme information. Here’s an example:
@@ -62,4 +66,8 @@ If your theme does not appear in the list after adding it, running the Set Theme
 
 ## Vicinae Extra Themes
 
-Vicinae also comes with a set of additional themes, which are installed in `/usr/share/vicinae/themes/`.
+Vicinae should install a set of extra themes at the selected installation prefix.
+
+You will usually find them at `/usr/share/vicinae/themes/`.
+
+Note that user-defined themes (under `~/.local/share/vicinae` or `~/.config/vicinae`) will always have priority over system themes.
