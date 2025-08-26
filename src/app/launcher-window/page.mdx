@@ -32,6 +32,28 @@ QT_SCALE_FACTOR=1.5 vicinae server
 It is not recommended to set this value globally as it will force scaling for every QT app. If you need desktop-wide scaling you probably want your Wayland compositor to handle this for you. Only use this if you only need the Vicinae window to scale up or down.
 </Note>
 
+## Wayland Layer Shell
+
+The [layer shell wayland protocol](https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/blob/master/unstable/wlr-layer-shell-unstable-v1.xml) is used to position the window and grant it exclusive keyboard focus as long as it is shown. The default behavior is to use it to position the launcher window if the running compositor supports it.
+
+<Note>
+Note that the settings window is always set to be a regular floating window: it doesn't use layer shell under any circumstance.
+</Note>
+
+### Disable layer shell 
+
+If layer shell usage is not desired, it can be turned off at runtime by passing the `USE_LAYER_SHELL=0` environment variable to the vicinae process, like so:
+
+```bash
+USE_LAYER_SHELL=0 vicinae server
+```
+
+<Note>
+Layer shell support can also be disabled at compile time, although that option is only available to users compiling from source. Using the runtime environment variable is the preferred way
+to opt out of layer shell, as most binary releases will be compiled with support for it.
+</Note>
+
+
 ## Font size
 
 It is possible to change the base font size from within the <a href={VICINAE_GENERAL_SETTINGS_URL}>settings</a>.
