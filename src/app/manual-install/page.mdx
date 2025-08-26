@@ -134,11 +134,59 @@ emerge -av			\
 
 You can execute the following commands in order to compile a release build. You should expect the build process to take about 10 minutes on modern hardware.
 
-```bash {{ title: 'Build commands' }}
+<CodeGroup>
+```bash {{ title: 'Make' }}
+make release
+```
+
+```bash {{ title: 'CMake' }}
 cmake -G Ninja -B build
 cmake --build build 
 sudo cmake --install build
 ```
+</CodeGroup>
+
+### Optimized build
+
+If you want to squeeze out the most performance you can out of Vicinae, you can enable a few optimization during configuration:
+
+<CodeGroup>
+```bash {{ title: 'Make' }}
+make host-optimized
+```
+
+```bash {{ title: 'CMake' }}
+CXXFLAGS="${CXXFLAGS} -march=native" cmake -DLTO=ON -G Ninja -B build
+cmake --build build 
+sudo cmake --install build
+```
+</CodeGroup>
+
+- `-DLTO=ON` will enable link-time optimizations. This can greatly improve performance, but linkage will take a **lot** more time.
+- `-march=native` compiles with all optimizations supported by the executing CPU. The resulting binary will only be able to be run on systems that support the same CPU flags.
+
+Generally speaking, you will be trading compilation time and portability for more performance.
+
+Note that binary releases are always compiled with link-time optimizations.
+
+### Debug Build
+
+For a debug build, you only need to change the `CMAKE_BUILD_TYPE` during config:
+
+<CodeGroup>
+```bash {{ title: 'Make' }}
+make debug
+```
+
+```bash {{ title: 'CMake' }}
+cmake -DCMAKE_BUILD_TYPE=Debug -G Ninja -B build
+cmake --build build 
+sudo cmake --install build
+```
+</CodeGroup>
+
+
+This will compile with `-g3` and also enable QT debug log statements.
 
 ## Install from latest release
 
