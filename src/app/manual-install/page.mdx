@@ -18,7 +18,20 @@ pacman -Syu			\
     layer-shell-qt 	\
     libqalculate 	\
     minizip			\
-    qtkeychain-qt6	\
+    qtkeychain-qt6
+```
+
+```bash {{ title: 'Ubuntu' }}
+apt install \
+    nodejs  \
+    qt6-base-dev \
+    libqt6svg6 \
+    protobuf-compiler \
+    cmark-gfm \
+    layer-shell-qt \
+    libqalculate-dev \
+    minizip \
+    qtkeychain-qt6-dev
 ```
 
 ```bash {{ title: 'Fedora' }}
@@ -90,6 +103,25 @@ pacman -Syu			\
     rapidfuzz-cpp
 ```
 
+```bash {{ title: 'Ubuntu' }}
+apt install -y \
+    build-essentials \
+    cmake \
+    ninja-build  \
+    nodejs  \
+    npm \
+    qt6-base-dev \
+    libqt6svg6  \
+    libprotobuf-dev \
+    cmark-gfm \
+    layer-shell-qt  \
+    libqalculate-dev  \
+    minizip-dev \
+    qtkeychain-qt6-dev  \
+    librapidfuzz-cpp-dev
+
+```
+
 ```bash {{ title: 'Fedora' }}
 dnf install -y \
     qt6-qtbase-devel \
@@ -129,6 +161,15 @@ emerge -av			\
 	dev-build/ninja
 ```
 </CodeGroup>
+
+
+### Clone the repository
+
+1st Clone the repository & Go into source directory. 
+
+```bash {{ title: 'Clone repo' }}
+git clone https://github.com/vicinaehq/vicinae.git && cd vicinae
+```
 
 ### Build
 
