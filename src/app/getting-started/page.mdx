@@ -23,3 +23,20 @@ Once the server is started, you can run `vicinae` again without an argument to m
 To toggle the window visiblity, you can just run `vicinae` again or use [deeplinks](/deeplinks).
 
 Vicinae doesn't deal with system keyboard shortcuts itself because every environment does it differently, so it's up to you to setup proper bindings.
+
+## Gnome Support
+
+Gnome is supported via the [Vicinae Gnome Extension](https://github.com/dagimg-dot/vicinae-gnome-extension) which provides the following features:
+
+- Expose clipboard events through dbus
+- Expose window managment APIs through dbus
+- Blocking specific applications from accessing the clipboard (like password managers)
+- Imitate the layer-shell protocol to create a detached floating launcher window which closes on focus loss
+
+### Installation
+
+1. Download the `.shell-extension.zip` from the [latest release](https://github.com/dagimg-dot/vicinae-gnome-extension/releases/latest)
+2. Install using: `gnome-extensions install --force <filename>`
+3. Enable the extension in GNOME Extensions app
+4. Restart GNOME Shell or log out/in
+5. Restart your vicinae server if it's running
