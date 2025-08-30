@@ -1,0 +1,55 @@
+# Calculator
+
+Vicinae is able to integrate with many different calculator backends to provide you with the ability to do maths using natural language from within the launcher. 
+Most backends support quality of life stuff such as currency or unit conversions. {{ className: 'lead' }}
+
+![](/calculator-date.png)
+
+Date conversions using the [SoulverCore](https://github.com/vicinaehq/soulver-cpp) backend.
+
+## Supported backends
+
+Vicinae allows choosing from different calculator backends.
+
+| Name | Default | Comment |
+|------|-----------|---------|
+| [Qalculate!](https://github.com/Qalculate/libqalculate) | ✅ | Default calculator choice for most Linux software, fully open-source |
+| [SoulverCore](https://github.com/soulverteam/SoulverCore) | ❌ | Very powerful, closed-source, see [guide](/calculator#soulver-core-backend-installation) |
+
+## Change the calculator backend
+
+You can change the current backend in use from the calculator extension's preferences in the settings.
+
+Note that the backend change will be effective immediately as you type something new in the root search.
+
+![](/calculator-backend-settings.png)
+
+## Calculator history
+
+Vicinae comes with a backend-agnostic clipboard history module that will save every calculation that you have ever made. From there, you can search any past calculation, copy the result or the entire expression, and much more...
+
+<Note>
+You need to copy the result of a calculation for it to be saved in the history.
+</Note>
+
+<p align="center">
+  <img
+    src="/calculator-history.png"
+    alt="Calculator history"
+  />
+</p>
+
+## SoulverCore backend installation
+
+<img
+src="https://github.com/soulverteam/SoulverCore/raw/master/SoulverCoreIcon.png"
+alt="SoulverCore"
+width="150"
+/>
+
+The [SoulverCore](https://github.com/soulverteam/SoulverCore) backend is distributed as a **closed-source** shared library on Linux systems.
+
+Unlike most other backends, support for SoulverCore is not something that can be enabled at build time. Instead, Vicinae will try to load up a specific shared library on startup and, on success, add the SoulverCore backend to the list of available ones.
+
+All you need to do is follow the instructions present in our [soulver-cpp](https://github.com/vicinaehq/soulver-cpp) repository. If all goes well, the shared library will be made available to Vicinae and SoulverCore should automatically appear as a selectable backend after you restart the Vicinae server.
+
