@@ -19,6 +19,53 @@ You can install Vicinae using your preferred AUR helper.
 yay -S vicinae-bin
 ```
 
+## Nix (Flake)
+Vicinae is also available as a Nix flake. You can use the binaries of the Nix package or enable the systemd service provided by the home-manager module.
+```bash
+nix shell github:vicinaehq/vicinae
+```
+
+### Home Manager module
+```nix
+# flake.nix
+{
+    description = "...";
+    inputs = {
+        vicinae.url = "github:vicinaehq/vicinae";
+        ...
+    };
+    outputs = {
+        nixpkgs,
+        home-manager,
+        vicinae,
+    }: let
+    system = "...";
+    pkgs = nixpkgs.legacyPackages.${system};
+    in {
+        homeConfigurations."..." = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+
+            modules = [
+                vicinae.homeManagerModules.default
+                ...
+            ];
+        }
+    }
+}
+```
+
+```nix
+# home.nix
+# ...
+{pkgs}:{
+    services.vicinae = {
+        enable = true; # default: false
+        autoStart = true; # default: true
+        package = # specify package to use here. Can be omitted.
+    };
+}
+```
+
 ## Gentoo (jaredallard's overlay)
 
 Thanks to [jaredallard](https://github.com/jaredallard) for providing an [ebuild](https://github.com/jaredallard/overlay/tree/main/gui-apps/vicinae)!
