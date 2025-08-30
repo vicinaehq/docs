@@ -24,14 +24,24 @@ pacman -Syu			\
 ```bash {{ title: 'Ubuntu' }}
 apt install \
     nodejs  \
+    libssl-dev \
+    libwayland-dev \
     qt6-base-dev \
+    qt6-wayland-dev \
+    qt6-svg-dev \
+    q6-svg-plugins \
+    qt6-svg-private-dev \
     libqt6svg6 \
+    qtkeychain-qt6-dev \
     protobuf-compiler \
     cmark-gfm \
     layer-shell-qt \
     libqalculate-dev \
-    minizip \
-    qtkeychain-qt6-dev
+    libminizip-dev \
+    zlib1g-dev \
+    librapidfuzz-cpp-dev \
+    libprotobuf-dev \
+    libcmark-gfm-dev
 ```
 
 ```bash {{ title: 'Fedora' }}
@@ -111,12 +121,17 @@ apt install -y \
     nodejs  \
     npm \
     qt6-base-dev \
+    qt6-svg-dev \
+    qt6-wayland-dev \
     libqt6svg6  \
     libprotobuf-dev \
     cmark-gfm \
     layer-shell-qt  \
     libqalculate-dev  \
     libminizip-dev \
+    libabsl-dev \
+    libcmark-gfm-dev \
+    zlib1g-dev \
     qtkeychain-qt6-dev  \
     librapidfuzz-cpp-dev
 
