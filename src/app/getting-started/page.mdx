@@ -40,3 +40,11 @@ Gnome is supported via the [Vicinae Gnome Extension](https://github.com/dagimg-d
 3. Enable the extension in GNOME Extensions app
 4. Restart GNOME Shell or log out/in
 5. Restart your vicinae server if it's running
+
+> Run vicinae server with the `VICINAE_DISABLE_HUD` environment variable set to 1 to disable notifications so that they don't grab focus since they are normal floating windows.
+
+```bash
+VICINAE_DISABLE_HUD=1 vicinae server
+```
+
+or add `Environment=VICINAE_DISABLE_HUD=1` to the `vicinae.service` file.
