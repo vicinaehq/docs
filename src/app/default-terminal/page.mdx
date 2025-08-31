@@ -1,0 +1,17 @@
+# Set the Default Terminal
+
+As there is no standardized way to set a default terminal emulator on a Linux desktop system, Vicinae honors the `x-scheme-handler/terminal` as some other launchers do.
+
+To set your default terminal in this way, run:
+
+```bash
+xdg-mime default {desktop_file_name}.desktop x-scheme-handler/terminal
+```
+
+Where `{desktop_file_name}` is the name of the desktop file your application maps to.
+
+For example, to set the default terminal to Alacritty:
+
+```bash
+xdg-mime default Alacritty.desktop x-scheme-handler/terminal
+```
