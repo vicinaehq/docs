@@ -128,6 +128,41 @@ option(USE_SYSTEM_CMARK_GFM "Use system cmark-gfm (github's fork of cmark) inste
 
 You can enable or disable a given option by passing a `-D<OPTION>=ON/OFF` flag to the `cmake` program during the *configuration* step. See the CMake code examples below.
 
+## About static linking
+
+Although Vicinae does not support being built in a fully static way, we provide the option to statically link against libraries that bump version often
+or are generally not easy to install through traditional means.
+
+The main goal of this is to make pre-built binaries more portable across different distributions that ship different versions of the same package.
+
+For instance, `libprotobuf` updates very often and offers no retro-compatbility. This essentially means that the distributed binaries become outdated as soon as the distribution updates
+its protobuf version. By statically linking against protobuf, we embed a given version of protobuf in the binary, and this specific, local version is the one going to be used for the entire lifetime of the binary.
+
+<Warning>
+If building from source you have very few reasons to statically link against libraries. This is mostly intended to help people packaging Vicinae as a standalone binary.
+</Warning>
+
+For reference, this is the CMake configure command we use to build our releases:
+
+```bash
+cmake -G Ninja .. \
+	-DCMAKE_POLICY_VERSION_MINIMUM=3.5  \
+	-DLTO=ON \
+	-DUSE_SYSTEM_PROTOBUF=OFF \
+	-DUSE_SYSTEM_ABSEIL=OFF \
+	-DUSE_SYSTEM_CMARK_GFM=OFF \
+	-DUSE_SYSTEM_MINIZIP=OFF
+```
+
+This will:
+	- instruct `cmake` to download a copy of a specific version of `protobuf`, `abseil`, `cmark-gfm` and `minizip-ng`
+	- build them alongside the main Vicinae code base
+	- link them all together as a single binary
+
+<Note>
+We may add static linking options for other libraries down the road.
+</Note>
+
 
 ## Get the source code
 
