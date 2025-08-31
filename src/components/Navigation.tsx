@@ -252,6 +252,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Clipboard Management', href: '/clipboard' },
       { title: 'Window Management', href: '/window' },
       { title: 'Calculator', href: '/calculator' },
+      { title: 'Application Shortcuts', href: '/shortcuts' },
       { title: 'Theming', href: '/theming' },
       { title: 'Deeplinks', href: '/deeplinks' },
       { title: 'Fallback Commands', href: '/fallback-commands' },

@@ -1,0 +1,56 @@
+# Shortcuts 
+
+This page explains how to create, manage and use application shortcuts from within Vicinae.
+
+## Introduction
+
+Shortcuts are provided as a way to quickly extend the root search with dynamic application shortcuts.
+If you are coming from Raycast, this is very close to their "quicklink" feature.
+
+Some use cases include:
+
+- Open an http url such as `https://google.com/search?q={query}` where `{query}` is completed from within the launcher. Typically used for web search tasks.
+- Open any system application with a specific URI, for instance to open a VSCode workspace.
+- Open a URL or application with the content of the clipboard (if text) provided as its first argument
+
+And much, much more...
+
+![](/shortcut-google.png)
+
+## Create a shortcut
+
+In order to create a shortcut, simply launch the [Create Shortcut](vicinae://extensions/vicinae/shortcut/create) command:
+
+- The name will be used to identify and index the shortcut in the root search
+- The icon can be any Vicinae built-in icon, the opening application's icon, or a favicon if the URL field is a web URL.
+
+<Note>
+The URL field doesn't have to be an http URL. It can be anything, such as a file path, arbitrary text... 
+</Note>
+
+## Supported applications
+
+As of now, all system applications can be used as shortcut openers.
+
+On systems that use [desktop files](https://specifications.freedesktop.org/desktop-entry-spec/latest/) (all Linux systems), sub-actions are also made available as valid shortcut openers.
+
+Thanks to that, it's easy to create a shortcut that specifically opens in a firefox private window:
+
+![](/shortcut-private-window.png)
+
+## Manage shortcuts
+
+The [Manage Shortcuts](vicinae://extensions/vicinae/shortcut/manage) command lists all your existing shortcuts and allows you to open, edit, duplicate, or remove any shortcut from the list.
+
+The preview shown on the right automatically updates as you start completing the arguments, making testing your shortcut easier.
+
+![](/manage-shortcuts.png)
+
+
+## Use as fallback command
+
+All shortcuts that have exactly **one argument** are eligible to be selected as a [fallback command](/fallback-commands).
+
+<Warning>
+An argument is a specific placeholder type that has to be explictly supplied in the search bar. <br /> Automatically expanding placeholders such as `{uuid}` or `{clipboard}` **do not** count as arguments.
+</Warning>
