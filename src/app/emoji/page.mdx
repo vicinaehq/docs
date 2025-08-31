@@ -1,0 +1,27 @@
+# Emoji Picker
+
+Vicinae ships with a capable emoji picker out of the box.
+
+![](/emoji-picker.png)
+
+## Use emoji picker
+
+Simply launch the [Search Emojis and Symbols](vicinae://extensions/vicinae/vicinae/search-emojis) command.
+
+From there you can copy, pin or add custom keywords to index a specific emoji.
+
+## Emoji font selection
+
+Currently, Vicinae uses a somewhat hacky method in order to figure out what emoji font should be used.
+
+If Vicinae doesn't pick up the emoji font you would like it to, it is possible to override it by setting the `EMOJI_FONT` environment variable to the font family of your choice.
+
+For instance:
+
+```bash
+EMOJI_FONT=Twemoji vicinae server
+```
+
+<Note>
+If the family doesn't exist, a warning will be printed out and the regular emoji font selection logic will apply.
+</Note>
