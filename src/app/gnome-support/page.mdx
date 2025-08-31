@@ -1,0 +1,28 @@
+# Gnome Support
+
+This guide explains how to enable deeply integrate Viciane with your Gnome environment. {{ className: 'lead' }}
+
+Gnome is supported via the <a href="https://github.com/dagimg-dot/vicinae-gnome-extension" target="_blank">Vicinae Gnome Extension</a> which provides the following features:
+
+- Expose clipboard events through dbus
+- Expose window managment APIs through dbus
+- Blocking specific applications from accessing the clipboard (like password managers)
+- Imitate the layer-shell protocol to create a detached floating launcher window which closes on focus loss
+
+## Extension Installation
+
+1. Download the `.shell-extension.zip` from the [latest release](https://github.com/dagimg-dot/vicinae-gnome-extension/releases/latest)
+2. Install using: `gnome-extensions install --force <filename>`
+3. Enable the extension in GNOME Extensions app
+4. Restart GNOME Shell or log out/in
+5. Restart your vicinae server if it's running
+
+## Feedback HUD and Gnome
+
+Run vicinae server with the `VICINAE_DISABLE_HUD` environment variable set to 1 to disable notifications so that they don't grab focus since they are normal floating windows.
+
+```bash
+VICINAE_DISABLE_HUD=1 vicinae server
+```
+
+or add `Environment=VICINAE_DISABLE_HUD=1` to the `vicinae.service` file.

@@ -45,7 +45,7 @@ export default {
 
           // Base
           color: 'var(--tw-prose-body)',
-          fontSize: theme('fontSize.sm')[0],
+          fontSize: theme('fontSize.base')[0],
           lineHeight: theme('lineHeight.7'),
 
           // Text
@@ -301,7 +301,7 @@ export default {
             paddingLeft: theme('padding[1.5]'),
             boxShadow: 'inset 0 0 0 1px var(--tw-prose-code-ring)',
             backgroundColor: 'var(--tw-prose-code-bg)',
-            fontSize: theme('fontSize.2xs')[0],
+            fontSize: theme('fontSize.xs')[0],
           },
           ':is(a, h1, h2, h3, blockquote, thead th) code': {
             color: 'inherit',

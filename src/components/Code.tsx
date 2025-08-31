@@ -24,6 +24,9 @@ const languageNames: Record<string, string> = {
   python: 'Python',
   ruby: 'Ruby',
   go: 'Go',
+  nix: 'Nix',
+  cpp: 'C++',
+  swift: 'Swift',
 }
 
 function getPanelTitle({
@@ -160,7 +163,7 @@ function CodePanel({
     <div className="group dark:bg-white/2.5">
       <CodePanelHeader tag={tag} label={label} />
       <div className="relative">
-        <pre className="overflow-x-auto p-4 text-xs text-white">{children}</pre>
+        <pre className="overflow-x-auto p-4 text-sm text-white">{children}</pre>
         <CopyButton code={code} />
       </div>
     </div>

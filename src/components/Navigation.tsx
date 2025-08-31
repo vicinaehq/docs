@@ -240,12 +240,13 @@ export const navigation: Array<NavGroup> = [
       { title: 'Operating System Support', href: '/os-support' },
       { title: 'Installation', href: '/install' },
       { title: 'Manual Installation', href: '/manual-install' },
-      { title: 'Getting Started', href: '/getting-started' },
+      { title: 'Gnome Support', href: '/gnome-support' },
     ],
   },
   {
     title: 'Manual',
     links: [
+      { title: 'Getting Started', href: '/getting-started' },
       { title: 'Launcher Window', href: '/launcher-window' },
       { title: 'Clipboard Management', href: '/clipboard' },
       { title: 'Window Management', href: '/window' },
