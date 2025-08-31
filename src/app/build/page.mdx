@@ -1,0 +1,215 @@
+# Build from source
+
+This guide will teach you how to install Vicinae from source and build an optimized version of the binary. {{ className: 'lead' }}
+
+## Why build from source 
+
+Vicinae is a decently sized mostly C++ code base. As such, compiling it can be quite resource demanding and time consuming, in particular if you enable specific optimizations such as LTO.
+
+The main reward for compiling it yourself is the ability to compile Vicinae with [optimizations that are specific to your CPU model](/build#optimized-build), provided that it's recent enough. And also, it's fun 😏.
+
+If your goal is to get Vicinae up and running on your system as quickly as possible please consider [installing from a repository](/repo-install) if your distribution is supported or [installing from the latest release](/release-install) if that is not the case.
+
+## Build requirements
+
+To build Vicinae, you need a working C++23-capable compiler. We mostly make use of `gcc` (v14+) but `clang` should also work and will be the officially supported way to build for MacOS in the future.
+
+You will also need a few dependencies, listed below.
+
+If you distribution does not appear in this list, you are on your own to figure out the exact packages to install. 
+If you still manage to build it, don't forget to contribute to this documentation by adding your list here!
+
+<CodeGroup title="Install dependencies">
+```bash {{ title: 'Arch Linux' }}
+pacman -Syu			\
+    base-devel 		\
+    cmake			\
+    ninja			\
+    nodejs			\
+    npm				\
+    qt6-base		\
+    qt6-svg			\
+    protobuf		\
+    cmark-gfm		\
+    layer-shell-qt 	\
+    libqalculate 	\
+    minizip			\
+    qtkeychain-qt6	\
+    rapidfuzz-cpp
+```
+
+```bash {{ title: 'Ubuntu' }}
+apt install -y \
+    build-essential \
+    cmake \
+    ninja-build  \
+    nodejs  \
+    npm \
+    qt6-base-dev \
+    qt6-svg-dev \
+    qt6-wayland-dev \
+    libqt6svg6  \
+    libprotobuf-dev \
+    cmark-gfm \
+    layer-shell-qt  \
+    liblayershellqtinterface-dev \
+    libqalculate-dev  \
+    libminizip-dev \
+    libabsl-dev \
+    libcmark-gfm-dev \
+    zlib1g-dev \
+    qtkeychain-qt6-dev  \
+    librapidfuzz-cpp-dev
+```
+
+```bash {{ title: 'Fedora' }}
+dnf install -y \
+    qt6-qtbase-devel \
+    qt6-qtsvg-devel \
+    qt6-qtbase-private-devel \
+    qt6-qtwayland-devel \
+    layer-shell-qt-devel \
+    libqalculate-devel \
+    minizip-devel \
+    rapidfuzz-cpp-devel \
+    qtkeychain-qt6-devel \
+    openssl-devel \
+    wayland-devel \
+    glibc-static \
+    libstdc++-static \
+    zlib-devel \
+    zlib-static \
+    abseil-cpp-devel \
+    protobuf-devel \
+    cmark-gfm-devel
+# cmark-gfm requires a copr (https://copr.fedorainfracloud.org/coprs/quadratech188/cmark-gfm/)
+```
+
+```bash {{ title: 'Gentoo Linux' }}
+emerge -av			\
+	qtkeychain		\
+	qtbase			\
+	minizip-ng		\
+	rapidfuzz-cpp	\
+	layer-shell-qt	\
+	libqalculate	\
+	nodejs			\
+	cmake			\
+	cmark-gfm		\
+	dev-qt/qtsvg	\
+	protobuf		\
+	dev-build/ninja
+```
+</CodeGroup>
+
+## Recommended build tools
+
+In order to make building and rebuilding Vicinae easier we recommend installing the following:
+
+- Install `ccache` to automatically cache most compilations and significantly decrease build times.
+- Install the `mold` linker to link the Vicinae binary significantly faster.
+
+All you need is to install these tools, the Vicinae build system will take care of the rest for you.
+
+## Build Flags
+
+Several build flags are available to tweak what features are built into the final binary.
+The best way to know about them is to read the beginning of the top level `CMakeLists.txt`.
+
+Flags are easily identified by the use of the `option` cmake function:
+
+```cmake
+option(LTO "Enable Link Time Optimization (LTO). This will result in better performance, but greatly increased compile time." OFF)
+option(NOSTRIP "Never strip debug symbols from the binary, even in release mode. Note that symbols are never stripped for debug releases." OFF)
+option(USE_SYSTEM_PROTOBUF "Use system protobuf instead of building it from source" ON)
+option(USE_SYSTEM_ABSEIL "Use system abseil (libabsl) instead of building it from source" ON)
+option(USE_SYSTEM_CMARK_GFM "Use system cmark-gfm (github's fork of cmark) instead of building it from source" ON)
+```
+
+You can enable or disable a given option by passing a `-D<OPTION>=ON/OFF` flag to the `cmake` program during the *configuration* step. See the CMake code examples below.
+
+
+## Get the source code
+
+First, clone the repository and go to the source directory:
+
+```bash {{ title: 'Clone repo' }}
+git clone https://github.com/vicinaehq/vicinae.git && cd vicinae
+```
+
+## Release Build
+
+<Warning>
+This is a generic, unoptimized build. If you are looking to build an optimized version for your specific system, read further.
+</Warning>
+
+To build a generic release build without LTO enabled:
+
+<CodeGroup>
+```bash {{ title: 'Make' }}
+make release
+```
+
+```bash {{ title: 'CMake' }}
+cmake -G Ninja -B build
+cmake --build build 
+```
+</CodeGroup>
+
+## Optimized Release Build
+
+If you want to squeeze out the most performance you can out of Vicinae, you can enable a few optimization during configuration:
+
+<CodeGroup>
+```bash {{ title: 'Make' }}
+make host-optimized
+```
+
+```bash {{ title: 'CMake' }}
+CXXFLAGS="${CXXFLAGS} -march=native" cmake -DLTO=ON -G Ninja -B build
+cmake --build build 
+```
+</CodeGroup>
+
+- `-DLTO=ON` will enable link-time optimizations. This can greatly improve performance, but linkage will take a **lot** more time.
+- `-march=native` compiles with all optimizations supported by the executing CPU. The resulting binary will only be able to be run on systems that support the same CPU flags.
+
+Generally speaking, you will be trading compilation time and portability for more performance.
+
+<Note>
+Binary releases are always compiled with link-time optimizations.
+</Note>
+
+## Debug Build
+
+You want a debug build when you are trying to troubleshoot an issue or generally contribute to Vicinae:
+
+<CodeGroup>
+```bash {{ title: 'Make' }}
+make debug
+```
+
+```bash {{ title: 'CMake' }}
+cmake -DCMAKE_BUILD_TYPE=Debug -G Ninja -B build
+cmake --build build 
+```
+</CodeGroup>
+
+This will compile with `-g3` and also enable QT debug log statements.
+
+## Install built binaries
+
+Once Vicinae is built, install it to standard system directories:
+
+<CodeGroup>
+```bash {{ title: 'Make' }}
+sudo make install
+```
+
+```bash {{ title: 'CMake' }}
+sudo cmake --install build
+
+# with custom installation prefix
+CMAKE_INSTALL_PREFIX="$HOME/.local" cmake --install build
+```
+</CodeGroup>

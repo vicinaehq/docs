@@ -44,7 +44,7 @@ function InfoIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function Note({ children }: { children: React.ReactNode }) {
   return (
-    <div className="my-6 flex gap-2.5 rounded-2xl border border-cyan-500/20 bg-cyan-50/50 p-4 text-sm/6 text-cyan-900 dark:border-cyan-500/30 dark:bg-cyan-500/5 dark:text-cyan-200 dark:[--tw-prose-links-hover:var(--color-cyan-300)] dark:[--tw-prose-links:var(--color-white)]">
+    <div className="my-6 flex gap-2.5 rounded-2xl border border-cyan-500/20 bg-cyan-50/50 p-4 text-base/6 text-cyan-900 dark:border-cyan-500/30 dark:bg-cyan-500/5 dark:text-cyan-200 dark:[--tw-prose-links-hover:var(--color-cyan-300)] dark:[--tw-prose-links:var(--color-white)]">
       <InfoIcon className="mt-1 h-4 w-4 flex-none fill-cyan-500 stroke-white dark:fill-cyan-200/20 dark:stroke-cyan-200" />
       <div className="[&>:first-child]:mt-0 [&>:last-child]:mb-0">
         {children}
@@ -55,7 +55,7 @@ export function Note({ children }: { children: React.ReactNode }) {
 
 export function Warning({ children }: { children: React.ReactNode }) {
   return (
-    <div className="my-6 flex gap-2.5 rounded-2xl border border-yellow-500/20 bg-yellow-50/50 p-4 text-sm/6 text-yellow-900 dark:border-yellow-500/30 dark:bg-yellow-500/5 dark:text-yellow-200 dark:[--tw-prose-links-hover:var(--color-yellow-300)] dark:[--tw-prose-links:var(--color-white)]">
+    <div className="my-6 flex gap-2.5 rounded-2xl border border-yellow-500/20 bg-yellow-50/50 p-4 text-base/6 text-yellow-900 dark:border-yellow-500/30 dark:bg-yellow-500/5 dark:text-yellow-200 dark:[--tw-prose-links-hover:var(--color-yellow-300)] dark:[--tw-prose-links:var(--color-white)]">
       <InfoIcon className="mt-1 h-4 w-4 flex-none fill-yellow-500 stroke-white dark:fill-yellow-200/20 dark:stroke-yellow-200" />
       <div className="[&>:first-child]:mt-0 [&>:last-child]:mb-0">
         {children}

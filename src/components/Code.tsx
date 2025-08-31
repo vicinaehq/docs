@@ -27,6 +27,7 @@ const languageNames: Record<string, string> = {
   nix: 'Nix',
   cpp: 'C++',
   swift: 'Swift',
+  cmake: 'CMake'
 }
 
 function getPanelTitle({

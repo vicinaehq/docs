@@ -238,8 +238,9 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'Operating System Support', href: '/os-support' },
-      { title: 'Installation', href: '/install' },
-      { title: 'Manual Installation', href: '/manual-install' },
+      { title: 'Install from repository', href: '/repo-install' },
+      { title: 'Install from release', href: '/release-install' },
+      { title: 'Build from source', href: '/build' },
       { title: 'Gnome Support', href: '/gnome-support' },
     ],
   },

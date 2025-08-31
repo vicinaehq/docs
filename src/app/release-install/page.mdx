@@ -1,0 +1,138 @@
+import { getLatestReleaseDownloadUrl } from '@/lib/github';
+import { CodePanel } from '@/components/Code';
+
+# Install from binary release
+
+This guide explains how to install Vicinae from already built binaries.
+
+## Runtime dependencies
+
+The following dependencies must be installed regardless of your installation method. You will find the list of package to install for popular distributions below. If your distribution is not listed, you should normally be able to infer the package names you need from these lists. If you got it to work on your distribution, feel free to contribute your own package list!
+
+<CodeGroup title="Install dependencies">
+```bash {{ title: 'Arch Linux' }}
+pacman -Syu			\
+    nodejs			\
+    qt6-base		\
+    qt6-svg			\
+    protobuf		\
+    cmark-gfm		\
+    layer-shell-qt 	\
+    libqalculate 	\
+    minizip			\
+    qtkeychain-qt6
+```
+
+```bash {{ title: 'Ubuntu' }}
+apt install -y \
+    nodejs  \
+    libssl-dev \
+    libwayland-dev \
+    qt6-base-dev \
+    qt6-wayland-dev \
+    qt6-svg-dev \
+    qt6-svg-plugins \
+    qt6-svg-private-dev \
+    libqt6svg6 \
+    qtkeychain-qt6-dev \
+    protobuf-compiler \
+    cmark-gfm \
+    layer-shell-qt \
+    libqalculate-dev \
+    libminizip-dev \
+    zlib1g-dev \
+    librapidfuzz-cpp-dev \
+    libprotobuf-dev \
+    libcmark-gfm-dev
+```
+
+```bash {{ title: 'Fedora' }}
+dnf install -y \
+    qt6-qtbase-devel \
+    qt6-qtsvg-devel \
+    qt6-qtbase-private-devel \
+    qt6-qtwayland-devel \
+    layer-shell-qt-devel \
+    libqalculate-devel \
+    minizip-devel \
+    rapidfuzz-cpp-devel \
+    qtkeychain-qt6-devel \
+    openssl-devel \
+    wayland-devel \
+    glibc-static \
+    libstdc++-static \
+    zlib-devel \
+    zlib-static \
+    protobuf \
+    cmark-gfm
+# cmark-gfm requires a copr (https://copr.fedorainfracloud.org/coprs/quadratech188/cmark-gfm/)
+```
+
+```bash {{ title: 'Gentoo Linux' }}
+emerge -av			\
+	qtkeychain		\
+	qtbase			\
+	minizip-ng		\
+	layer-shell-qt	\
+	libqalculate	\
+	nodejs			\
+	cmark-gfm		\
+	dev-qt/qtsvg	\
+	protobuf		\
+```
+</CodeGroup>
+
+## Install manually
+
+First, download the [latest release archive](https://github.com/vicinaehq/vicinae/releases).
+
+You want to grab the `vicinae-linux-x86_64-${VERSION}.tar.gz` looking file.
+
+Assuming you downloaded it in a folder named `vicinae`, you can now decompress the archive:
+
+```bash
+tar xvf vicinae-linux-x86_64-${VERSION}.tar.gz
+```
+
+Try running the binary to make sure everything works:
+
+```bash
+./bin/vicinae server
+
+# to open the window:
+./bin/vicinae
+```
+
+If everything works, you can now install the binaries and extra files to system directories:
+
+```
+cp bin/* /usr/local/bin/
+cp -r share/* /usr/local/share/
+```
+
+And now, you should be able to simply run vicinae like so:
+
+```bash
+vicinae server
+
+# to open the window:
+vicinae
+```
+
+## Can't load shared library
+
+If you are getting such an error, it means that a library Vicinae needs at runtime could not be found on your system.
+
+Make sure you installed all the dependencies listed above.
+
+You can list all the missing libraries with the following commands:
+
+```bash
+ldd ./bin/vicinae | grep -i 'not'
+```
+
+If you are unable to find the libraries to install, feel free to open a new issue or come seek help on our Discord server.
+
+<Note>
+If you are running a very old system, your system packages might just be too old to run Vicinae properly.
+</Note>
