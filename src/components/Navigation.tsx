@@ -256,6 +256,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Theming', href: '/theming' },
       { title: 'Deeplinks', href: '/deeplinks' },
       { title: 'Fallback Commands', href: '/fallback-commands' },
+      { title: 'Favicon Loading', href: '/favicon' },
       { title: 'Set Default Terminal', href: '/default-terminal' },
     ],
   },
