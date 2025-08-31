@@ -1,0 +1,60 @@
+# File Search
+
+Vicinae integrates with your filesystem in order to provide you with snappy file search. <br/>This page describes how it works and how to get the most out of it.
+
+![Search Files](/search-files.png)
+
+## Environment support
+
+The way Vicinae works with file indexing depends on the environment. Since we are mainly focusing on Linux right now, most of this document refers to the custom file indexer.
+
+| Name | Supported | Comment |
+|------|-----------|---------|
+| Linux | ✅ | Custom file indexer implementation |
+| MacOS | TBD | Will integrate with Spotlight, no direct indexing |
+
+## Initial indexing
+
+On environments making use of the custom file indexer implementation, Vicinae will start a **full scan** on first startup.
+
+A full scan will go through every single file and directory present at the configured search locations and index them. By default, we only index the contents of the home directory.
+
+<Warning>
+It is expected for Vicinae to use a lot of CPU during initial file indexing, as the priority is to build the base index as fast as possible.
+Subsequent indexing is done incrementally and is way less CPU intensive.
+</Warning>
+
+You may be able to start searching for files as the indexing goes through. If nothing shows up after a few minutes, then something probably went wrong and you should let us know.
+
+<Note>
+If the Vicinae server is interruped during file indexing, it is smart enough to know about it and start a new scan on next startup. Note, however, that the index will have to be fully rebuilt from scratch.
+</Note>
+
+## Search paths
+
+By default we only search files and folders that are under the current user's home directory.
+
+You can change the list of searched locations from the file search extension settings:
+
+<Note>
+Adding new search locations might trigger new indexing tasks immediately.
+</Note>
+
+![Edit search paths from settings](/search-locations.png)
+
+## Special indexing rules
+
+Current, we have a few special indexing rules in place, mostly as a way to speed up indexing (the defaults may change soon):
+
+- dot files and dot folders are not indexed (will be made configurable)
+- `.gitignore` files are read and considered as they would normally be in a git repository (although we don't use proper gitignore patterns so some complicated ones may not work)
+
+We have an ongoing [GitHub discussion thread](https://github.com/vicinaehq/vicinae/discussions/190) about this.
+
+## Search files
+
+You can search files in one of two ways:
+
+- From the root search, only if the relevant option has been explictly enabled in the main Vicinae settings. Root file search is performed asynchronously so you should expect a slight delay before file results show up.
+- Using the dedicated [Search Files](vicinae://extensions/vicinae/file/search) command, which provides a nice preview of the file's content and generally more actions.
+
