@@ -1,0 +1,31 @@
+# Fallback Commands
+
+This page explains how to deal with fallback commands in Vicinae.
+
+## Introduction
+
+Fallback commands are commands that will be shown at the very bottom of the root search when no better matches are available for the current query.
+
+Unlike regular commands, fallback commands will directly work with the provided query as their input. 
+A fallback command  is usually either a launcher command (view or no view) or an application shortcut.
+
+![](/fallback-commands-root.png)
+
+## Fallback command behaviour
+
+A fallback command will act slightly differently depending on its item type:
+
+- A *view* command will be launched and have its search text immediately set to the fallback text. If the view type does not support search, no completion happens. 
+- A shortcut or *no-view* command will be launched with the search query passed as its first argument
+
+## Set fallback commands
+
+You can use the [Manage fallback commands](vicinae://extensions/vicinae/vicinae/manage-fallback) command to select what commands or shortcuts are eligible to be fallback commands.
+
+You may have noticed that not all commands and shortcuts appear in this list: fallback eligibility follows these rules:
+
+- All *view* commands exported by third-party extensions can be selected as fallback
+- Shortcuts or *no-view* commands that take exactly one **text** argument (required or optional) can be selected as fallback
+- Select built-in commands (such as `Search Files`) can be selected as fallback, but most don't
+
+![](/manage-fallback-commands.png)
