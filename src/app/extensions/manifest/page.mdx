@@ -1,0 +1,115 @@
+# Manifest
+
+The extension manifest is an extension of the regular `package.json` format found across most npm-managed Javascript projects.
+
+It contains information about the dependencies to install, but also about extension specific stuff, such as what commands the extension exports, with what preferences, with what arguments, etc...
+
+<Warning>
+Our manifest documentation is still incomplete. You can refer to the [Raycast documentation](https://developers.raycast.com/information/manifest) for an exhaustive list of supported keys, as we share the same manifest format.
+None of what's discussed here is specific to Vicinae.
+</Warning>
+
+## Anatomy of a manifest 
+
+This is what the manifest from the [create extension page](/extensions/create) looks like:
+
+```json
+{
+  "name": "my-first-extension",
+  "title": "My First Extension",
+  "description": "This is my very first extension",
+  "categories": [],
+  "license": "MIT",
+  "author": "aurelle",
+  "contributors": [],
+  "pastContributors": [],
+  "icon": "extension_icon.png",
+  "commands": [
+    {
+      "name": "my-first-command",
+      "title": "My First Command",
+      "subtitle": "My first subtitle",
+      "description": "My first command description",
+      "mode": "view"
+    }
+  ],
+  "preferences": [],
+  "scripts": {
+    "build": "vici build",
+    "dev": "vici develop"
+  },
+  "dependencies": {
+    "@vicinae/api": "^0.8.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
+```
+
+Some fields are particularly interesting to us:
+
+- `name`: the identifier of the extension, which should be in a sluggified format.
+- `title`: the display name of an extension, which will be shown to users. 
+- `author`: the author of the extension. Needs to be a single username. This is used for a variety of things inside Vicinae. 
+- `icon` is used to resolve the extension's icon at runtime. Vicinae will try find it relative to the extension's `assets` directory. This same thing applies to command icons, if any is specified.
+- `commands` lists all the available commands for this extension. The `name` key for each command should map to a proper command entrypoint under `src`. In this case, `src/my-first-command.tsx` is expected. At least one command should be specified to make it a valid extension.
+
+## Dealing with preferences 
+
+### Anatomy of a preference object
+
+An extension and every one of its commands can declare a set of preferences that they expect to be set before they can be run.
+
+This can be useful to require the user to provide an access token, tweak the behaviour of some command, and more...
+
+A preference object looks like this:
+
+```json
+{
+	"name": "access-token",
+	"title": "Access Token",
+	"description": "The access token required to access the service",
+	"required": true,
+	"type": "password"
+}
+```
+
+- `name` is the id of the preference, which should remain in a slugified form
+- `title` is the display name of the preference - shown to users
+- `required` if a preference is required and has no default value, Vicinae will explicitly ask the user to supply it before a command can be started.
+- `type` is the type of preference. Right now we mainly support `text`, `password` and `dropdown`. 
+
+If a preference is of type `dropdown` an additional `data` field is expected:
+
+```json
+{
+  "name": "artwork",
+  "title": "Artwork Style",
+  "description": "Choose the preferred artwork style for Pokémon.",
+  "required": false,
+  "type": "dropdown",
+  "default": "official",
+  "data": [
+	{
+	  "title": "Official Artwork",
+	  "value": "official"
+	},
+	{
+	  "title": "Pixel Art",
+	  "value": "pixel"
+	}
+  ]
+} 
+```
+
+### Add preferences
+
+To specifiy a set of extension preferences, just fill in the top-level `preferences` array with as many preference objects as you want.
+
+You can do the same for each command inside `commands` to specificy command-local preferences.
+
+<Note>
+Extension preferences are shared across all commands of that same extension whereas command preferences are only considered for the command it's specified for.
+</Note>
+

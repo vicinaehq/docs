@@ -263,6 +263,17 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
+    title: 'Extensions',
+    links: [
+      { title: 'Introduction', href: '/extensions/introduction' },
+      { title: 'Create Your First Extension', href: '/extensions/create' },
+      { title: 'File Structure', href: '/extensions/file-structure' },
+      { title: 'Manifest', href: '/extensions/manifest' },
+      { title: 'API Reference', href: '/extensions/api' },
+    ],
+  },
+
+  {
     title: 'Contributing',
     links: [
       { title: 'Clipboard Server', href: '/contrib/clipboard' },

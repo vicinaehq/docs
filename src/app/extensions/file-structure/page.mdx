@@ -1,0 +1,49 @@
+# File Structure
+
+This page describes the file structure of a Vicinae extension.
+
+A valid Vicinae extension is a directory containing at least two things:
+
+- a manifest file named `package.json`, which is essentially a regular `package.json` file with Vicinae specific additions to it.
+- one or more command entrypoints under the `src` subdirectory, such as `src/command_name.tsx`. They need to map to a valid command name inside the manifest.
+
+This is what a typical extension directory looks like:
+
+```bash
+my-first-extension
+    ├── assets
+    │   └── extension_icon.png
+    ├── package.json
+    ├── package-lock.json
+    ├── README.md
+    ├── src
+    │   └── my-first-command.tsx
+    └── tsconfig.json
+```
+
+<Note>
+We may add configuration files for more quality of life Javascript tooling in the future (eslint, prettier, etc...)
+</Note>
+
+
+## Source directory
+
+The source directory should contain all your source files (not only command entrypoints).
+
+For each command defined in the extension manifest, you need to have a corresponding entrypoint directly under `src`.
+
+For a command named `my-command`, you need a corresponding `src/my-command.tsx` or `src/my-command.ts` entrypoint.
+
+<Note>
+You should use the `.ts` extension for no-view commands and the `.tsx` extension for view commands.
+Using `.tsx` for no-view commands is still supported but not the other way around.
+</Note>
+
+## Assets directory
+
+The `assets` directory can contain icons that will be packaged into the extension bundle. All assets can be referenced at runtime and used as images where Vicinae expects them.  This is also where extension or command icons referenced in the manifest should be placed.
+
+## Other files
+
+- `node_modules`: dependencies required for the extension to run. Do not make any manual change to this directory.
+- `package-lock.json`: locked version of the dependencies to install: do not edit directly.
