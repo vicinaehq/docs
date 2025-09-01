@@ -2,7 +2,7 @@
 
 Vicinae is typically extended using its React/TypeScript API, which allows you to focus on your extension while offloading all the complex UI rendering to the C++ core.
 
-This page explains this design choice and gives a sneak peek at what extension code looks like. For a step-by-step guide on creating an extension, see the [getting started](extensions/start) page.
+This page explains this design choice and gives a sneak peek at what extension code looks like. For a step-by-step guide on creating an extension, see the [create extension](/extensions/create) page.
 
 ![](/extensions/code.png)
 
@@ -26,7 +26,7 @@ React is also, like TypeScript, very well-established and widely known among dev
 Although React is typically associated with web development (since that's its most common use case), the React library is platform-agnostic. A renderer can be written for any platform—even for the [terminal](https://github.com/vadimdemedes/ink)!
 </Note>
 
-## Where are you hiding the browser?
+## Where's the browser at?
 
 There is **no browser** backing the Vicinae extension ecosystem. No browser, no Electron, no HTML, no CSS...
 
@@ -78,7 +78,7 @@ Search automatically works, markdown is automatically formatted, life's great :)
 
 Most of the extension stuff is inspired by the way [Raycast](https://developers.raycast.com/) does it, and our long term goal is to be compatible with most existing Raycast extensions.
 
-For this reason, our API follows the Raycast API very closely but also offers exclusive APIs.
+For this reason, our API follows the Raycast API very closely but also offers exclusive APIs. Our goal is to be our own thing, not copy everything Raycast is doing.
 
 <Note>
 Since Vicinae is open source and community-driven , we tend to prioritize API features that most users want to see implemented first.
