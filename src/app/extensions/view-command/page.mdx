@@ -1,0 +1,147 @@
+# Create a view command
+
+In Vicinae, a view command is a command that pushes new UI views on the navigation stack.
+
+## Declaring a view command 
+
+In order to declare a command as a view command, you need to set the `mode` of the command to `view` inside the manifest:
+
+```json
+{
+  "name": "my-first-command",
+  "title": "My First Command",
+  "subtitle": "My first subtitle",
+  "description": "My first command description",
+  "mode": "view"
+}
+```
+
+This command declaration expects the presence of a corresponding `src/my-first-command.tsx` entrypoint file.
+
+<Note>
+Be careful about the file extension: you need to use `.tsx` for view commands as we are dealing with TSX.
+</Note>
+
+## View command implementation
+
+From the entrypoint, all you need to do is to export a React component as the default export:
+
+```tsx {{ title: 'my-first-command.tsx' }}
+import { Detail, ActionPanel, Action, showToast } from '@vicinae/api';
+
+export default function MyFirstCommand() {
+	return (
+		<Detail
+			markdown={md}
+			actions={
+				<ActionPanel>
+					<Action 
+						title="Say hello" 
+						onAction={() => showToast({ title: 'Hello!' })} 
+					/>
+				</ActionPanel>
+			}
+		/>
+	);
+}
+```
+
+When your command is launched from the root search, Vicinae will automatically push a new view on the stack, which will get hydrated as your
+extension is loaded.
+
+## Root component types
+
+A Vicinae view always expect to be of one of the supported root component types. Here are the main ones: 
+
+- `List` - used to render vertical lists with an optional detail component.
+- `Grid` - used to render grid lists.
+- `Detail` - used to render markdown with an optional metadata section.
+- `Form` - used to render forms made of various kind of inputs.
+
+For a full list of available root components, please refer to the [API Reference](/extensions/api).
+
+<Warning>
+Returning an element that is not of one of the supported root types will throw an error.
+</Warning>
+
+<Note>
+Don't even try to return HTML. [No, really](/extensions/introduction#wheres-the-browser-at).
+</Note>
+
+
+## Pushing more views
+
+A view command is not limited to presenting only one single view: it can push and pop views as it wants.
+
+To do that, all you need is the `useNavigation` hook:
+
+```tsx
+import { 
+	Detail, ActionPanel, Action, 
+	showToast, List, Icon, 
+	useNavigation 
+} from '@vicinae/api';
+
+// View to push on top of the main view
+const ListView = () => {
+	const { push, pop } = useNavigation();
+
+	return (
+		<List>
+			<List.Item 
+				title={"Push myself"} 
+				icon={Icon.Sun} 
+				actions={
+					<ActionPanel>
+						<Action 
+							title="push myself!" 
+							icon={Icon.Window} 
+							onAction={() => push(<ListView />)} 
+						/>
+					</ActionPanel>
+				}
+			/>
+			<List.Item 
+				title={"Pop myself"} 
+				icon={Icon.Moon} 
+				actions={
+					<ActionPanel>
+						<Action 
+							title="pop myself!" 
+							icon={Icon.Bolt} 
+							onAction={pop} 
+						/>
+					</ActionPanel>
+				}
+			/>
+		</List>
+	)
+}
+
+// Main view
+export default function MyFirstCommand() {
+	const { push } = useNavigation();
+
+	return (
+		<Detail
+			markdown={md}
+			actions={
+				<ActionPanel>
+					{/** Note: <Action.PushView> should generally be used 
+					  instead, but we show it for demonstration purposes */}
+					<Action 
+						title="Push a new view" 
+						icon={Icon.AppWindow}
+						onAction={() => push(<ListView />)} 
+					/>
+				</ActionPanel>
+			}
+		/>
+	);
+}
+```
+
+<Warning>
+There is currently no practical limitations as to how many views a command can push on the stack.
+However, having to push more than 5 views on top of each other probably suggests that your command does too much!
+</Warning>

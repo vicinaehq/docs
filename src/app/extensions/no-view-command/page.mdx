@@ -1,0 +1,49 @@
+# Create a no-view command
+
+In Vicinae, a no-view command is a command that directly executes from within the root search, without pushing new UI.
+
+## Declaring a view command 
+
+In order to declare a command as a no-view command, you need to set the `mode` of the command to `no-view` inside the manifest:
+
+```json
+{
+  "name": "my-first-command",
+  "title": "My First Command",
+  "subtitle": "My first subtitle",
+  "description": "My first command description",
+  "mode": "no-view"
+}
+```
+
+This command declaration expects the presence of a corresponding `src/my-first-command.ts` entrypoint file.
+
+## No-View Lifecycle
+
+When a no-view command is launched from the root search, the code inside the function starts executing immediately. 
+The command is unloaded when the function returns **or** if another command is launched (as the command execution is non blocking).
+
+<Warning>
+no-view commands are not meant to execute long-running logic. As of now, we don't provide a way for extensions to do this outside of using external daemons (not recommended).
+However, we will probably add something in the future.
+</Warning>
+
+## No-view command implementation
+
+From the entrypoint, all you need to do is to export an async function as the default export:
+
+```ts {{ title: 'my-first-command.tsx' }}
+import { showToast } from '@vicinae/api';
+
+export default async function MyFirstCommand() {
+	await showToast({ title: 'Hello from no-view command!' });
+}
+```
+
+<Note>
+Make sure to properly `await` asynchronous API calls. Otherwise, the command might be unloaded before the promises resolve.
+</Note>
+
+<Warning>
+Any attempt to use navigation features from no-view commands will be met with an error. You can, however, use other Vicinae APIs all the same.
+</Warning>
