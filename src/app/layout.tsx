@@ -1,5 +1,6 @@
 import glob from 'fast-glob'
 import { type Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next';
 
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
@@ -36,6 +37,7 @@ export default async function RootLayout({
             <Layout allSections={allSections}>{children}</Layout>
           </div>
         </Providers>
+		<Analytics />
       </body>
     </html>
   )
