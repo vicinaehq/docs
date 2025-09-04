@@ -1,0 +1,36 @@
+# Configuring Vicinae
+
+Vicinae offers flexible configuration options to customize your launcher experience. You can adjust settings either through in-launcher commands or via the dedicated settings interface.
+
+## Accessing Settings
+
+Open the settings window using either method:
+- Run the [open settings](vicinae://extensions/vicinae/vicinae/settings) command
+- Press **Ctrl + Comma** while the launcher window is active
+
+## General Settings
+
+The General tab contains core options that control Vicinae's overall behavior. Changes are automatically saved when you modify a setting or move focus away from an input field.
+
+<Warning>
+Settings are stored in a JSON file within Vicinae's configuration directory. While this file exists, it's not intended for manual editing—the format may change in future versions and the file location isn't guaranteed to remain stable.
+</Warning>
+
+![](/general-config.png)
+
+## Extension Settings
+
+The Extension Settings tab provides control over your installed extensions, including both built-in and third-party additions.
+
+This view allows you to:
+
+- Search for any extension or command you have installed
+- Customize the behaviour of an extension or command by editing their preferences
+- Set a custom alias for a command
+- Disable a particular command or an entire extension - this does **not** uninstall, no data is lost
+
+![](/extension-settings.png)
+
+## Environment variables
+
+For advanced users, certain specialized behaviors can be configured by setting environment variables when running the Vicinae server. These variables control niche functionality and are documented alongside their respective features throughout the documentation.
