@@ -242,6 +242,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Install from release', href: '/release-install' },
       { title: 'Build from source', href: '/build' },
       { title: 'Gnome Support', href: '/gnome-support' },
+      { title: 'Network and Privacy', href: '/privacy' },
     ],
   },
   {

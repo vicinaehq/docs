@@ -1,0 +1,43 @@
+# Network and Privacy
+
+While Vicinae operates fully offline for most features, it includes optional web integrations to enhance functionality. This page details all network activity and privacy considerations.
+
+## Network Activity
+
+Vicinae makes network requests in these specific scenarios:
+
+- **Favicon loading** - When [favicon loading](/favicon) is enabled (the default), built-in commands fetch favicons for HTTP URLs to use as icons
+- **Exchange rates** - The calculator may need to fetch exchange rates in order to provide accurate currency conversions. How it's done depends on the [configured backend](/calculator#supported-backends)
+- **Typescript extensions** - typescript extensions can make arbitrary network requests. More details about extensions below.
+- **Raycast compatibility** - The Raycast compatbility extension allows to browse the official Raycast store and install extensions published to it.
+
+## Typescript Extensions
+
+Extensions built with the [React/TypeScript SDK](/extensions/introduction) currently run without sandboxing or permission restrictions. 
+They are granted the same level of privilege as the user the Vicinae server is running under.
+
+- Typescript extensions are completely optional—none are installed by default
+- Extension runtime support can be disabled entirely at build time
+- All extensions require explicit user installation
+
+<Note>
+We may introduce sandboxing capabilities in the future.
+</Note>
+
+## Data Collection 
+
+### Vicinae Application
+
+The Vicinae application collects no telemetry, analytics, or usage data of any kind.
+
+<Note>
+If we ever introduce telemetry, it will be entirely opt-in.
+</Note>
+
+### Documentation Website
+
+This documentation website uses [@vercel/analytics](https://github.com/vercel/analytics#readme) to track page views. 
+
+Vercel Analytics is privacy-focused, collecting minimal data without attempting to bypass ad blockers. 
+
+We use this data solely to understand which documentation sections are most valuable to users and improve content accordingly.
