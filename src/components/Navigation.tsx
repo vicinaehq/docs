@@ -272,6 +272,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Create Your First Extension', href: '/extensions/create' },
       { title: 'File Structure', href: '/extensions/file-structure' },
       { title: 'Manifest', href: '/extensions/manifest' },
+      { title: 'API Reference', href: '/extensions/api' },
       { title: 'Create a view command', href: '/extensions/view-command' },
       { title: 'Create a no-view command', href: '/extensions/no-view-command' },
     ],
