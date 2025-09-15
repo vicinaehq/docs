@@ -258,7 +258,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Application Shortcuts', href: '/shortcuts' },
       { title: 'File Search', href: '/file-search' },
       { title: 'Fallback Commands', href: '/fallback-commands' },
-      { title: 'Raycast Extension Support', href: '/raycast-extension' },
+      { title: 'Extensions', href: '/install-extensions' },
       { title: 'Emoji Picker', href: '/emoji' },
       { title: 'Theming', href: '/theming' },
       { title: 'Deeplinks', href: '/deeplinks' },

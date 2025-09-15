@@ -1,0 +1,44 @@
+# Extensions
+
+Vicinae can be extended using React and Typescript in order to build rich lists, grids, or even render plain markdown.
+
+This page explains how to install and run extensions. If you are looking to build your own extensions or learn more about the extension system, please refer to the [extension section](/extensions/introduction) of this documentation.
+
+## Install from source tree
+
+This assumes you have downloaded an extension's source code from somewhere on the Internet (e.g GitHub). 
+
+From the extension's source tree, simply run:
+
+```bash
+npm install
+npm run build
+```
+
+After it's built, you should be able to search for commands exported by this extension.
+No server restart should be required.
+
+<Note>
+For now we don't provide a centralized store to discover extensions, except for the Raycast ones (see below) where we use the official Raycast store. 
+</Note>
+
+## Raycast Extensions
+
+You can install Raycast extensions published to the official Raycast store in one click from within Vicinae:
+
+Launch the [Raycast Store](vicinae://extensions/vicinae/raycast-compat/store) command, search for the extension you are looking for, click on details and then install.
+
+Vicinae will then download the extension from Raycast's servers and install it right away, making it immediately available from the root search.
+
+![](/raycast-store-list.png)
+
+<Warning>
+Extension support is very bare-bones at the moment, and most extensions will not work because of missing APIs or hardcoded MacOS stuff.
+This is being worked on actively and will improve significantly in the future.
+</Warning>
+
+## Uninstall extension
+
+You can uninstall an extension from the root search by searching for the "Uninstall Extension" action:
+
+![](/uninstall-extension.png)
