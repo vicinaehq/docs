@@ -239,6 +239,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Introduction', href: '/' },
       { title: 'Operating System Support', href: '/os-support' },
       { title: 'Install from repository', href: '/repo-install' },
+      { title: 'Install AppImage', href: '/appimage-install' },
       { title: 'Install from release', href: '/release-install' },
       { title: 'Build from source', href: '/build' },
       { title: 'Gnome Support', href: '/gnome-support' },

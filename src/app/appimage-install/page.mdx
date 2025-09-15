@@ -1,0 +1,33 @@
+# Install AppImage
+
+Starting with version `v0.10.0` we now distribute vicinae as an AppImage. 
+The AppImage release is meant for users that run older systems, don't have vicinae packaged for their distribution, or can't compile it from source. 
+
+<p align="center">
+	<img src="/appimage.png" width="100" alt="appimage logo" />
+</p>
+
+## Requirements
+
+You need `fuse` installed on your system in order to run AppImages in general. You may also need to install `libqalculate` in order to get working currency conversion.
+
+## Get AppImage
+
+Download the AppImage from the [latest GitHub release](https://github.com/vicinaehq/vicinae/releases).
+You are looking for the file ending with `.AppImage`.
+
+## Run AppImage
+
+Make the AppImage executable, and then simply run it as you would run the regular `vicinae` binary:
+
+```bash
+chmod +x Vicinae-c5d11870-x86_64.AppImage
+./Vicinae-c5d11870-x86_64.AppImage server
+```
+
+And with that, you should be good to go!
+
+## Known caveats
+
+- On some distributions, vicinae seems to be unable to connect to the proper system keyring and fails to write the clipboard history encryption key, resulting in a non functional clipboard history.
+If this happens to you feel free to open an issue.
