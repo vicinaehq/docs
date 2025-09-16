@@ -6,71 +6,17 @@ Most direct ways to install Vicinae on your system. If your system is not listed
 
 Vicinae is available on the Arch User Repository (AUR) in three variants:
 
-- **Source build**  
-  - [vicinae](https://aur.archlinux.org/packages/vicinae) – stable release, compiled from source  
-  - [vicinae-git](https://aur.archlinux.org/packages/vicinae-git) – latest development version, compiled from source  
+- **Source build**
+  - [vicinae](https://aur.archlinux.org/packages/vicinae) – stable release, compiled from source
+  - [vicinae-git](https://aur.archlinux.org/packages/vicinae-git) – latest development version, compiled from source
 
-- **Prebuilt binary**  
-  - [vicinae-bin](https://aur.archlinux.org/packages/vicinae-bin) – stable release, precompiled binary  
+- **Prebuilt binary**
+  - [vicinae-bin](https://aur.archlinux.org/packages/vicinae-bin) – stable release, precompiled binary
 
 You can install Vicinae using your preferred AUR helper.
 
 ```bash
 yay -S vicinae-bin
-```
-
-## Nix (Flake)
-Vicinae is also available as a Nix flake. You can use the binaries of the Nix package or enable the systemd service provided by the home-manager module.
-```bash
-nix shell github:vicinaehq/vicinae
-```
-
-### Home Manager module
-```nix
-# flake.nix
-{
-    description = "...";
-    inputs = {
-        vicinae.url = "github:vicinaehq/vicinae";
-        ...
-    };
-    outputs = {
-        nixpkgs,
-        home-manager,
-        vicinae,
-    }: let
-    system = "...";
-    pkgs = nixpkgs.legacyPackages.${system};
-    in {
-        homeConfigurations."..." = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-
-            modules = [
-                vicinae.homeManagerModules.default
-                ...
-            ];
-        }
-    }
-}
-```
-
-```nix
-# home.nix
-# ...
-{pkgs}:{
-    services.vicinae = {
-        enable = true; # default: false
-        autoStart = true; # default: true
-        package = # specify package to use here. Can be omitted.
-    };
-}
-```
-
-### Nix Binary Cache
-
-```nix
-extra-substituters = [ "https://vicinae.cachix.org" ];
-extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
 ```
 
 ## Fedora
@@ -82,7 +28,7 @@ dnf copr enable gvalkov/vicinae
 dnf install vicinae
 ```
 
-## Gentoo 
+## Gentoo
 
 ### jaredallard's overlay
 

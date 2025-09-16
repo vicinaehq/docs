@@ -244,6 +244,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Build from source', href: '/build' },
       { title: 'Gnome Support', href: '/gnome-support' },
       { title: 'Network and Privacy', href: '/privacy' },
+      { title: 'Nixos', href: '/nixos' },
     ],
   },
   {
@@ -276,15 +277,16 @@ export const navigation: Array<NavGroup> = [
       { title: 'Debug Raycast Extensions', href: '/extensions/debug-raycast' },
       { title: 'API Reference', href: '/extensions/api' },
       { title: 'Create a view command', href: '/extensions/view-command' },
-      { title: 'Create a no-view command', href: '/extensions/no-view-command' }
+      {
+        title: 'Create a no-view command',
+        href: '/extensions/no-view-command',
+      },
     ],
   },
 
   {
     title: 'Contributing',
-    links: [
-      { title: 'Clipboard Server', href: '/contrib/clipboard' },
-    ],
+    links: [{ title: 'Clipboard Server', href: '/contrib/clipboard' }],
   },
 ]
 
