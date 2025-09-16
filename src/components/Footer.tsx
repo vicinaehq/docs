@@ -1,11 +1,9 @@
-'use client'
-
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { Button } from '@/components/Button'
 import { navigation } from '@/components/Navigation'
-import { VICINAE_GITHUB_ORG_URL, VICINAE_GITHUB_REPO_URL } from '@/lib/constants'
+import { VICINAE_GITHUB_ORG_URL } from '@/lib/constants'
 
 function PageLink({
   label,
@@ -90,8 +88,6 @@ function GitHubIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-
-
 function SocialLink({
   href,
   icon: Icon,
@@ -119,7 +115,7 @@ function SmallPrint() {
         <SocialLink href={VICINAE_GITHUB_ORG_URL} icon={GitHubIcon}>
           Follow us on GitHub
         </SocialLink>
-		{/*
+        {/*
         <SocialLink href="#" icon={DiscordIcon}>
           Join our Discord server
         </SocialLink>
