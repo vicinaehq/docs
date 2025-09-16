@@ -1,0 +1,92 @@
+import { CodePanel } from '@/components/Code';
+
+# Nixos
+Vicinae is available as a Nix flake but can also be run withou installing. You can use the binaries of the Nix package or enable the systemd service provided by the home-manager module.
+
+## Run Vicinae without installing
+You can test the app directly by using a nix shell
+
+```bash
+nix shell github:vicinaehq/vicinae
+```
+
+## Home Manager module
+
+<Note>
+If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/nixos#cachix)
+</Note>
+
+```nix
+# flake.nix
+{
+    description = "...";
+    inputs = {
+        vicinae.url = "github:vicinaehq/vicinae"; # tell Nixos where to get Vicinae
+        ...
+    };
+    outputs = {
+        nixpkgs,
+        home-manager,
+        vicinae, # enable the Output
+    }: let
+    system = "...";
+    pkgs = nixpkgs.legacyPackages.${system};
+    in {
+        homeConfigurations."..." = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+
+            modules = [
+                vicinae.homeManagerModules.default # enable Home Manager
+                ...
+            ];
+        }
+    }
+}
+```
+
+```nix
+# home.nix
+# ...
+{pkgs}:{
+    services.vicinae = {
+        enable = true; # default: false
+        autoStart = true; # default: true
+        package = # specify package to use here. Can be omitted.
+    };
+}
+```
+
+## Cachix
+
+The Vicinae flake is **not** built by Hydra, so it is not cached in cache.nixos.org, like the rest of Nixpkgs.
+Instead of requiring you to build Vicinae every time it updates, we provide a Cachix cache that you can add to your Nix configuration.
+
+```nix
+extra-substituters = [ "https://vicinae.cachix.org" ];
+extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
+```
+
+## Configuring with Home Manager
+You can configure Vicinae using Home Manager options. Here is an example configuration:
+
+
+
+```nix
+services.vicinae = {
+  enable = true;
+  autoStart = true;
+  settings = {
+      faviconService = "twenty"; # twenty | google | none
+      font.size = 11;
+      popToRootOnClose = false;
+      rootSearch.searchFiles = false;
+      theme.name = "vicinae-dark";
+      window = {
+        csd = true;
+        opacity = 0.95;
+        rounding = 10;
+      };
+   };
+};
+```
+the `theme.name` option can be set to any of the themes that come with Vicinae or a custom theme you have installed. See [the Github](https://github.com/vicinaehq/vicinae/tree/main/extra/themes) for more information on default theme names.
