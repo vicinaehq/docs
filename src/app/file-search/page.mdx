@@ -58,3 +58,13 @@ You can search files in one of two ways:
 - From the root search, only if the relevant option has been explictly enabled in the main Vicinae settings. Root file search is performed asynchronously so you should expect a slight delay before file results show up.
 - Using the dedicated [Search Files](vicinae://extensions/vicinae/file/search) command, which provides a nice preview of the file's content and generally more actions.
 
+## Watcher (Experimental)
+
+You can add paths to 'Watcher paths' in the settings to watch for real-time changes with [e-dant/watcher](https://github.com/e-dant/watcher).
+
+There are a number of caveats:
+- There is no way to watch 'unwanted' directories like `node_modules` and hidden paths
+- It requires an inotify instance for every subdirectory, and you can hit the system limit. You can increase this limit by:
+  - Writing a larger number to `/proc/sys/fs/inotify/max_user_watches`
+  - Setting it in /etc/sysctl.conf:  
+    `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
