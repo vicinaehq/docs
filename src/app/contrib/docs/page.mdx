@@ -1,0 +1,30 @@
+# How to Contribute to the Documentation
+Contributing to our documentation is a great way to help the community and improve the project for everyone.
+
+## Writing Documentation with MDX
+We use [MDX](https://mdxjs.com/) for our documentation files. MDX allows you to write Markdown with embedded JSX components, while still being easy to write using [standard Markdown syntax.](https://www.markdownguide.org/basic-syntax/)
+
+<Note>
+If you are contributing simple documentation or configuration you usually do not need to use any components. **Nearly all contributions can be made using plain Markdown!**
+</Note>
+
+## Naming and Placement Conventions
+To keep our documentation organized and easy to navigate, the docs are seperated into folders containing either sub-folders (in case there are multiple docs of that type as with the `src/app/extensions` folder) or a `page.mdx` in which the documentation is written.
+
+## Adding a new File to the Navigation
+To make your new documentation discoverable, add it to the navigation menu:
+
+1. Open `src/components/Navigation.tsx`.
+2. Locate the navigation structure it looks something like This
+
+```tsx
+{
+  title: 'Contributing', // Title of the Category in which the files will appear
+  links: [
+    { title: 'Clipboard Server', href: '/contrib/clipboard' },
+    { title: 'My super helpful Documentation', href: '/path/to/file.mdx'}
+  ],
+},
+```
+
+3. Add a new entry for your doc (relative to the `/docs` directory).
