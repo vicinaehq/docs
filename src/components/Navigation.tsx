@@ -286,7 +286,10 @@ export const navigation: Array<NavGroup> = [
 
   {
     title: 'Contributing',
-    links: [{ title: 'Clipboard Server', href: '/contrib/clipboard' }],
+    links: [
+      { title: 'Clipboard Server', href: '/contrib/clipboard' },
+      { title: 'Documentation', href: '/contrib/docs'}
+    ],
   },
 ]
 
