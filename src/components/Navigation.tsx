@@ -252,6 +252,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Getting Started', href: '/getting-started' },
       { title: 'Configuration', href: '/config' },
+      { title: 'Known Caveats', href: '/caveats' },
       { title: 'Launcher Window', href: '/launcher-window' },
       { title: 'Clipboard Management', href: '/clipboard' },
       { title: 'Window Management', href: '/window' },
