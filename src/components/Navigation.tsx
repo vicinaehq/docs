@@ -276,7 +276,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'File Structure', href: '/extensions/file-structure' },
       { title: 'Manifest', href: '/extensions/manifest' },
       { title: 'Debug Raycast Extensions', href: '/extensions/debug-raycast' },
-      { title: 'API Reference', href: 'https://github.com/vicinaehq/vicinae/tree/main/api/docs' },
+      { title: 'API Reference', href: 'https://github.com/vicinaehq/vicinae/tree/main/typescript/api/docs' },
       { title: 'Create a view command', href: '/extensions/view-command' },
       {
         title: 'Create a no-view command',
