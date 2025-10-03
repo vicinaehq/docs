@@ -2,9 +2,9 @@
 
 The `vicinae` binary should be installed on your system.
 
-To start the vicinae daemon, simply run:
+To start the vicinae server, simply run:
 
-```bash {{ title: 'Start daemon' }}
+```bash {{ title: 'Start server' }}
 vicinae server
 ```
 
@@ -14,12 +14,12 @@ If you prefer systemd service, run:
 systemctl enable --now --user vicinae.service
 ```
 
-Starting the daemon can take up to a few seconds when doing so for the very first time. 
+Starting the server can take up to a few seconds when doing so for the very first time. 
 
-Once the server is started, you can run `vicinae` again without an argument to make the Vicinae launcher window appear:
+Once the server is started, you can run `vicinae toggle` to toggle the vicinae window.
+
+For more advanced controls, you should look into [deeplinks](/deeplinks).
 
 <img src="/vicinae-window.webp" />
-
-To toggle the window visiblity, you can just run `vicinae` again or use [deeplinks](/deeplinks).
 
 Vicinae doesn't deal with system keyboard shortcuts itself because every environment does it differently, so it's up to you to setup proper bindings.
