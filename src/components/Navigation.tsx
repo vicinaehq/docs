@@ -234,7 +234,7 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Guides',
+    title: 'Installation',
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'Operating System Support', href: '/os-support' },
@@ -243,7 +243,6 @@ export const navigation: Array<NavGroup> = [
       { title: 'Install from release', href: '/release-install' },
       { title: 'Build from source', href: '/build' },
       { title: 'Gnome Support', href: '/gnome-support' },
-      { title: 'Network and Privacy', href: '/privacy' },
       { title: 'Nixos', href: '/nixos' },
     ],
   },
@@ -260,6 +259,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Configuration', href: '/config' },
       { title: 'Known Caveats', href: '/caveats' },
+      { title: 'Network and Privacy', href: '/privacy' },
       { title: 'Launcher Window', href: '/launcher-window' },
       { title: 'Clipboard Management', href: '/clipboard' },
       { title: 'Window Management', href: '/window' },
