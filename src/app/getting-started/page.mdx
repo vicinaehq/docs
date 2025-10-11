@@ -4,15 +4,20 @@ The `vicinae` binary should be installed on your system.
 
 To start the vicinae server, simply run:
 
-```bash {{ title: 'Start server' }}
+```bash
 vicinae server
 ```
 
-If you prefer systemd service, run:
+Or as a systemd user service:
 
-```bash {{ title: 'Start systemd service' }}
+```bash
 systemctl enable --now --user vicinae.service
 ```
+
+<Warning>
+If running Vicinae through systemd, please ensure you are starting your compositor as a systemd service, for example with `uwsm`.
+If you don't, some environment variables may not be properly set and launching some apps may not work.
+</Warning>
 
 Starting the server can take up to a few seconds when doing so for the very first time. 
 
