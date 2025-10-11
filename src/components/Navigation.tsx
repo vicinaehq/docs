@@ -261,6 +261,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Known Caveats', href: '/caveats' },
       { title: 'Network and Privacy', href: '/privacy' },
       { title: 'Launcher Window', href: '/launcher-window' },
+      { title: 'DMenu Mode', href: '/dmenu' },
       { title: 'Clipboard Management', href: '/clipboard' },
       { title: 'Window Management', href: '/window' },
       { title: 'Calculator', href: '/calculator' },

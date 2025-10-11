@@ -1,0 +1,24 @@
+# DMenu Mode
+
+You can use `vicinae` as you would use `dmenu` with `vicinae dmenu`.
+
+<CodeGroup title="Generate a list of options">
+```bash {{ title: 'piped' }}
+echo -e 'option 1\noption 2\noption3\n' | vicinae dmenu --placeholder "Select option"
+```
+
+```bash {{ title: 'from file' }}
+vicinae dmenu --placeholder "Select option" < options.txt
+```
+
+```bash {{ title: 'from stdin' }}
+$> vicinae dmenu --placeholder "Select option"
+option 1
+option 2
+option 3
+<C-d>
+```
+</CodeGroup>
+![dmenu list view](/dmenu.webp)
+
+You can get a full list of available options with `vicinae dmenu --help`.
