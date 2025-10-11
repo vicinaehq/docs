@@ -1,0 +1,36 @@
+# Hyprland Quickstart
+
+Best way to quickly get started on [Hyprland](https://hypr.land/). {{ className: 'lead' }}
+
+## Main configuration
+
+Add the following to your Hyprland configuration, and you are good to go.
+
+```ini
+# ~/.config/hypr/hyprland.conf
+
+exec-once = vicinae server
+
+# use whatever shortcut floats your boat
+bind = $mainMod, Space, exec, vicinae toggle
+
+# blur
+layerrule = blur,vicinae
+layerrule = ignorealpha 0, vicinae
+```
+
+<Note>
+On first startup, Vicinae will use a lot of CPU in order to populate the file index.
+</Note>
+
+## Bind to a custom command
+
+You can easily create a binding to open any vicinae command directly:
+
+```ini
+# ~/.config/hypr/hyprland.conf
+
+bind = $mainMod, P, exec, vicinae vicinae://extensions/vicinae/clipboard/history
+```
+
+You can do a lot with this: [learn more about deeplinks](/deeplinks).

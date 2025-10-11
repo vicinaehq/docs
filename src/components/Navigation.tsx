@@ -248,9 +248,16 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
+    title: 'Quickstart',
+    links: [
+      { title: 'Hyprland Quickstart', href: '/quickstart/hyprland' },
+      { title: 'General Quickstart', href: '/quickstart/generic' },
+    ],
+  },
+
+  {
     title: 'Manual',
     links: [
-      { title: 'Getting Started', href: '/getting-started' },
       { title: 'Configuration', href: '/config' },
       { title: 'Known Caveats', href: '/caveats' },
       { title: 'Launcher Window', href: '/launcher-window' },

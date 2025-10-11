@@ -1,6 +1,8 @@
-# Getting started
+# Quickstart
 
-The `vicinae` binary should be installed on your system.
+Desktop-agnostic quickstart instructions. If there is a dedicated quickstart guide for your environment, read that instead. Also, feel free to contribute a quickstart guide for your environment! {{ className: 'lead' }}
+
+## Start the server
 
 To start the vicinae server, simply run:
 
@@ -21,10 +23,19 @@ If you don't, some environment variables may not be properly set and launching s
 
 Starting the server can take up to a few seconds when doing so for the very first time. 
 
+<Note>
+On first startup, Vicinae will use a lot of CPU in order to populate the file index.
+</Note>
+
+## Control the window
+
 Once the server is started, you can run `vicinae toggle` to toggle the vicinae window.
 
 For more advanced controls, you should look into [deeplinks](/deeplinks).
 
+<Warning>
+Vicinae doesn't support global shortcuts. You are expected to create keyboard shortcuts yourself.
+</Warning>
+
 <img src="/vicinae-window.webp" />
 
-Vicinae doesn't deal with system keyboard shortcuts itself because every environment does it differently, so it's up to you to setup proper bindings.
