@@ -17,6 +17,9 @@ bind = $mainMod, Space, exec, vicinae toggle
 # blur
 layerrule = blur,vicinae
 layerrule = ignorealpha 0, vicinae
+
+# disable fade animation for vicinae only
+layerrule = noanim, vicinae
 ```
 
 <Note>
@@ -34,27 +37,3 @@ bind = $mainMod, P, exec, vicinae vicinae://extensions/vicinae/clipboard/history
 ```
 
 You can do a lot with this: [learn more about deeplinks](/deeplinks).
-
-## Get rid of the fade animation
-
-Hyprland applies a fade animation to most windows by default, including layers.
-
-To turn it off, just add this to your animation config:
-
-```ini
-# ~/.config/hypr/hyprland.conf
-
-animations {
-	animation = fade, 0
-}
-```
-
-Or disable animations alltogether:
-
-```ini
-# ~/.config/hypr/hyprland.conf
-
-animations {
-	enabled = false
-}
-```
