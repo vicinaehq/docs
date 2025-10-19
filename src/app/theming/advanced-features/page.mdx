@@ -1,0 +1,154 @@
+# Advanced Features
+
+Vicinae's theming system includes features for color manipulation and theme composition.
+
+## Theme Inheritance
+
+Theme inheritance allows you to base a new theme on an existing one and override specific values.
+
+### Basic Inheritance
+
+Here's how to create a custom theme based on an existing one:
+
+```toml
+[meta]
+name = "My Rosepine Fork"
+description = "Rosepine with green accent"
+variant = "dark"
+inherits = "rose-pine"
+
+[colors.core]
+accent = { name = "colors.accents.green", opacity = 0.7 }
+```
+
+This theme inherits all colors from `rose-pine` and only overrides the accent color.
+
+### Inheritance Chain
+
+Themes can inherit from other custom themes, creating an inheritance chain. For example:
+
+```
+my-theme → rose-pine → vicinae-dark
+```
+
+Each theme in the chain can override specific values while preserving everything else.
+
+### Default Inheritance
+
+Even without explicitly setting `inherits`, all themes automatically inherit from base themes:
+- Dark themes inherit from `vicinae-dark`
+- Light themes inherit from `vicinae-light`
+
+<Warning>
+Make sure your theme uses a unique filename (theme ID). If you use the same filename as the theme you're inheriting from, the overridden theme won't be inheritable by other themes.
+</Warning>
+
+## Complex Color Values
+
+While simple color names (like `#FFFFFF`) work for most cases, Vicinae supports complex color objects that enable advanced color manipulation.
+
+### Basic Syntax
+
+A complex color value is a map with at least a `name` field:
+
+```toml
+[colors.core]
+border = { name = "colors.accents.blue" }
+```
+
+This is functionally equivalent to:
+
+```toml
+[colors.core]
+border = "colors.accents.blue"
+```
+
+Additional properties can be added for color manipulation.
+
+### Opacity Modification
+
+Change the opacity (alpha channel) of any color:
+
+```toml
+[colors.core]
+accent = "#89B4FA"
+border = { name = "colors.core.accent", opacity = 0.5 }
+```
+
+The `opacity` field can be used to modify referenced colors. Alpha can also be specified in hex format (`#AA89B4FA`).
+
+The `opacity` value ranges from `0.0` (fully transparent) to `1.0` (fully opaque).
+
+### Lightness Modification
+
+Adjust the lightness of colors using the `lighter` and `darker` properties:
+
+```toml
+[colors.core]
+border = { name = "colors.accents.blue", darker = 300 }
+
+[colors.input]
+# Reference the darkened border and make it slightly lighter
+border_focus = { name = "colors.core.border", lighter = 100 }
+```
+
+<Note>
+There is no specific unit associated with lightness modification. The higher the number, the more pronounced the effect. Values should always be equal to or greater than zero.
+</Note>
+
+### Combining Modifications
+
+You can combine opacity and lightness modifications:
+
+```toml
+[colors.core]
+subtle_accent = {
+  name = "colors.accents.blue",
+  darker = 150,
+  opacity = 0.6
+}
+```
+
+This creates a darker, semi-transparent version of the blue accent color.
+
+## Color Reference Chains
+
+Colors can reference other colors that themselves use complex modifications:
+
+```toml
+[colors.core]
+accent = "#89B4FA"
+border = { name = "colors.core.accent", darker = 200 }
+
+[colors.input]
+# This references the already-darkened border and makes it lighter
+border_focus = { name = "colors.core.border", lighter = 50 }
+```
+
+Color reference chains enable complex color relationships.
+
+## Troubleshooting
+
+### Circular References
+
+Avoid creating circular color references, as they will cause the theme to fail loading:
+
+```toml
+[colors.core]
+background = "colors.core.foreground"
+foreground = "colors.core.background"
+```
+
+### Fallback Behavior
+
+If a color value is invalid or cannot be resolved, Vicinae will:
+1. Check the parent theme for that color
+2. Continue up the inheritance chain
+3. Eventually fall back to the base theme (`vicinae-dark` or `vicinae-light`)
+
+Themes will still load with some invalid values due to this fallback mechanism.
+
+## Next Steps
+
+- Explore [CLI tools](/theming/cli-tools) for validating themes and debugging issues
+- Review [theme structure](/theming/theme-structure) for available color tables

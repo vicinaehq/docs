@@ -1,0 +1,123 @@
+# CLI Tools
+
+The `vicinae` binary provides command-line tools for managing, validating, and debugging theme files.
+
+## Available Commands
+
+Run the following to see all theme-related commands:
+
+```bash
+vicinae theme --help
+```
+
+This will display the available subcommands and their options.
+
+## Generate Theme Template
+
+Create a complete theme template with all available color keys and documentation:
+
+```bash
+vicinae theme template > ~/.local/share/vicinae/themes/my-new-theme.toml
+```
+
+This command outputs a template to stdout, which you can redirect to a file. The template includes:
+- All available metadata fields
+- Every color table and key
+- Inline comments explaining each option
+- Example values
+
+
+## Validate and Lint Themes
+
+Check a theme file for errors and potential issues:
+
+```bash
+vicinae theme check ~/.local/share/vicinae/themes/my-theme.toml
+```
+
+The check command will:
+- Validate TOML syntax
+- Verify required metadata fields
+- Check for circular color references
+- Warn about invalid color values
+- Validate color reference paths
+
+
+## Set Active Theme
+
+Change the currently active theme from the command line:
+
+```bash
+vicinae theme set <theme_id>
+```
+
+The `theme_id` is the theme filename without the `.toml` extension. For example, if your theme file is named `catppuccin-mocha.toml`, use:
+
+```bash
+vicinae theme set catppuccin-mocha
+```
+
+## View Theme Search Paths
+
+Display the directories where Vicinae looks for theme files:
+
+```bash
+vicinae theme paths
+```
+
+This command prints the search paths in order of precedence. Themes are loaded from these directories, and the first occurrence of a theme file takes precedence, effectively shadowing any theme with the same filename in lower-priority directories.
+
+### Typical Search Paths
+
+The paths usually follow the XDG Base Directory specification:
+
+1. `$HOME/.local/share/vicinae/themes` (user themes)
+2. `/usr/local/share/vicinae/themes` (system-wide themes)
+3. `/usr/share/vicinae/themes` (distribution themes)
+
+<Note>
+It's recommended to place custom themes in `$HOME/.local/share/vicinae/themes` to avoid conflicts with system updates.
+</Note>
+
+### Theme Shadowing
+
+If two themes have the same filename in different search paths, only the first one will be loaded. This allows you to override system themes with custom versions:
+
+```
+~/.local/share/vicinae/themes/rose-pine.toml  ← This one loads
+/usr/share/vicinae/themes/rose-pine.toml      ← This one is shadowed
+```
+
+## Theme Directory Structure
+
+Theme directories must be flat - subdirectories are not searched. All theme files should be placed directly in the theme directory:
+
+```
+Correct:
+~/.local/share/vicinae/themes/
+├── my-theme.toml
+├── another-theme.toml
+└── catppuccin-mocha.toml
+
+Incorrect (subdirectories won't be found):
+~/.local/share/vicinae/themes/
+└── custom/
+    └── my-theme.toml
+```
+
+However, theme assets (like icons) can be in subdirectories and referenced relatively:
+
+```toml
+[meta]
+icon = "icons/my-theme-icon.png"
+```
+
+This will look for `icons/my-theme-icon.png` relative to the theme file's location.
+
+Theme directories are automatically watched. Changes to theme files are applied immediately without restarting Vicinae.
+
+## Next Steps
+
+- Review [theme structure](/theming/theme-structure) for available color options
+- Explore [advanced features](/theming/advanced-features) for color manipulation
+- Check out the [getting started guide](/theming/getting-started) for quick setup

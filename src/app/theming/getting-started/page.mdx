@@ -1,0 +1,67 @@
+# Getting Started with Theming
+
+Vicinae provides a theming system for customizing the appearance using TOML-based theme files.
+
+<Note>
+The current TOML-based theming system was introduced in v0.15.0, replacing the previous JSON-based format. If you have custom themes from before v0.15.0, you'll need to migrate them to the new format.
+</Note>
+
+## What is a Vicinae Theme?
+
+A Vicinae theme is a configuration file written in [TOML](https://toml.io/en/) that defines colors and metadata for the application's appearance. Themes support inheritance, hot reloading, and advanced color manipulation features.
+
+## Quick Start
+
+To change your theme, use the built-in theme selector:
+
+1. Open Vicinae's root search
+2. Type "Set Theme" and select the command
+3. Choose from the available themes
+
+![Theme selector interface](/vicinae-set-theme.webp)
+
+Alternatively, you can use the CLI:
+
+```bash
+vicinae theme set <theme_id>
+```
+
+The theme ID is the filename without the `.toml` extension.
+
+## Creating Your First Theme
+
+Generate a complete theme template with all available options:
+
+```bash
+vicinae theme template > ~/.local/share/vicinae/themes/my-new-theme.toml
+```
+
+Here's a minimal example:
+
+```toml
+[meta]
+version = 1
+name = "My Custom Theme"
+description = "A personalized theme for Vicinae"
+variant = "dark"
+inherits = "vicinae-dark"
+
+[colors.core]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+accent = "#89B4FA"
+```
+
+## Theme Variants
+
+Themes come in two variants:
+- **dark** - For dark mode interfaces (inherits from `vicinae-dark`)
+- **light** - For light mode interfaces (inherits from `vicinae-light`)
+
+Every theme automatically inherits from its corresponding base theme (`vicinae-dark` or `vicinae-light`), so you only need to specify the colors you want to change.
+
+## Next Steps
+
+- Learn about [theme file structure](/theming/theme-structure) and available color options
+- Explore [advanced features](/theming/advanced-features) like inheritance and color manipulation
+- Discover [CLI tools](/theming/cli-tools) for managing and validating themes

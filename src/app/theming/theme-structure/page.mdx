@@ -1,0 +1,136 @@
+# Theme Structure
+
+A Vicinae theme file is written in TOML and consists of two main sections: metadata and color definitions.
+
+## File Format
+
+Theme files use the `.toml` extension and follow a structured format. Here's a minimal example:
+
+```toml
+[meta]
+version = 1
+name = "Catppuccin Mocha"
+description = "Cozy feeling with color-rich accents."
+variant = "dark"
+icon = "icons/catppuccin-mocha.png"
+inherits = "vicinae-dark"
+
+[colors.core]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+secondary_background = "#181825"
+border = "#313244"
+accent = "#89B4FA"
+
+[colors.accents]
+blue = "#89B4FA"
+green = "#A6E3A1"
+magenta = "#F5C2E7"
+orange = "#FAB387"
+purple = "#CBA6F7"
+red = "#F38BA8"
+yellow = "#F9E2AF"
+cyan = "#94E2D5"
+```
+
+## Metadata Section
+
+The `[meta]` table contains information about the theme itself. The following fields are available:
+
+### Required Fields
+
+- **version** - Theme format version (currently `1`)
+- **name** - Display name for the theme
+- **description** - Brief description of the theme's appearance or style
+- **variant** - Either `"dark"` or `"light"`
+
+### Optional Fields
+
+- **icon** - Path to a theme icon
+  - Can be an absolute path
+  - Can be relative to the theme file's directory
+- **inherits** - Parent theme to inherit from (see [Advanced Features](/theming/advanced-features))
+
+<Note>
+Every dark theme inherits from `vicinae-dark` at the lowest level, and light themes inherit from `vicinae-light`, even if not explicitly specified.
+</Note>
+
+## Color Tables
+
+Everything under the `[colors]` table expects color values. All subtables and keys are optional - you only need to define the colors you want to customize.
+
+### Common Color Tables
+
+The most commonly used color tables include:
+
+- **colors.core** - Base colors for background, foreground, borders, and accents
+- **colors.accents** - Named accent colors (red, green, blue, etc.)
+- **colors.input** - Colors specific to input fields
+- And many more specialized tables for specific UI components
+
+<Note>
+Use `vicinae theme template` to see all available color tables and keys.
+</Note>
+
+If you need additional color customization options that are not currently available, you can request them as a feature on the [GitHub issue tracker](https://github.com/vicinaehq/vicinae/issues).
+
+## Color Value Formats
+
+Color values can be specified in multiple ways:
+
+### 1. Simple Color Names
+
+Direct color specification using hex codes:
+
+```toml
+[colors.core]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+```
+
+### 2. Color References
+
+Reference other colors defined in the theme:
+
+```toml
+[colors.core]
+accent = "#89B4FA"
+
+[colors.input]
+border_focus = "colors.core.accent"
+```
+
+### 3. Complex Color Objects
+
+Use a map for advanced color manipulation (see [Advanced Features](/theming/advanced-features)):
+
+```toml
+[colors.core]
+border = { name = "colors.accents.blue", opacity = 0.5 }
+```
+
+## Color Name Formats
+
+Vicinae accepts the following color name formats:
+
+- **#RGB** - Short hex format (e.g., `#FFF`)
+- **#RRGGBB** - Standard hex format (e.g., `#FFFFFF`)
+- **#AARRGGBB** - Hex with alpha channel (e.g., `#AAFFFFFF`, first byte is opacity)
+- **Color reference** - Path to another color (e.g., `colors.accents.red`)
+- **Named colors** - General colors like `red`, `green`, `blue`, `transparent` (not recommended for themes)
+
+## Validation
+
+Not all values need to be valid - invalid colors will fallback to the parent theme's value. Warnings for invalid color names are printed in the Vicinae logs. However, certain errors will prevent the theme from loading entirely:
+
+### Fatal Errors
+
+- Missing `meta.name` or `meta.description` fields
+- Circular color references (e.g., color A references B, which references A)
+
+If a theme fails to load, an error message will appear in the logs, and the theme won't be available in theme selectors.
+
+## Next Steps
+
+- Learn about [advanced color features](/theming/advanced-features) like inheritance and color manipulation
+- Explore [CLI tools](/theming/cli-tools) for validating and managing themes

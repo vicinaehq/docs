@@ -270,10 +270,18 @@ export const navigation: Array<NavGroup> = [
       { title: 'Fallback Commands', href: '/fallback-commands' },
       { title: 'Extensions', href: '/install-extensions' },
       { title: 'Emoji Picker', href: '/emoji' },
-      { title: 'Theming', href: '/theming' },
       { title: 'Deeplinks', href: '/deeplinks' },
       { title: 'Favicon Loading', href: '/favicon' },
       { title: 'Set Default Terminal', href: '/default-terminal' },
+    ],
+  },
+  {
+    title: 'Theming',
+    links: [
+      { title: 'Getting Started', href: '/theming/getting-started' },
+      { title: 'Theme Structure', href: '/theming/theme-structure' },
+      { title: 'Advanced Features', href: '/theming/advanced-features' },
+      { title: 'CLI Tools', href: '/theming/cli-tools' },
     ],
   },
   {
