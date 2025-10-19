@@ -16,6 +16,7 @@ nix shell github:vicinaehq/vicinae
 If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/nixos#cachix)
 </Note>
 
+
 ```nix
 # flake.nix
 {
@@ -57,6 +58,10 @@ If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/n
 ```
 
 ## Cachix
+
+<Note>
+If you want to use the cache do not add `inputs.nixpkgs.follows = "nixpkgs";` to your flake! This will make the cache miss.
+</Note>
 
 The Vicinae flake is **not** built by Hydra, so it is not cached in cache.nixos.org, like the rest of Nixpkgs.
 Instead of requiring you to build Vicinae every time it updates, we provide a Cachix cache that you can add to your Nix configuration.
