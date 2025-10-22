@@ -1,0 +1,43 @@
+# KDE Quickstart
+
+This guide explains how to quickly get started with Vicinae on KDE Plasma.
+
+## Start the Vicinae server
+
+### Systemd
+
+On KDE, the best way to launch the Vicinae server is to enable the systemd user service:
+
+```bash
+systemctl --user enable vicinae --now
+```
+
+This will start the Vicinae server immediately and make sure it is started when a new KDE session is started.
+
+To view the server logs:
+
+```bash
+journalctl --user -u vicinae
+```
+
+### KDE Autostart
+
+An alternative to the systemd service is to use the KDE autostart feature from the settings. Just select the Vicinae application and KDE should start the server automatically when a new session opens.
+
+## Create keyboard shortcuts
+
+### Toggle the window
+
+To create a shortcut that toggles the Vicinae window on a specific keystroke, head to the KDE keyboard settings and add a custom shortcut for the Vicinae application:
+
+![Create a shortcut to toggle Vicinae on KDE](/kde/create-shortcut.png)
+
+Once configured, you'll be able to toggle the Vicinae window whenever the shortcut is pressed, provided that the Vicinae server is running.
+
+### Open a specific command
+
+You can use [deeplinks](/deeplinks) to create a shortcut that directly opens a custom Vicinae command.
+
+Just create a new shortcut that binds to e.g. `vicinae vicinae://extensions/vicinae/clipboard/history`.
+
+![Create a deeplink shortcut](/kde/create-deeplink-shortcut.png)

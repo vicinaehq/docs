@@ -1,0 +1,73 @@
+# COSMIC Quickstart
+
+This guide explains how to quickly get started with Vicinae on the [COSMIC desktop](https://system76.com/cosmic) by System76.
+
+<Warning>
+The COSMIC Desktop is currently in beta and still has a lot of bugs. Make sure to visit the known caveats section below.
+</Warning>
+
+## Start the Vicinae server
+
+### Systemd
+
+If you run COSMIC DE from a proper greeter or using `uwsm`, the best way to autostart the server is to use the systemd user service:
+
+```bash
+systemctl --user enable vicinae --now
+```
+
+This will start the Vicinae server immediately and make sure it is started when a new COSMIC session is started.
+
+To get the server logs:
+
+```bash
+journalctl --user -u vicinae
+```
+
+### COSMIC Autostart
+
+An alternative to the systemd service is to use the COSMIC autostart feature from the settings. Just select the Vicinae application and COSMIC should start the server automatically when a new session opens.
+
+## Clipboard history
+
+In most Wayland environments, Vicinae relies on the [wlr-data-control](https://wayland.app/protocols/wlr-data-control-unstable-v1) protocol to monitor clipboard changes.
+
+On COSMIC, this protocol is not enabled by default. To enable it, you need to start COSMIC with `COSMIC_DATA_CONTROL_ENABLED=1`.
+
+If starting COSMIC from a greeter, you will need to edit `/usr/share/wayland-sessions/cosmic.desktop` and change the `Exec` key:
+
+```ini
+# /usr/share/wayland-sessions/cosmic.desktop
+Exec=env COSMIC_DATA_CONTROL_ENABLED=1 /usr/bin/start-cosmic
+```
+
+If running directly from the terminal, you should know what to do 😀
+
+## Create keyboard shortcuts
+
+### Toggle the window
+
+To create a shortcut that toggles the Vicinae window on a specific keystroke, head to the COSMIC keyboard settings and add a custom shortcut for the Vicinae application:
+
+![Create a shortcut to toggle Vicinae on COSMIC](/cosmic/create-shortcut.png)
+
+Once configured, you'll be able to toggle the Vicinae window whenever the shortcut is pressed, provided that the Vicinae server is running.
+
+### Open a specific command
+
+You can use [deeplinks](/deeplinks) to create a shortcut that directly opens a custom Vicinae command.
+
+Just create a new shortcut that binds to e.g. `vicinae vicinae://extensions/vicinae/clipboard/history`.
+
+![Create a deeplink shortcut](/cosmic/create-deeplink-shortcut.png)
+
+## Layer shell
+
+Since version v0.15.2, Vicinae no longer uses the layer shell protocol to position the window on COSMIC. This is mainly because the current implementation appears to be broken, as documented by [this upstream issue](https://github.com/pop-os/cosmic-comp/issues/1590).
+
+If you really want to enable it, you can set `USE_LAYER_SHELL=1` before starting the Vicinae server.
+
+## Known caveats
+
+- From extensive testing in a VM, it appears that the Vicinae window can randomly stop showing after a lot of toggling although the application logic is not faulty (Vicinae thinks it's being shown on screen but COSMIC doesn't draw anything). This might not occur on bare metal installs.
+- COSMIC is beta software and still has a lot of bugs, as most software in this state does. You shouldn't expect everything to work perfectly.

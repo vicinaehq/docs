@@ -1,10 +1,10 @@
-# Quickstart
+# Generic Quickstart
 
-Desktop-agnostic quickstart instructions. If there is a dedicated quickstart guide for your environment, read that instead. Also, feel free to contribute a quickstart guide for your environment! {{ className: 'lead' }}
+Desktop-agnostic quickstart instructions for Vicinae. If there is a dedicated quickstart guide for your desktop environment, use that instead for environment-specific optimizations.
 
 ## Start the server
 
-To start the vicinae server, simply run:
+To start the Vicinae server, simply run:
 
 ```bash
 vicinae server
@@ -13,29 +13,34 @@ vicinae server
 Or as a systemd user service:
 
 ```bash
-systemctl enable --now --user vicinae.service
+systemctl --user enable --now vicinae.service
 ```
 
 <Warning>
-If running Vicinae through systemd, please ensure you are starting your compositor as a systemd service, for example with `uwsm`.
-If you don't, some environment variables may not be properly set and launching some apps may not work.
+If running Vicinae through systemd, please ensure you are starting your compositor as a systemd service, for example with `uwsm`. If you don't, some environment variables may not be properly set and launching some apps may not work.
 </Warning>
 
-Starting the server can take up to a few seconds when doing so for the very first time. 
+To view the server logs when using systemd:
+
+```bash
+journalctl --user -u vicinae
+```
+
+Starting the server can take up to a few seconds when doing so for the very first time.
 
 <Note>
-On first startup, Vicinae will use a lot of CPU in order to populate the file index.
+On first startup, Vicinae will use a lot of CPU to populate the file index.
 </Note>
 
 ## Control the window
 
-Once the server is started, you can run `vicinae toggle` to toggle the vicinae window.
+Once the server is started, you can run `vicinae toggle` to toggle the Vicinae window.
 
-For more advanced controls, you should look into [deeplinks](/deeplinks).
+For more advanced controls, see the [deeplinks documentation](/deeplinks).
 
 <Warning>
-Vicinae doesn't support global shortcuts. You are expected to create keyboard shortcuts yourself.
+Vicinae doesn't support global shortcuts. You are expected to create keyboard shortcuts yourself using your desktop environment's settings.
 </Warning>
 
-<img src="/vicinae-window.webp" />
+![Vicinae window](/vicinae-window.webp)
 
