@@ -282,6 +282,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Theme Structure', href: '/theming/theme-structure' },
       { title: 'Advanced Features', href: '/theming/advanced-features' },
       { title: 'CLI Tools', href: '/theming/cli-tools' },
+      { title: 'Matugen integration', href: '/theming/matugen' },
     ],
   },
   {

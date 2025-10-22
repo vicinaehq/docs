@@ -6,9 +6,16 @@ Vicinae provides a theming system for customizing the appearance using TOML-base
 The current TOML-based theming system was introduced in v0.15.0, replacing the previous JSON-based format. If you have custom themes from before v0.15.0, you'll need to migrate them to the new format.
 </Note>
 
+<Video
+  src="/theming/matugen-demo.mp4"
+  caption={<>Dynamic theme change powered by <a href="https://github.com/InioX/matugen">matugen</a>. Glorious demo by <a href="https://github.com/Sridou">Sridou</a>.</>}
+/>
+
 ## What is a Vicinae Theme?
 
 A Vicinae theme is a configuration file written in [TOML](https://toml.io/en/) that defines colors and metadata for the application's appearance. Themes support inheritance, hot reloading, and advanced color manipulation features.
+
+Vicinae can also integrate with tools like [matugen](https://github.com/InioX/matugen) to automatically generate themes from wallpapers or images, creating cohesive color schemes across your entire system. See the [matugen integration guide](/theming/matugen) to learn how to set this up.
 
 ## Quick Start
 

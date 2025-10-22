@@ -136,3 +136,41 @@ export function Property({
     </li>
   )
 }
+
+export function Video({
+  src,
+  caption,
+  autoPlay = true,
+  loop = true,
+  muted = true,
+  controls = true,
+}: {
+  src: string
+  caption?: React.ReactNode
+  autoPlay?: boolean
+  loop?: boolean
+  muted?: boolean
+  controls?: boolean
+}) {
+  return (
+    <figure className="rounded-2xl">
+      <div className="rounded-2xl shadow-md m-0 p-0">
+        <video
+          src={src}
+          autoPlay={autoPlay}
+          loop={loop}
+          muted={muted}
+          controls={controls}
+          playsInline
+        >
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      {caption && (
+        <figcaption className="mt-3 text-center text-sm text-zinc-500 dark:text-zinc-400">
+          {caption}
+        </figcaption>
+      )}
+    </figure>
+  )
+}

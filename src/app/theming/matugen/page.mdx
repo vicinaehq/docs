@@ -1,0 +1,73 @@
+# Matugen Integration
+
+Vicinae can easily integrate with [matugen](https://github.com/InioX/matugen) or other color palette generation tools to dynamically generate themes from wallpapers. This guide shows you how to set up matugen to automatically create and apply Vicinae themes based on your wallpaper colors.
+
+<Video
+  src="/theming/matugen-demo.mp4"
+  caption={<>Dynamic theme change powered by <a href="https://github.com/InioX/matugen">matugen</a>. Glorious demo by <a href="https://github.com/Sridou">Sridou</a>.</>}
+/>
+
+## Prerequisites
+
+Before you begin, make sure you have:
+- [matugen](https://github.com/InioX/matugen) installed on your system
+- A wallpaper manager (this guide uses `swww`, but you can adjust for others)
+
+## Configuration
+
+### Step 1: Configure matugen
+
+Add the following configuration to your matugen config file (typically `~/.config/matugen/config.toml`):
+
+```toml
+# Adjust this if you set your wallpaper using another software
+[config.wallpaper]
+command = "swww"
+arguments = ["img", "--transition-type", "center"]
+set = true
+
+[templates.vicinae]
+input_path = './templates/vicinae.toml'
+output_path = '~/.local/share/vicinae/themes/matugen.toml'
+post_hook = 'vicinae theme set matugen'
+```
+
+The `post_hook` automatically applies the generated theme after matugen creates it.
+
+### Step 2: Set up the Vicinae template
+
+For the configuration to work, you need a Vicinae theme template that matugen can use to generate colors.
+
+Download the official template:
+
+```bash
+mkdir -p ~/.config/matugen/templates
+curl https://raw.githubusercontent.com/vicinaehq/vicinae/refs/heads/main/extra/matugen.toml > ~/.config/matugen/templates/vicinae.toml
+```
+
+You can also [view the template](https://raw.githubusercontent.com/vicinaehq/vicinae/refs/heads/main/extra/matugen.toml) to customize it for your needs.
+
+## Usage
+
+Once configured, generate a theme from any image:
+
+```bash
+matugen /path/to/wallpaper.png
+```
+
+Matugen will:
+1. Extract a color palette from the wallpaper
+2. Generate a Vicinae theme using the template
+3. Save it to `~/.local/share/vicinae/themes/matugen.toml`
+4. Automatically apply the theme via the `post_hook`
+
+Your Vicinae interface will update with colors that complement your wallpaper.
+
+## Customization
+
+You can modify the template at `~/.config/matugen/templates/vicinae.toml` to:
+- Adjust which Material You colors map to which Vicinae theme properties
+- Fine-tune color brightness or saturation
+- Add custom color overrides
+
+See the [theme structure documentation](/theming/theme-structure) for available theme properties.
