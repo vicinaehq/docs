@@ -241,7 +241,6 @@ export const navigation: Array<NavGroup> = [
       { title: 'Install from repository', href: '/install/repo' },
       { title: 'Install from script', href: '/install/script' },
       { title: 'Build from source', href: '/build' },
-      { title: 'Gnome Support', href: '/gnome-support' },
       { title: 'Nixos', href: '/nixos' },
     ],
   },
