@@ -1,0 +1,47 @@
+# Automated Installation
+
+Vicinae can be installed using an automated installation script that provides a hassle-free setup experience with minimal configuration required.
+
+<Note>
+If Vicinae is already packaged by your distribution, you should install it through your package manager instead for better system integration and automatic updates.
+</Note>
+
+## Quick Install
+
+Run the following command to install Vicinae:
+
+```bash
+curl -fsSL https://vicinae.com/install.sh | bash
+```
+
+The installation script will automatically:
+
+- Download the latest AppImage from GitHub releases
+- Extract and install to `~/.local/vicinae`
+- Create symbolic links for binaries in your PATH
+- Install desktop files, icons, and default themes
+- Set up `vicinae-node` for TypeScript extension support
+
+<Note>
+This installation method does **not** require root privileges. All files are installed in user directories (`~/.local/`).
+</Note>
+
+## What Gets Installed
+
+### Extension Runtime
+
+The script includes a standalone Node.js binary (`vicinae-node`) specifically for running third-party TypeScript extensions. This ensures extensions work even if Node.js is not installed system-wide.
+
+<Note>
+No third-party extensions are installed by default. You'll need to install them separately if desired.
+</Note>
+
+## Installation Locations
+
+All files are installed under `~/.local/`:
+
+```
+~/.local/vicinae/          # Main installation directory
+~/.local/bin/              # Symbolic links to binaries
+~/.local/share/            # Desktop files, icons, and themes
+```
