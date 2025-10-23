@@ -4,10 +4,12 @@ import Link from 'next/link'
 import { Feedback } from '@/components/Feedback'
 import { Heading } from '@/components/Heading'
 import { Prose } from '@/components/Prose'
+import { ImageZoom } from '@/components/ImageZoom'
 
 export const a = Link
 export { Button } from '@/components/Button'
 export { CodeGroup, Code as code, Pre as pre } from '@/components/Code'
+export { ImageZoom as img }
 
 export function wrapper({ children }: { children: React.ReactNode }) {
   return (
