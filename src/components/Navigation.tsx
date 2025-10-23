@@ -241,7 +241,6 @@ export const navigation: Array<NavGroup> = [
       { title: 'Install from repository', href: '/install/repo' },
       { title: 'Install from script', href: '/install/script' },
       { title: 'Build from source', href: '/build' },
-      { title: 'Gnome Support', href: '/gnome-support' },
       { title: 'Nixos', href: '/nixos' },
     ],
   },
@@ -249,6 +248,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Quickstart',
     links: [
       { title: 'Hyprland Quickstart', href: '/quickstart/hyprland' },
+      { title: 'Gnome Quickstart', href: '/quickstart/gnome' },
       { title: 'KDE Quickstart', href: '/quickstart/kde' },
       { title: 'Cosmic Desktop Quickstart', href: '/quickstart/cosmic' },
       { title: 'General Quickstart', href: '/quickstart/generic' },
