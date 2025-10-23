@@ -6,6 +6,13 @@ Vicinae can be installed using an automated installation script that provides a 
 If Vicinae is already packaged by your distribution, you should install it through your package manager instead for better system integration and automatic updates.
 </Note>
 
+<p align="center">
+  <img src="/script-install.png" alt="Installation script demo" />
+</p>
+<p align="center">
+  <em>Installation script by <a href="https://github.com/dagimg-dot">@dagimg-dot</a></em>
+</p>
+
 ## Quick Install
 
 Run the following command to install Vicinae:
@@ -26,6 +33,16 @@ The installation script will automatically:
 This installation method does **not** require root privileges. All files are installed in user directories (`~/.local/`).
 </Note>
 
+<Note>
+If the script instructs you to configure your PATH, make sure to do so before proceeding.
+</Note>
+
+After installation completes, verify it was successful:
+
+```bash
+vicinae version
+```
+
 ## What Gets Installed
 
 ### Extension Runtime
@@ -44,4 +61,12 @@ All files are installed under `~/.local/`:
 ~/.local/vicinae/          # Main installation directory
 ~/.local/bin/              # Symbolic links to binaries
 ~/.local/share/            # Desktop files, icons, and themes
+```
+
+## Uninstall
+
+To uninstall Vicinae, run the installation script with the `--uninstall` argument:
+
+```bash
+curl -fsSL https://vicinae.com/install.sh | bash -s -- --uninstall
 ```
