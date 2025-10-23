@@ -18,14 +18,6 @@ The <a href="https://github.com/dagimg-dot/vicinae-gnome-extension" target="_bla
 3. Enable the extension in GNOME Extensions app
 4. Restart GNOME Shell or log out/in
 
-## Feedback HUD and GNOME
-
-Since the feedback HUD (Vicinae Notifications) is a normal floating window, it will grab focus when it appears. To disable this, run vicinae server with the `VICINAE_DISABLE_HUD` environment variable set to 1.
-
-- If you are using systemd, you can add `Environment=VICINAE_DISABLE_HUD=1` to the `vicinae.service` file to disable it automatically when the server starts.
-
-- If you are using the startup applications feature, you can also disable it by editing the `.desktop` file and changing the `Exec` key to `VICINAE_DISABLE_HUD=1 vicinae server`.
-
 ## Start the Vicinae server
 
 ### Systemd
