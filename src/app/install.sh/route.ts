@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server'
+import { VICINAE_INSTALL_SCRIPT_URL } from '@/lib/constants'
 
 export async function GET() {
   try {
     const res = await fetch(
-      'https://raw.githubusercontent.com/vicinaehq/vicinae/main/scripts/install.sh',
+      VICINAE_INSTALL_SCRIPT_URL,
       {
         headers: {
           'User-Agent': 'Vicinae-Docs-Proxy/1.0',
