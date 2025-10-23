@@ -249,6 +249,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Quickstart',
     links: [
       { title: 'Hyprland Quickstart', href: '/quickstart/hyprland' },
+      { title: 'Gnome Quickstart', href: '/quickstart/gnome' },
       { title: 'KDE Quickstart', href: '/quickstart/kde' },
       { title: 'Cosmic Desktop Quickstart', href: '/quickstart/cosmic' },
       { title: 'General Quickstart', href: '/quickstart/generic' },
