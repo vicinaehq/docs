@@ -135,7 +135,7 @@ or are generally not easy to install through traditional means.
 
 The main goal of this is to make pre-built binaries more portable across different distributions that ship different versions of the same package.
 
-For instance, `libprotobuf` updates very often and offers no retro-compatbility. This essentially means that the distributed binaries become outdated as soon as the distribution updates
+For instance, `libprotobuf` updates very often and offers no retro-compatibility. This essentially means that the distributed binaries become outdated as soon as the distribution updates
 its protobuf version. By statically linking against protobuf, we embed a given version of protobuf in the binary, and this specific, local version is the one going to be used for the entire lifetime of the binary.
 
 <Warning>
