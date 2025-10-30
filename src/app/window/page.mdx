@@ -2,10 +2,17 @@ import { ImageZoom } from '@/components/ImageZoom'
 
 # Window Management
 
+Vicinae fully integrates into the system window manager and allows you to control opened windows. 
 
-Vicinae fully integrates into the system window manager and allows you to control opened windows, currently supporting **window listing**, **focusing** and **closing**.
+## Introduction
 
-<ImageZoom src="/vicinae-switch-windows-view.webp" />
+Vicinae currently supports window listing, focusing and closing on switch windows view:
+
+<ImageZoom src="/vicinae-switch-windows-view.png" />
+
+Further more, it detects opened windows on root search view and allows you to focus them.
+
+<ImageZoom src="/vicinae-active-windows.png" />
 
 ## Environment Support
 
@@ -13,7 +20,8 @@ Window management support can vary depending on the desktop environment or compo
 
 | Name | Supported | Comment |
 |------|-----------|---------|
-| Gnome | ✅ | Using the <a href="https://github.com/dagimg-dot/vicinae-gnome-extension" target="_blank">Vicinae Gnome Extension</a> (See installation [on Gnome Support](/gnome-support)) |
+| Gnome | ✅ | Using the <a href="https://github.com/dagimg-dot/vicinae-gnome-extension" target="_blank">Vicinae Gnome Extension</a> (See installation [on Gnome Quickstart](/quickstart/gnome#install-the-vicinae-gnome-extension-recommended-but-not-required)) | 
 | Hyprland | ✅ | Using built-in <a href="https://wiki.hypr.land/Configuring/Using-hyprctl/" target="_blank">IPC</a> |
-| X11 | ❌ | Planned for future implementation |
+| X11 | ✅ | Using <a href="https://xcb.freedesktop.org/DevelopersGuide/" target="_blank">XCB</a> |
 | KDE Wayland | ❌ | Planned for future implementation |
+| COSMIC | ❌ | Planned for future implementation |

@@ -2,7 +2,7 @@
 
 The extension manifest is an extension of the regular `package.json` format found across most npm-managed Javascript projects.
 
-It contains information about the dependencies to install, but also about extension specific stuff, such as what commands the extension exports, with what preferences, with what arguments, etc...
+It contains information about the dependencies to install, but also about extension-specific stuff, such as what commands the extension exports, with what preferences, with what arguments, etc...
 
 <Warning>
 Our manifest documentation is still incomplete. You can refer to the [Raycast documentation](https://developers.raycast.com/information/manifest) for an exhaustive list of supported keys, as we share the same manifest format.
@@ -105,7 +105,7 @@ If a preference is of type `dropdown` an additional `data` field is expected:
 
 ### Add preferences
 
-To specifiy a set of extension preferences, just fill in the top-level `preferences` array with as many preference objects as you want.
+To specify a set of extension preferences, just fill in the top-level `preferences` array with as many preference objects as you want.
 
 You can do the same for each command inside `commands` to specificy command-local preferences.
 
