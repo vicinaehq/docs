@@ -4,3 +4,4 @@ export const VICINAE_GITHUB_ORG_URL = "https://github.com/vicinaehq";
 export const FEATURE_REQUEST_URL = "https://github.com/vicinaehq/vicinae/issues/new?template=feature_request.md";
 export const VICINAE_GENERAL_SETTINGS_URL = "vicinae://settings/open?tab=general";
 export const VICINAE_INSTALL_SCRIPT_URL = "https://raw.githubusercontent.com/vicinaehq/vicinae/main/scripts/install.sh";
+export const VICINAE_DOCS_URL = "https://docs.vicinae.com";
