@@ -23,51 +23,31 @@ Run the following command to install Vicinae:
 curl -fsSL https://vicinae.com/install.sh | bash
 ```
 
+<Warning>
+The above command will prompt you to enter your sudo password, as elevated privileges are required to install Vicinae under `/usr/local`, which is the default installation prefix.
+Note that it is possible to install Vicinae without root access, although it requires more setup. More on that below.
+</Warning>
+
 The installation script will automatically:
 
 - Download the latest AppImage from GitHub releases
-- Extract and install to `~/.local/vicinae`
+- Extract Vicinae and all its runtime dependencies to `/usr/local/lib/vicinae`
 - Create symbolic links for binaries in your PATH
 - Install desktop files, icons, and default themes
-- Set up `vicinae-node` for TypeScript extension support
-
-<Note>
-This installation method does **not** require root privileges. All files are installed in user directories (`~/.local/`).
-</Note>
-
-<Note>
-If the script instructs you to configure your PATH, make sure to do so before proceeding.
-</Note>
+- Set up `vicinae-node` for seamless TypeScript extension support. This is a regular Node.js binary included to run extensions.
 
 After installation completes, verify it was successful:
 
-```bash
-vicinae version
 ```
-
-## What Gets Installed
-
-### Extension Runtime
-
-The script includes a standalone Node.js binary (`vicinae-node`) specifically for running third-party TypeScript extensions. This ensures extensions work even if Node.js is not installed system-wide.
-
-<Note>
-No third-party extensions are installed by default. You'll need to install them separately if desired.
-</Note>
-
-## Installation Locations
-
-All files are installed under `~/.local/`:
-
-```
-~/.local/vicinae/          # Main installation directory
-~/.local/bin/              # Symbolic links to binaries
-~/.local/share/            # Desktop files, icons, and themes
+$> vicinae version
+Version v0.16.2 (commit b99015bc2)
+Build: GCC 15.2.0 - Release - LTO
+Provenance: appimage
 ```
 
 ## Update
 
-To update Vicinae, run the installation script again. It will detect your existing installation and update it.
+To update Vicinae, run the installation script again. It will detect your existing installation (if using the same prefix) and update it.
 
 ```bash
 curl -fsSL https://vicinae.com/install.sh | bash
@@ -80,3 +60,21 @@ To uninstall Vicinae, run the installation script with the `--uninstall` argumen
 ```bash
 curl -fsSL https://vicinae.com/install.sh | bash -s -- --uninstall
 ```
+
+## Install with custom prefix
+
+By default, the script tries to install Vicinae under `/usr/local`, but for users with specific constraints (e.g., no root access), this might not be desirable.
+
+To accommodate these users, the script provides a `--prefix` option:
+
+```bash
+curl -fsSL https://vicinae.com/install.sh | bash -s -- --prefix ~/.local
+```
+
+### Custom prefix caveats
+
+In order to have a fully working installation of Vicinae, you need to make sure that:
+
+- The Vicinae server knows where to find the `vicinae-node` binary. If you set your PATH in `~/.bashrc` or `~/.zshrc`, the Vicinae server might not have the correct PATH set, as it might be started before those files are sourced.
+- The Vicinae desktop file that declares the `x-scheme-handler/vicinae` and `x-scheme-handler/raycast` MIME type associations should be searchable by the standard XDG tooling. You can verify this is working by opening any Vicinae deeplink, e.g., `xdg-open vicinae://toggle`.
+If this is not working, some features such as the OAuth extension flow will not work.
