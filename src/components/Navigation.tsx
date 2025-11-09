@@ -251,6 +251,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Gnome Quickstart', href: '/quickstart/gnome' },
       { title: 'KDE Quickstart', href: '/quickstart/kde' },
       { title: 'Cosmic Desktop Quickstart', href: '/quickstart/cosmic' },
+      { title: 'Niri Quickstart', href: '/quickstart/niri' },
       { title: 'General Quickstart', href: '/quickstart/generic' },
     ],
   },
@@ -294,7 +295,10 @@ export const navigation: Array<NavGroup> = [
       { title: 'File Structure', href: '/extensions/file-structure' },
       { title: 'Manifest', href: '/extensions/manifest' },
       { title: 'Debug Raycast Extensions', href: '/extensions/debug-raycast' },
-      { title: 'API Reference', href: 'https://github.com/vicinaehq/vicinae/tree/main/typescript/api/docs' },
+      {
+        title: 'API Reference',
+        href: 'https://github.com/vicinaehq/vicinae/tree/main/typescript/api/docs',
+      },
       { title: 'Create a view command', href: '/extensions/view-command' },
       {
         title: 'Create a no-view command',
@@ -307,7 +311,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Contributing',
     links: [
       { title: 'Clipboard Server', href: '/contrib/clipboard' },
-      { title: 'Documentation', href: '/contrib/docs'}
+      { title: 'Documentation', href: '/contrib/docs' },
     ],
   },
 ]

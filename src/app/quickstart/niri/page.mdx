@@ -1,0 +1,32 @@
+# Niri Quickstart
+
+This guide shows the best way to quickly get started with Vicinae on [Niri](https://yalter.github.io/niri).
+
+## Main configuration
+
+Add the following to your Niri configuration, and you are good to go.
+
+```ini
+# ~/.config/niri/config.kdl
+spawn-sh-at-startup "vicinae server"
+
+# use whatever shortcut floats your boat
+Mod+Space repeat=false { spawn "vicinae" "toggle"; }
+```
+
+<Note>
+  On first startup, Vicinae will use a lot of CPU in order to populate the file
+  index.
+</Note>
+
+## Bind to a custom command
+
+You can easily create a binding to open any vicinae command directly:
+
+```ini
+# ~/.config/niri/config.kdl
+
+Mod+P repeat=false { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
+```
+
+You can do a lot with this: [learn more about deeplinks](/deeplinks).
