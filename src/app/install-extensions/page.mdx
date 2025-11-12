@@ -1,8 +1,12 @@
 # Extensions
 
-Vicinae can be extended using React and Typescript in order to build rich lists, grids, or even render plain markdown.
-
 This page explains how to install and run extensions. If you are looking to build your own extensions or learn more about the extension system, please refer to the [extension section](/extensions/introduction) of this documentation.
+
+## Install from Vicinae store
+
+Since version **0.16.0** vicinae now hosts its own extension store. You can access it directly from the main search. The source code for all the published extensions can be found on [GitHub](https://github.com/vicinaehq/extensions).
+
+![](/vicinae-store.png)
 
 ## Install from source tree
 
@@ -16,11 +20,7 @@ npm run build
 ```
 
 After it's built, you should be able to search for commands exported by this extension.
-No server restart should be required.
-
-<Note>
-For now we don't provide a centralized store to discover extensions, except for the Raycast ones (see below) where we use the official Raycast store. 
-</Note>
+No server restart is required.
 
 ## Raycast Extensions
 
@@ -33,8 +33,7 @@ Vicinae will then download the extension from Raycast's servers and install it r
 ![](/raycast-store-list.webp)
 
 <Warning>
-Extension support is very bare-bones at the moment, and most extensions will not work because of missing APIs or hardcoded MacOS stuff.
-This is being worked on actively and will improve significantly in the future.
+Raycast extension support will vary a lot from one extension to another, due to some of them being specifically built for MacOS. We maintain a [list of all compatible extensions](https://docs.google.com/spreadsheets/d/1GAdVeSaKQxXCVJv2_M5zi-mA1IoHieW_Py-VXmPYpeg), as per our own testing.
 </Warning>
 
 ## Uninstall extension
