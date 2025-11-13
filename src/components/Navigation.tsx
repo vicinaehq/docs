@@ -297,7 +297,7 @@ export const navigation: Array<NavGroup> = [
 			{ title: 'Debug Raycast Extensions', href: '/extensions/debug-raycast' },
 			{
 				title: 'API Reference',
-				href: 'https://github.com/vicinaehq/vicinae/tree/main/typescript/api/docs',
+				href: 'https://api-reference.vicinae.com',
 			},
 			{ title: 'Create a view command', href: '/extensions/view-command' },
 			{
