@@ -39,11 +39,14 @@ A [patch](https://github.com/YaLTeR/niri/pull/1634) is available, but it remains
 
 ## Focus window on activation
 You may want to focus an application window after vicinae triggers an action related to it.
+
 *For example : using a shortcut action in vicnae that opens a browser tab → Instantly focus the window where the action happened*
 
-You can have this behavior by having this to your config:
+You can have this behavior by adding this to your config:
 
-```
+```kdl
+// ~/.config/niri/config.kdl
+
 debug {
 
 honor-xdg-activation-with-invalid-serial
