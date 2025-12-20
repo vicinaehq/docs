@@ -1,32 +1,77 @@
 # Configuring Vicinae
 
-Vicinae offers flexible configuration options to customize your launcher experience. You can adjust settings either through in-launcher commands or via the dedicated settings interface.
+Vicinae can be configured using either the GUI or its configuration file. This document presents a brief overview of how configuration works in vicinae.
 
-## Accessing Settings
+## GUI Configuration
 
-Open the settings window using either method:
-- Run the [open settings](vicinae://extensions/vicinae/vicinae/settings) command
-- Press **Ctrl + Comma** while the launcher window is active
+Vicinae is intended to be fully customizable using the GUI. 
 
-## General Settings
+There are two main ways to do so:
 
-The General tab contains core options that control Vicinae's overall behavior. Changes are automatically saved when you modify a setting or move focus away from an input field.
+- Through built-in commands, which may write to the configuration in some circumstances (e.g "Set Theme" command)
+- Through the dedicated settings window, which can be opened using the `ctrl-'` keybind or by activating the "Open Settings" built-in command
 
-![](/general-config.webp)
+More intricate settings are only configurable by editing the config file directly, more on that below.
 
-## Extension Settings
+![config](/extension-settings.webp)
+<center>
+	Extension configuration using the settings window
+</center>
 
-The Extension Settings tab provides control over your installed extensions, including both built-in and third-party additions.
+## Configuration file
 
-This view allows you to:
+All the configurable vicinae settings are serialized in JSONC format (JSON with comments).
 
-- Search for any extension or command you have installed
-- Customize the behaviour of an extension or command by editing their preferences
-- Set a custom alias for a command
-- Disable a particular command or an entire extension - this does **not** uninstall, no data is lost
+Vicinae starts by loading its default configuration, which can be obtained by running the following command:
 
-![](/extension-settings.webp)
+```bash
+vicinae config default
+```
 
-## Environment variables
+Then, the user config file (located at `~/.config/vicinae/settings.json` by default) is read and merged with the default configuration file, overriding any default value.
 
-For advanced users, certain specialized behaviors can be configured by setting environment variables when running the Vicinae server. These variables control niche functionality and are documented alongside their respective features throughout the documentation.
+This user config file needs to be readable **and** writable as most configuration changes made through the GUI will be written to it. If you're dealing with a read-only config , the recommended approach is to use imports as described below.
+
+<Note>
+You can point vicinae to a different user config by passing the --config option to `vicinae server`.
+</Note>
+
+### Config imports
+
+It is possible to split up configuration by importing other config files from the main user config file.
+
+To do so, you simply need to add the files to import to the `imports` array. Files imported in this way are merged before the main user configuration file is considered and are never touched by vicinae directly,
+allowing them to be freely formatted and annotated with custom comments.
+
+```json {{ title: '~/.config/vicinae/settings.json' }}
+{
+	"imports": [
+		"base_config.json",
+		"keybinds.json"
+	],
+
+	// remaining configuration...
+}
+```
+
+<Warning>
+Imported files are merged with the default config **before** the main user configuration file, which means that value present in the user configuration file will always override those that were imported.
+</Warning>
+
+
+### Config documentation
+
+All config options are thoroughly documented in the default configuration file.
+
+### Config exclusions
+
+Extension preferences of type 'password' are not written to the config file because they are treated as sensitive data.
+They are stored in the internal sqlite database instead, which will become fully encryptable in the future.
+
+## Migration from v0.16.X to v0.17.X
+
+The overhaul of the configuration system is a huge breaking change: users will need to redo their configuration, either by migrating their old file to the new format by hand or simply by reconfiguring using the GUI. 
+
+Provider data (preferences, aliases, etc...) went from being stored in the internal database to being stored in the config file, so there is no easy way to migrate them over. Just use the GUI and let it write the values to the file for you.
+
+The file at `~/.config/vicinae/vicinae.json` is no longer read by vicinae and can be removed, superseded by the `~/.config/vicinae/settings.json` file.

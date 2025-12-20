@@ -41,3 +41,11 @@ You can use [deeplinks](/deeplinks) to create a shortcut that directly opens a c
 Just create a new shortcut that binds to e.g. `vicinae vicinae://extensions/vicinae/clipboard/history`.
 
 ![Create a deeplink shortcut](/kde/create-deeplink-shortcut.png)
+
+## Troubleshooting
+
+### The vicinae window won't grab focus
+
+It is possible that your focus prevention policy is interfering with the ability of vicinae to grab focus. Make sure it is set to `low`:
+
+![](/kde/focus-stealing-prevention.png)
