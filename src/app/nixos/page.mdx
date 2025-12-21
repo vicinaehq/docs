@@ -99,18 +99,13 @@ services.vicinae = {
         rounding = 10;
       };
   };
-  extensions = [
-    (inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.mkVicinaeExtension {
-      name = "extension-name";
-      src = pkgs.fetchFromGitHub { # You can also specify different sources other than github
-        owner = "repo-owner";
-        repo = "repo-name";
-        rev = "v1.0"; # If the extension has no releases use the latest commit hash
-        # You can get the sha256 by rebuilding once and then copying the output hash from the error message
-        sha256 = "";
-      }; # If the extension is in a subdirectory you can add ` + "/subdir"` between the brace and the semicolon here
-    })
+  extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
+     bluetooth
+     nix
+     power-profile
+    # Extension names can be found in the link below, it's just the folder names
   ];
+  [Extension names](https://github.com/vicinaehq/extensions/tree/main/extensions)
 };
 ```
 the `theme.name` option can be set to any of the themes that come with Vicinae or a custom theme you have installed. See [the Github](https://github.com/vicinaehq/vicinae/tree/main/extra/themes) for more information on default theme names.
