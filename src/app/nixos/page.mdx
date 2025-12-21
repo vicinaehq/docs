@@ -80,9 +80,17 @@ but may be out of date:
 
 ## Configuring with Home Manager
 You can configure Vicinae using Home Manager options. Here is an example configuration:
+flake.nix:
 
+```nix
+ inputs.vicinae-extensions = {
+   url = "github:vicinaehq/extensions";
+   inputs.nixpkgs.follows = "nixpkgs";
+ };
 
+```
 
+home.nix:
 ```nix
 services.vicinae = {
   enable = true;
