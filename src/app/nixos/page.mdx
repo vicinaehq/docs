@@ -20,40 +20,35 @@ If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/n
 ```nix
 # flake.nix
 {
-    description = "...";
-    inputs = {
-        vicinae.url = "github:vicinaehq/vicinae"; # tell Nixos where to get Vicinae
-        ...
+  inputs = {
+    # ...
+    vicinae.url = "github:vicinaehq/vicinae";
+  };
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      vicinae,
+      ...
+    }:
+    {
+      homeConfigurations."..." = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."<system>"; # e.g. x86_64-linux
+        modules = [ vicinae.homeManagerModules.default ];
+      };
     };
-    outputs = {
-        nixpkgs,
-        home-manager,
-        vicinae, # enable the Output
-    }: let
-    system = "...";
-    pkgs = nixpkgs.legacyPackages.${system};
-    in {
-        homeConfigurations."..." = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-
-            modules = [
-                vicinae.homeManagerModules.default # enable Home Manager
-                ...
-            ];
-        }
-    }
 }
 ```
 
 ```nix
 # home.nix
-# ...
-{pkgs}:{
-    services.vicinae = {
-        enable = true; # default: false
-        autoStart = true; # default: true
-        package = # specify package to use here. Can be omitted.
-    };
+{
+  # ...
+
+  services.vicinae = {
+    enable = true; # default: false
+    autoStart = true; # default: true
+  };
 }
 ```
 
@@ -71,11 +66,31 @@ extra-substituters = [ "https://vicinae.cachix.org" ];
 extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
 ```
 
+Alterntively you can use the vicinae package from nixpkgs which is build by Hydra,
+but may be out of date:
+
+```nix
+{ pkgs, ... }:
+{
+  services.vicinae = {
+    packages = pkgs.vicinae;
+  };
+}
+```
+
 ## Configuring with Home Manager
 You can configure Vicinae using Home Manager options. Here is an example configuration:
+flake.nix:
 
+```nix
+ inputs.vicinae-extensions = {
+   url = "github:vicinaehq/extensions";
+   inputs.nixpkgs.follows = "nixpkgs";
+ };
 
+```
 
+home.nix:
 ```nix
 services.vicinae = {
   enable = true;
@@ -92,20 +107,14 @@ services.vicinae = {
         rounding = 10;
       };
   };
-  # Installing (vicinae) extensions declaratively
-  extensions = [
-    (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
-      inherit pkgs;
-      name = "extension-name";
-      src = pkgs.fetchFromGitHub { # You can also specify different sources other than github
-        owner = "repo-owner";
-        repo = "repo-name";
-        rev = "v1.0"; # If the extension has no releases use the latest commit hash
-        # You can get the sha256 by rebuilding once and then copying the output hash from the error message
-        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-      }; # If the extension is in a subdirectory you can add ` + "/subdir"` between the brace and the semicolon here
-    })
+  extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
+     bluetooth
+     nix
+     power-profile
+    # Extension names can be found in the link below, it's just the folder names
   ];
 };
 ```
+[Extension names](https://github.com/vicinaehq/extensions/tree/main/extensions)
+
 the `theme.name` option can be set to any of the themes that come with Vicinae or a custom theme you have installed. See [the Github](https://github.com/vicinaehq/vicinae/tree/main/extra/themes) for more information on default theme names.
