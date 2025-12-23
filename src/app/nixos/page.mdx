@@ -47,7 +47,13 @@ If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/n
 
   services.vicinae = {
     enable = true; # default: false
-    autoStart = true; # default: true
+    systemd = {
+      enable = true; # default: false
+      autoStart = true; # default: false
+      environment = {
+        USE_LAYER_SHELL = 1;
+      };
+    };
   };
 }
 ```
@@ -94,18 +100,37 @@ home.nix:
 ```nix
 services.vicinae = {
   enable = true;
-  autoStart = true;
+  systemd = {
+    enable = true;
+    environment = {
+      USE_LAYER_SHELL = 1;
+    };
+  };
   settings = {
-      faviconService = "twenty"; # twenty | google | none
-      font.size = 11;
-      popToRootOnClose = false;
-      rootSearch.searchFiles = false;
-      theme.name = "vicinae-dark";
-      window = {
-        csd = true;
-        opacity = 0.95;
-        rounding = 10;
+    close_on_focus_loss = true;
+    consider_preedit = true;
+    pop_to_root_on_close = true;
+    favicon_service = "twenty";
+    search_files_in_root = true;
+    font = {
+      normal = {
+        size = 12;
+        normal = "Maple Nerd Font";
       };
+    };
+    theme = {
+      light = {
+        name = "vicinae-light";
+        icon_theme = "default";
+      };
+      dark = {
+        name = "vicinae-dark";
+        icon_theme = "default";
+      };
+    };
+    launcher_window = {
+      opacity = 0.98;
+    };
   };
   extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
      bluetooth
