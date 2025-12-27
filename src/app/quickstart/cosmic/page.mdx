@@ -65,8 +65,6 @@ Just create a new shortcut that binds to e.g. `vicinae vicinae://extensions/vici
 
 Since version v0.15.2, Vicinae no longer uses the layer shell protocol to position the window on COSMIC. This is mainly because the current implementation appears to be broken, as documented by [this upstream issue](https://github.com/pop-os/cosmic-comp/issues/1590).
 
-If you really want to enable it, you can set `USE_LAYER_SHELL=1` before starting the Vicinae server.
-
 ## Known caveats
 
 - From extensive testing in a VM, it appears that the Vicinae window can randomly stop showing after a lot of toggling although the application logic is not faulty (Vicinae thinks it's being shown on screen but COSMIC doesn't draw anything). This might not occur on bare metal installs.

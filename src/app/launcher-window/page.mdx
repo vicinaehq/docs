@@ -42,21 +42,11 @@ Note that the settings window is always set to be a regular floating window: it 
 
 ### Disable layer shell 
 
-If layer shell usage is not desired, it can be turned off at runtime by passing the `USE_LAYER_SHELL=0` environment variable to the vicinae process, like so:
-
-```bash
-USE_LAYER_SHELL=0 vicinae server
-```
-
-<Note>
-Layer shell support can also be disabled at compile time, although that option is only available to users compiling from source. Using the runtime environment variable is the preferred way
-to opt out of layer shell, as most binary releases will be compiled with support for it.
-</Note>
-
+If layer shell usage is not desired, you can disable it explicitly from the config file.
 
 ## Font size
 
-It is possible to change the base font size from within the <a href={VICINAE_GENERAL_SETTINGS_URL}>settings</a>.
+It is possible to change the base font size from within the settings.
 
 ## Gnome Integration
 
