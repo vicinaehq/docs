@@ -143,4 +143,69 @@ services.vicinae = {
 ```
 [Extension names](https://github.com/vicinaehq/extensions/tree/main/extensions)
 
+### Configuring Extensions
+
+To configure extensions with options declaratively, add their configuration as such:
+```nix
+{
+#...
+  services.vicinae.settings = {
+    providers = {
+       # Notice name difference. If declaring install and not installing manually, the name is different
+      "@knoopx/nix-0" = {
+        preferences = {
+          # Declaring Secrets to a public repo is not good. See section below for secrets management
+          githubToken = "TOKEN HERE";
+        };
+      };
+    };
+  };
+}
+```
+
+This will vary depending on the fields that each extension expects. (There could be some more documentation on the formula for determining the provider, or change it to accept a deeplink for consistency)
+### For Sops Users Wishing to declare configs with secrets
+
+This example assumes working knowledge of Sops Nix - Sops-Nix Repo
+
+In your sops secrets file add something similar to this:
+```yaml
+vicinae.json: |
+    {
+        "providers": {
+          "@knoopx/nix-0": {
+             "preferences": {
+                "githubToken": "TOKEN HERE"
+             }
+          }
+        }
+    }
+```
+
+In either your home.nix or your configuration.nix add your sops declaration
+```nix
+{
+#...
+  sops = {
+    secrets = {
+      "vicinae.json" = {
+        owner = username;
+      };
+    #...
+    };
+  };
+}
+```
+Finally, add your sops secrets as an import
+
+```nix
+{
+  services.vicinae.settings = {
+    # NOTE: If you have sops configured in your home.nix, it will be config.sops... otherwise, depending on how your nix is configured, it may be nixosConfig.sops...
+    imports = [nixosConfig.sops.secrets."vicinae.json".path];
+  };
+}
+```
+
+
 the `theme.name` option can be set to any of the themes that come with Vicinae or a custom theme you have installed. See [the Github](https://github.com/vicinaehq/vicinae/tree/main/extra/themes) for more information on default theme names.
