@@ -4,6 +4,8 @@ This guide shows the best way to quickly get started with Vicinae on [Hyprland](
 
 ## Main configuration
 
+### Hyprland 0.53 or newer
+
 Add the following to your Hyprland configuration, and you are good to go.
 
 ```ini
@@ -15,7 +17,27 @@ exec-once = vicinae server
 bind = $mainMod, Space, exec, vicinae toggle
 
 # blur
-layerrule = blur,vicinae
+layerrule = blur on, match:namespace vicinae
+layerrule = ignore_alpha 0, match:namespace vicinae
+
+# disable fade animation for vicinae only
+layerrule = no_anim on, match:namespace vicinae
+```
+
+### Before Hyprland 0.53
+
+Window rule (and layer rule) syntax was changed in Hyprland 0.53. If using an older version, this is the config using the old syntax.
+
+```ini
+# ~/.config/hypr/hyprland.conf
+
+exec-once = vicinae server
+
+# use whatever shortcut floats your boat
+bind = $mainMod, Space, exec, vicinae toggle
+
+# blur
+layerrule = blur, vicinae
 layerrule = ignorealpha 0, vicinae
 
 # disable fade animation for vicinae only
