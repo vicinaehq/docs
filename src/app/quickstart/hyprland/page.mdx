@@ -14,12 +14,30 @@ exec-once = vicinae server
 # use whatever shortcut floats your boat
 bind = $mainMod, Space, exec, vicinae toggle
 
+# old rule syntax (Hyprland < 0.53)
 # blur
-layerrule = blur,vicinae
-layerrule = ignorealpha 0, vicinae
+# layerrule = blur, vicinae
+# layerrule = ignorealpha 0, vicinae
+# disable animation for vicinae only
+# layerrule = noanim, vicinae
 
-# disable fade animation for vicinae only
-layerrule = noanim, vicinae
+# named rule syntax (Hyprland 0.53+)
+# blur
+layerrule {
+    blur = on
+    ignore_alpha = 0
+    match:namespace = vicinae
+}
+
+# disable animation for vicinae only
+layerrule {
+    no_anim = on
+    match:namespace = vicinae
+}
+
+# anonymous rule syntax (Hyprland 0.53+)
+# layerrule = blur on, ignore_alpha 0, match:namespace vicinae
+# layerrule = no_anim on, match:namespace vicinae
 ```
 
 <Note>
