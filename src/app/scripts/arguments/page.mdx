@@ -1,0 +1,41 @@
+Arguments allow your scripts to receive user input at runtime. Scripts can accept up to 3 arguments.
+
+![](/scripts/arguments-demo.gif)
+
+# Arguments
+
+Arguments are specified using the `@vicinae.argument1`, `@vicinae.argument2`, and `@vicinae.argument3` directives. Each argument is defined as a JSON object with various configuration options.
+
+<Warning>
+Like any other directive, the JSON describing the argument needs to be on one single line.
+</Warning>
+
+## Example
+
+Here's a script that accepts two text arguments:
+
+```python
+#!/usr/bin/env python3
+# @vicinae.schemaVersion 1
+# @vicinae.title My Python Script
+# @vicinae.icon 🐍
+# @vicinae.mode fullOutput
+# @vicinae.argument1 { "type": "text", "placeholder": "from" }
+# @vicinae.argument2 { "type": "text", "placeholder": "to", "optional": true }
+
+import sys
+
+source = sys.argv[1]
+destination = sys.argv[2] if len(sys.argv) > 2 else None
+
+print(source + " to " + destination)
+```
+
+## Argument Configuration
+
+| Field | Description | Required |
+|-------|-------------|----------|
+| `type` | The argument type. Supported values: `"text"`, `"password"` (redacted text). | Yes |
+| `placeholder` | Placeholder text for the input field. | Yes |
+| `optional` | Set to `true` if you want to mark the argument as optional. The argument is considered required by default - vicinae will not allow executing the script if the argument is empty. | No |
+| `percentEncoded` | URL encodes the text provided as an argument if set to true. | No |
