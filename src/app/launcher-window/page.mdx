@@ -14,8 +14,19 @@ For now it is not possible to change window dimensions. If you really need this,
 All you need are the following layer rules in your Hyprland config:
 
 ```bash
-layerrule = blur,vicinae
-layerrule = ignorealpha 0, vicinae
+# old rule syntax (Hyprland < 0.53)
+# layerrule = blur, vicinae
+# layerrule = ignorealpha 0, vicinae
+
+# named rule syntax (Hyprland 0.53+)
+layerrule {
+    blur = on
+    ignore_alpha = 0
+    match:namespace = vicinae
+}
+
+# anonymous rule syntax (Hyprland 0.53+)
+# layerrule = blur on, ignore_alpha 0, match:namespace vicinae
 ```
 
 You also need to make sure the window opacity is less than `1.0` in the Vicinae settings. It should default to a slightly transparent value.
