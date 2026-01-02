@@ -278,15 +278,6 @@ export const navigation: Array<NavGroup> = [
 		],
 	},
 	{
-		title: 'Script Commands',
-		links: [
-			{ title: 'Getting Started', href: '/scripts/getting-started' },
-			{ title: 'Directives', href: '/scripts/directives' },
-			{ title: 'Arguments', href: '/scripts/arguments' },
-			{ title: 'Output Modes', href: '/scripts/modes' },
-		],
-	},
-	{
 		title: 'Theming',
 		links: [
 			{ title: 'Getting Started', href: '/theming/getting-started' },
@@ -294,6 +285,16 @@ export const navigation: Array<NavGroup> = [
 			{ title: 'Advanced Features', href: '/theming/advanced-features' },
 			{ title: 'CLI Tools', href: '/theming/cli-tools' },
 			{ title: 'Matugen integration', href: '/theming/matugen' },
+		],
+	},
+	{
+		title: 'Script Commands',
+		links: [
+			{ title: 'Getting Started', href: '/scripts/getting-started' },
+			{ title: 'Directives', href: '/scripts/directives' },
+			{ title: 'Arguments', href: '/scripts/arguments' },
+			{ title: 'Output Modes', href: '/scripts/modes' },
+			{ title: 'Raycast Compatibility', href: '/scripts/raycast-compatibility' },
 		],
 	},
 	{

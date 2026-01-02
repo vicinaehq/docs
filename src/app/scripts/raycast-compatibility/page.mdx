@@ -1,0 +1,7 @@
+Vicinae script commands are mostly compatible with [Raycast script commands](https://github.com/raycast/script-commands). In most cases, you should be able to take any Raycast script command and use it with vicinae, provided that the script logic itself remains valid in your environment.
+
+This means you can use `@raycast` instead of `@vicinae` for all directives that are supported by both systems. For directives that have been added by vicinae, only `@vicinae` is supported to avoid confusion.
+
+Vicinae adds support for new directives such as `@vicinae.keywords` and `@vicinae.exec` and new output modes such as `terminal`.
+
+Vicinae doesn't support arguments of type `dropdown` at this time, but this will likely change in the future.
