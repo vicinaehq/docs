@@ -9,7 +9,7 @@ Every directive should be expressed as an inline comment, on a single line.
 | `@vicinae.schemaVersion` | Schema version (currently always `1`) | Yes |
 | `@vicinae.title` | Display name for the script in search | Yes |
 | `@vicinae.mode` | Output mode (e.g., `fullOutput`, `silent`, `compact`). <br /> See all [available modes](/scripts/modes). | Yes |
-| `@vicinae.icon` | Icon to show in the root search. Can be a file path, an emoji or an HTTPS url. Relative file paths are relative to the directory in which the script is located. | Yes |
+| `@vicinae.icon` | Icon to show in the root search. Can be a file path, an emoji or an HTTPS url. Relative file paths are relative to the directory in which the script is located. | No |
 | `@vicinae.argument{1...3}` | Arguments to provide as input to the script. Format is documented on the [arguments page](/scripts/arguments) | No |
 | `@vicinae.exec` | Custom command line to execute the script. Expressed as a JSON e.g `["/usr/bin/env", "python3", "--my-fancy-flag"]`. Removes the need for the script to have executable permission. | No |
 | `@vicinae.keywords` | Additional keywords to index the script against. Expressed as a JSON e.g `["keyword1", "keyword2"]` | No |
