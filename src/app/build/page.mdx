@@ -35,7 +35,8 @@ pacman -Syu			\
     libqalculate 	\
     minizip			\
     qtkeychain-qt6	\
-    rapidfuzz-cpp
+    rapidfuzz-cpp \
+    icu
 ```
 
 ```bash {{ title: 'Ubuntu' }}
@@ -59,7 +60,8 @@ apt install -y \
     libcmark-gfm-dev \
     zlib1g-dev \
     qtkeychain-qt6-dev  \
-    librapidfuzz-cpp-dev
+    librapidfuzz-cpp-dev \
+    libicu-dev
 ```
 
 ```bash {{ title: 'Fedora' }}
@@ -81,6 +83,7 @@ dnf install -y \
     zlib-static \
     abseil-cpp-devel \
     protobuf-devel \
+    libicu-devel \
     cmark-gfm-devel
 # cmark-gfm requires a copr (https://copr.fedorainfracloud.org/coprs/quadratech188/cmark-gfm/)
 ```
@@ -98,7 +101,8 @@ emerge -av			\
 	cmark-gfm		\
 	dev-qt/qtsvg	\
 	protobuf		\
-	dev-build/ninja
+	dev-build/ninja \
+	dev-libs/icu
 ```
 </CodeGroup>
 
