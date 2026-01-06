@@ -241,9 +241,6 @@ sudo make install
 ```
 
 ```bash {{ title: 'CMake' }}
-sudo cmake --install build
-
-# with custom installation prefix
-CMAKE_INSTALL_PREFIX="$HOME/.local" cmake --install build
+sudo cmake --install build --prefix "$HOME/.local" 
 ```
 </CodeGroup>
