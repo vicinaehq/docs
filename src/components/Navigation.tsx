@@ -253,6 +253,7 @@ export const navigation: Array<NavGroup> = [
 			{ title: 'Cosmic Desktop Quickstart', href: '/quickstart/cosmic' },
 			{ title: 'Niri Quickstart', href: '/quickstart/niri' },
 			{ title: 'General Quickstart', href: '/quickstart/generic' },
+			{ title: 'FAQ', href: '/faq' },
 		],
 	},
 

@@ -1,0 +1,61 @@
+# FAQ
+
+Answers to commonly asked questions.
+
+## Vicinae is not packaged for my distribution. How should I install it?
+
+Use the [script](/install/script) to install the AppImage version, which should work fine on most systems. Don't forget to follow the quickstart guide for your environment once you are done installing.
+
+## How to set a keyboard shortcut to open vicinae?
+
+Vicinae doesn't support global shortcuts at the moment. You should use whatever is the preferred way to set global shortcuts for your environment. If there is a quickstart guide for your environment, this is probably explained there.
+
+## How to set a keyboard shortcut to open a specific command?
+
+You can use [deeplinks](/deeplinks) like so:
+
+```bash
+vicinae vicinae://extensions/vicinae/clipboard/history
+```
+
+## How to focus the app window instead of opening a new one?
+
+You can change the default action that is executed for a given application from the settings window. Search for the `Applications` group and the option should be there.
+
+## How to use custom app launcher?
+
+App launchers such as `uwsm` should be detected automatically. If that is not the case, you can specify a custom app launcher in the settings.
+
+## Vicinae doesn't pass X environment variable to my apps
+
+Apps launched by vicinae inherit from the parent's environment without any modification. This probably means the environment variable that is missing is not properly injected in vicinae's environment when started.
+
+
+## The vicinae window takes a long time to appear
+
+Make sure you are not running the unextracted AppImage directly every time you want to call `vicinae toggle`. You should probably use the [script](/install/script) to automatically extract the AppImage components.
+
+## How can I extend vicinae?
+
+Three main ways, from least to most customizable:
+
+- [dmenu mode](/dmenu)
+- [script commands](/scripts/getting-started)
+- [Typescript SDK](/extensions/introduction)
+
+
+## How to deal with read-only configuration?
+
+Vicinae expects the main `settings.json` file to be readable AND writable since it will write configuration changes to it when things are edited from the GUI.
+
+For now, the only solution is to use the `imports` key in this file to import your read-only config from there.
+
+## Vicinae uses a lot of RAM
+
+Looking at how much memory Vicinae is using in a process monitor such as `btop` is a very bad way to measure how much memory it is really using.
+This is particularly true for graphical applications that reuse memory a lot (for instance, to show high quality images).
+Memory returned to the OS has to be reclaimed and it is an expensive operation. This is why it is not done unless the operating system really needs it.
+
+You should be concerned about vicinae's memory usage only if your system has very little RAM left and vicinae is still using a lot of memory. In practice, this is almost never the case. Vicinae will automatically release memory if the system becomes stressed.
+
+Vicinae needs ~100MB to operate on a regular load, not much more than that.
