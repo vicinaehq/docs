@@ -24,6 +24,7 @@ bind = $mainMod, Space, exec, vicinae toggle
 # named rule syntax (Hyprland 0.53+)
 # blur
 layerrule {
+    name = vicinae-blur
     blur = on
     ignore_alpha = 0
     match:namespace = vicinae
@@ -31,6 +32,7 @@ layerrule {
 
 # disable animation for vicinae only
 layerrule {
+    name = vicinae-no-animation
     no_anim = on
     match:namespace = vicinae
 }
