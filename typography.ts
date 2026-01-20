@@ -5,7 +5,7 @@ export default {
     typography: ({ theme }) => ({
       DEFAULT: {
         css: {
-          '--tw-prose-body': theme('colors.zinc.700'),
+          '--tw-prose-body': theme('colors.zinc.800'),
           '--tw-prose-headings': theme('colors.zinc.900'),
           '--tw-prose-links': theme('colors.cyan.500'),
           '--tw-prose-links-hover': theme('colors.cyan.600'),
@@ -23,7 +23,7 @@ export default {
           '--tw-prose-th-borders': theme('colors.zinc.300'),
           '--tw-prose-td-borders': theme('colors.zinc.200'),
 
-          '--tw-prose-invert-body': theme('colors.zinc.400'),
+          '--tw-prose-invert-body': theme('colors.zinc.300'),
           '--tw-prose-invert-headings': theme('colors.white'),
           '--tw-prose-invert-links': theme('colors.cyan.400'),
           '--tw-prose-invert-links-hover': theme('colors.cyan.500'),

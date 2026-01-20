@@ -1,14 +1,13 @@
 'use client'
 
 import clsx from 'clsx'
-import { AnimatePresence, motion, useIsPresent } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import { Button } from '@/components/Button'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
-import { useSectionStore } from '@/components/SectionProvider'
 import { Tag } from '@/components/Tag'
 import { remToPx } from '@/lib/remToPx'
 import { CloseButton } from '@headlessui/react'
@@ -19,6 +18,17 @@ interface NavGroup {
 		title: string
 		href: string
 	}>
+}
+
+interface NavDirectLink {
+	title: string
+	href: string
+}
+
+type NavItem = NavGroup | NavDirectLink
+
+function isNavGroup(item: NavItem): item is NavGroup {
+	return 'links' in item
 }
 
 function useInitialValue<T>(value: T, condition = true) {
@@ -82,48 +92,6 @@ function NavLink({
 	)
 }
 
-function VisibleSectionHighlight({
-	group,
-	pathname,
-}: {
-	group: NavGroup
-	pathname: string
-}) {
-	let [sections, visibleSections] = useInitialValue(
-		[
-			useSectionStore((s) => s.sections),
-			useSectionStore((s) => s.visibleSections),
-		],
-		useIsInsideMobileNavigation(),
-	)
-
-	let isPresent = useIsPresent()
-	let firstVisibleSectionIndex = Math.max(
-		0,
-		[{ id: '_top' }, ...sections].findIndex(
-			(section) => section.id === visibleSections[0],
-		),
-	)
-	let itemHeight = remToPx(2)
-	let height = isPresent
-		? Math.max(1, visibleSections.length) * itemHeight
-		: itemHeight
-	let top =
-		group.links.findIndex((link) => link.href === pathname) * itemHeight +
-		firstVisibleSectionIndex * itemHeight
-
-	return (
-		<motion.div
-			layout
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1, transition: { delay: 0.2 } }}
-			exit={{ opacity: 0 }}
-			className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform dark:bg-white/2.5"
-			style={{ borderRadius: 8, height, top }}
-		/>
-	)
-}
-
 function ActivePageMarker({
 	group,
 	pathname,
@@ -148,6 +116,25 @@ function ActivePageMarker({
 	)
 }
 
+function ChevronIcon({ className }: { className?: string }) {
+	return (
+		<svg
+			viewBox="0 0 16 16"
+			fill="none"
+			aria-hidden="true"
+			className={className}
+		>
+			<path
+				d="M5 4l4 4-4 4"
+				stroke="currentColor"
+				strokeWidth="1.5"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+			/>
+		</svg>
+	)
+}
+
 function NavigationGroup({
 	group,
 	className,
@@ -159,89 +146,103 @@ function NavigationGroup({
 	// state, so that the state does not change during the close animation.
 	// The state will still update when we re-open (re-render) the navigation.
 	let isInsideMobileNavigation = useIsInsideMobileNavigation()
-	let [pathname, sections] = useInitialValue(
-		[usePathname(), useSectionStore((s) => s.sections)],
-		isInsideMobileNavigation,
-	)
+	let pathname = useInitialValue(usePathname(), isInsideMobileNavigation)
 
 	let isActiveGroup =
 		group.links.findIndex((link) => link.href === pathname) !== -1
 
+	let [isExpanded, setIsExpanded] = useState(isActiveGroup)
+
 	return (
-		<li className={clsx('relative mt-6', className)}>
-			<motion.h2
-				layout="position"
-				className="text-xs font-semibold text-zinc-900 dark:text-white"
+		<li className={clsx('relative mt-4', className)}>
+			<button
+				onClick={() => setIsExpanded(!isExpanded)}
+				className="flex w-full items-center justify-between text-left"
 			>
-				{group.title}
-			</motion.h2>
-			<div className="relative mt-3 pl-2">
-				<AnimatePresence initial={!isInsideMobileNavigation}>
-					{isActiveGroup && (
-						<VisibleSectionHighlight group={group} pathname={pathname} />
+				<motion.h2
+					layout="position"
+					className="text-xs font-semibold text-zinc-900 dark:text-white"
+				>
+					{group.title}
+				</motion.h2>
+				<ChevronIcon
+					className={clsx(
+						'h-4 w-4 text-zinc-500 transition-transform duration-200',
+						isExpanded && 'rotate-90',
 					)}
-				</AnimatePresence>
-				<motion.div
-					layout
-					className="absolute inset-y-0 left-2 w-px bg-zinc-900/10 dark:bg-white/5"
 				/>
-				<AnimatePresence initial={false}>
-					{isActiveGroup && (
-						<ActivePageMarker group={group} pathname={pathname} />
-					)}
-				</AnimatePresence>
-				<ul role="list" className="border-l border-transparent">
-					{group.links.map((link) => (
-						<motion.li key={link.href} layout="position" className="relative">
-							<NavLink href={link.href} active={link.href === pathname}>
-								{link.title}
-							</NavLink>
-							<AnimatePresence mode="popLayout" initial={false}>
-								{link.href === pathname && sections.length > 0 && (
-									<motion.ul
-										role="list"
-										initial={{ opacity: 0 }}
-										animate={{
-											opacity: 1,
-											transition: { delay: 0.1 },
-										}}
-										exit={{
-											opacity: 0,
-											transition: { duration: 0.15 },
-										}}
-									>
-										{sections.map((section) => (
-											<li key={section.id}>
-												<NavLink
-													href={`${link.href}#${section.id}`}
-													tag={section.tag}
-													isAnchorLink
-												>
-													{section.title}
-												</NavLink>
-											</li>
-										))}
-									</motion.ul>
-								)}
-							</AnimatePresence>
-						</motion.li>
-					))}
-				</ul>
-			</div>
+			</button>
+			<AnimatePresence initial={false}>
+				{isExpanded && (
+					<motion.div
+						initial={{ height: 0, opacity: 0 }}
+						animate={{ height: 'auto', opacity: 1 }}
+						exit={{ height: 0, opacity: 0 }}
+						transition={{ duration: 0.2 }}
+						className="relative mt-2 overflow-hidden pl-2"
+					>
+						<motion.div
+							layout
+							className="absolute inset-y-0 left-2 w-px bg-zinc-900/10 dark:bg-white/5"
+						/>
+						<AnimatePresence initial={false}>
+							{isActiveGroup && (
+								<ActivePageMarker group={group} pathname={pathname} />
+							)}
+						</AnimatePresence>
+						<ul role="list" className="border-l border-transparent">
+							{group.links.map((link) => (
+								<motion.li key={link.href} layout="position" className="relative">
+									<NavLink href={link.href} active={link.href === pathname}>
+										{link.title}
+									</NavLink>
+								</motion.li>
+							))}
+						</ul>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</li>
 	)
 }
 
-export const navigation: Array<NavGroup> = [
+function NavigationDirectLink({
+	link,
+	className,
+}: {
+	link: NavDirectLink
+	className?: string
+}) {
+	let isInsideMobileNavigation = useIsInsideMobileNavigation()
+	let pathname = useInitialValue(usePathname(), isInsideMobileNavigation)
+	let isActive = link.href === pathname
+
+	return (
+		<li className={clsx('relative mt-4', className)}>
+			<CloseButton
+				as={Link}
+				href={link.href}
+				className={clsx(
+					'block text-xs font-semibold transition',
+					isActive
+						? 'text-cyan-500'
+						: 'text-zinc-900 hover:text-zinc-600 dark:text-white dark:hover:text-zinc-300',
+				)}
+			>
+				{link.title}
+			</CloseButton>
+		</li>
+	)
+}
+
+export const navigation: Array<NavItem> = [
 	{
 		title: 'Installation',
 		links: [
 			{ title: 'Introduction', href: '/' },
-			{ title: 'Operating System Support', href: '/os-support' },
 			{ title: 'Install from repository', href: '/install/repo' },
 			{ title: 'Install from script', href: '/install/script' },
 			{ title: 'Build from source', href: '/build' },
-			{ title: 'Nixos', href: '/nixos' },
 		],
 	},
 	{
@@ -253,9 +254,10 @@ export const navigation: Array<NavGroup> = [
 			{ title: 'Cosmic Desktop Quickstart', href: '/quickstart/cosmic' },
 			{ title: 'Niri Quickstart', href: '/quickstart/niri' },
 			{ title: 'General Quickstart', href: '/quickstart/generic' },
-			{ title: 'FAQ', href: '/faq' },
 		],
 	},
+	{ title: 'FAQ', href: '/faq' },
+	{ title: 'NixOS', href: '/nixos' },
 
 	{
 		title: 'Manual',
@@ -316,28 +318,28 @@ export const navigation: Array<NavGroup> = [
 				href: '/extensions/no-view-command',
 			},
 		],
-	},
-
-	{
-		title: 'Contributing',
-		links: [
-			{ title: 'Clipboard Server', href: '/contrib/clipboard' },
-			{ title: 'Documentation', href: '/contrib/docs' },
-		],
-	},
+	}
 ]
 
 export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
 	return (
 		<nav {...props}>
 			<ul role="list">
-				{navigation.map((group, groupIndex) => (
-					<NavigationGroup
-						key={group.title}
-						group={group}
-						className={groupIndex === 0 ? 'md:mt-0' : ''}
-					/>
-				))}
+				{navigation.map((item, index) =>
+					isNavGroup(item) ? (
+						<NavigationGroup
+							key={item.title}
+							group={item}
+							className={index === 0 ? 'md:mt-0' : ''}
+						/>
+					) : (
+						<NavigationDirectLink
+							key={item.href}
+							link={item}
+							className={index === 0 ? 'md:mt-0' : ''}
+						/>
+					),
+				)}
 				<li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
 					<Button href="#" variant="filled" className="w-full">
 						Sign in

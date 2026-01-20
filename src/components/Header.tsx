@@ -105,8 +105,8 @@ export const Header = forwardRef<
         !isInsideMobileNavigation &&
           'backdrop-blur-xs lg:left-72 xl:left-80 dark:backdrop-blur-sm',
         isInsideMobileNavigation
-          ? 'bg-white dark:bg-zinc-900'
-          : 'bg-white/(--bg-opacity-light) dark:bg-zinc-900/(--bg-opacity-dark)',
+          ? 'bg-white dark:bg-zinc-950'
+          : 'bg-white/(--bg-opacity-light) dark:bg-zinc-950/(--bg-opacity-dark)',
       )}
       style={
         {

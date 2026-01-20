@@ -17,8 +17,7 @@ If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/n
 </Note>
 
 
-```nix
-# flake.nix
+```nix {{ title: 'flake.nix' }}
 {
   inputs = {
     # ...
@@ -40,8 +39,7 @@ If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/n
 }
 ```
 
-```nix
-# home.nix
+```nix {{ title: 'home.nix' }}
 {
   # ...
 
@@ -67,15 +65,14 @@ If you want to use the cache do not add `inputs.nixpkgs.follows = "nixpkgs";` to
 The Vicinae flake is **not** built by Hydra, so it is not cached in cache.nixos.org, like the rest of Nixpkgs.
 Instead of requiring you to build Vicinae every time it updates, we provide a Cachix cache that you can add to your Nix configuration.
 
-```nix
+```nix {{ title: 'nix.conf or flake.nix' }}
 extra-substituters = [ "https://vicinae.cachix.org" ];
 extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
 ```
 
-Alterntively you can use the vicinae package from nixpkgs which is build by Hydra,
-but may be out of date:
+Alternatively you can use the vicinae package from nixpkgs which is built by Hydra, but may be out of date:
 
-```nix
+```nix {{ title: 'home.nix' }}
 { pkgs, ... }:
 {
   services.vicinae = {
@@ -86,18 +83,15 @@ but may be out of date:
 
 ## Configuring with Home Manager
 You can configure Vicinae using Home Manager options. Here is an example configuration:
-flake.nix:
 
-```nix
- inputs.vicinae-extensions = {
-   url = "github:vicinaehq/extensions";
-   inputs.nixpkgs.follows = "nixpkgs";
- };
-
+```nix {{ title: 'flake.nix' }}
+inputs.vicinae-extensions = {
+  url = "github:vicinaehq/extensions";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
 ```
 
-home.nix:
-```nix
+```nix {{ title: 'home.nix' }}
 services.vicinae = {
   enable = true;
   systemd = {
@@ -146,7 +140,7 @@ services.vicinae = {
 ### Configuring Extensions
 
 To configure extensions with options declaratively, add their configuration as such:
-```nix
+```nix {{ title: 'home.nix' }}
 {
 #...
   services.vicinae.settings = {
@@ -170,7 +164,7 @@ So Raycast should also be configurable. View the "package.json" for your desired
 This example assumes working knowledge of Sops Nix - Sops-Nix Repo
 
 In your sops secrets file add something similar to this:
-```yaml
+```yaml {{ title: 'secrets.yaml' }}
 vicinae.json: |
     {
         "providers": {
@@ -183,8 +177,8 @@ vicinae.json: |
     }
 ```
 
-In either your home.nix or your configuration.nix add your sops declaration
-```nix
+In either your home.nix or your configuration.nix add your sops declaration:
+```nix {{ title: 'home.nix or configuration.nix' }}
 {
 #...
   sops = {
@@ -197,12 +191,13 @@ In either your home.nix or your configuration.nix add your sops declaration
   };
 }
 ```
-Finally, add your sops secrets as an import
 
-```nix
+Finally, add your sops secrets as an import:
+```nix {{ title: 'home.nix' }}
 {
   services.vicinae.settings = {
-    # NOTE: If you have sops configured in your home.nix, it will be config.sops... otherwise, depending on how your nix is configured, it may be nixosConfig.sops...
+    # NOTE: If you have sops configured in your home.nix, it will be config.sops...
+    # otherwise, depending on how your nix is configured, it may be nixosConfig.sops...
     imports = [nixosConfig.sops.secrets."vicinae.json".path];
   };
 }

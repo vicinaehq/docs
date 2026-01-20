@@ -17,6 +17,7 @@ export interface Section {
   offsetRem?: number
   tag?: string
   headingRef?: React.RefObject<HTMLHeadingElement>
+  children?: Array<Section>
 }
 
 interface SectionState {

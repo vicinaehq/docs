@@ -9,6 +9,7 @@ import { Header } from '@/components/Header'
 import { Logo } from '@/components/Logo'
 import { Navigation } from '@/components/Navigation'
 import { SectionProvider, type Section } from '@/components/SectionProvider'
+import { TableOfContents } from '@/components/TableOfContents'
 
 export function Layout({
   children,
@@ -36,10 +37,13 @@ export function Layout({
             <Navigation className="hidden lg:mt-10 lg:block" />
           </div>
         </motion.header>
-        <div className="relative flex h-full flex-col px-4 pt-14 sm:px-6 lg:px-8">
+        <div className="relative flex h-full flex-col px-4 pt-14 sm:px-6 lg:px-8 xl:mr-64">
           <main className="flex-auto">{children}</main>
           <Footer />
         </div>
+        <aside className="fixed inset-y-0 right-0 z-20 hidden w-64 overflow-y-auto px-6 pt-20 pb-8 xl:block">
+          <TableOfContents />
+        </aside>
       </div>
     </SectionProvider>
   )

@@ -22,7 +22,7 @@ let highlighter
 function rehypeShiki() {
   return async (tree) => {
     highlighter =
-      highlighter ?? (await shiki.getHighlighter({ theme: 'rose-pine' }))
+      highlighter ?? (await shiki.getHighlighter({ theme: 'nord' }))
 
     visit(tree, 'element', (node) => {
       if (node.tagName === 'pre' && node.children[0]?.tagName === 'code') {
@@ -54,7 +54,7 @@ function rehypeSlugify() {
   return (tree) => {
     let slugify = slugifyWithCounter()
     visit(tree, 'element', (node) => {
-      if (node.tagName === 'h2' && !node.properties.id) {
+      if ((node.tagName === 'h2' || node.tagName === 'h3') && !node.properties.id) {
         node.properties.id = slugify(toString(node))
       }
     })
@@ -93,20 +93,50 @@ function rehypeAddMDXExports(getExports) {
 
 function getSections(node) {
   let sections = []
+  let currentH2 = null
 
-  for (let child of node.children ?? []) {
+  function processNode(child) {
     if (child.type === 'element' && child.tagName === 'h2') {
-      sections.push(`{
-        title: ${JSON.stringify(toString(child))},
-        id: ${JSON.stringify(child.properties.id)},
-        ...${child.properties.annotation}
-      }`)
+      currentH2 = {
+        title: toString(child),
+        id: child.properties.id,
+        annotation: child.properties.annotation,
+        children: [],
+      }
+      sections.push(currentH2)
+    } else if (child.type === 'element' && child.tagName === 'h3' && currentH2) {
+      currentH2.children.push({
+        title: toString(child),
+        id: child.properties.id,
+        annotation: child.properties.annotation,
+      })
     } else if (child.children) {
-      sections.push(...getSections(child))
+      for (let grandchild of child.children) {
+        processNode(grandchild)
+      }
     }
   }
 
-  return sections
+  for (let child of node.children ?? []) {
+    processNode(child)
+  }
+
+  return sections.map(
+    (section) => `{
+      title: ${JSON.stringify(section.title)},
+      id: ${JSON.stringify(section.id)},
+      children: [${section.children
+        .map(
+          (child) => `{
+          title: ${JSON.stringify(child.title)},
+          id: ${JSON.stringify(child.id)},
+          ...${child.annotation}
+        }`,
+        )
+        .join(',')}],
+      ...${section.annotation}
+    }`,
+  )
 }
 
 export const rehypePlugins = [
