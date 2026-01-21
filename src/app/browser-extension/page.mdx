@@ -1,0 +1,36 @@
+# Browser Extension
+
+Vicinae can connect to your browser to search, focus and delete your browser tabs, alongside other cool integrations. This page describes how to get started and highlights the most useful features.
+
+<center>
+![](/browser-tabs.png)
+*Tabs are searchable directly from root or from within the dedicated command*
+</center>
+
+## Installation
+
+### From web extension stores
+
+<Warning>
+The Vicinae browser extension is not published to the official chrome and firefox stores at the moment, but will very soon. Although more technical, it is still possible to install everything manually. Read more on that below.
+</Warning>
+
+### Manual
+
+Go through the instructions in this [README](https://github.com/vicinaehq/vicinae/blob/main/lib/browser-extension/README.md) file to install the browser extension and its requirements. This documentation is currently rudimentary and mostly intended for advanced users. Installing from the official browser stores will be the user friendly way to set this up.
+
+## How it works (simplified)
+
+Vicinae makes use of the [native messaging](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging) browser API to spawn a special worker process when the browser extension is started that is responsible for mediating communication between the browser extension and the vicinae server. From there both exchange messages as needed, to notify changes (e.g browser tab changes) or request actions (e.g focus or close a tab).
+
+## Noteworthy features
+
+### Create shortcut from active tab
+
+A common use case for the browser integration is to create a [Vicinae shortcut](/shortcuts) from the currently active tab.
+
+Using the `Create Shortcut from Active Tab` command, you can do this in two steps without having to manually open the `Create Shortcut` command and copy the link.
+
+### Transform tab to shortcut
+
+Similar to the feature described above, but through an action made available to each searchable tab. Pressing `shift+return` will automatically switch to the `Create Shortcut` view for you.

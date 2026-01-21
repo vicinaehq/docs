@@ -272,6 +272,7 @@ export const navigation: Array<NavItem> = [
 			{ title: 'Calculator', href: '/calculator' },
 			{ title: 'Application Shortcuts', href: '/shortcuts' },
 			{ title: 'File Search', href: '/file-search' },
+			{ title: 'Browser Extension', href: '/browser-extension' },
 			{ title: 'Fallback Commands', href: '/fallback-commands' },
 			{ title: 'Extensions', href: '/install-extensions' },
 			{ title: 'Emoji Picker', href: '/emoji' },
