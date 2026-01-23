@@ -30,7 +30,7 @@ export function TableOfContents() {
               className={clsx(
                 'block transition',
                 isActive(section.id)
-                  ? 'text-cyan-500'
+                  ? 'text-orange-500'
                   : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white',
               )}
             >
@@ -45,7 +45,7 @@ export function TableOfContents() {
                       className={clsx(
                         'block text-sm transition',
                         isActive(child.id)
-                          ? 'text-cyan-500'
+                          ? 'text-orange-500'
                           : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300',
                       )}
                     >

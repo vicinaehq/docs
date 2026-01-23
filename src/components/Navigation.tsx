@@ -107,7 +107,7 @@ function ActivePageMarker({
 	return (
 		<motion.div
 			layout
-			className="absolute left-2 h-6 w-px bg-cyan-500"
+			className="absolute left-2 h-6 w-px bg-orange-500"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1, transition: { delay: 0.2 } }}
 			exit={{ opacity: 0 }}
@@ -225,7 +225,7 @@ function NavigationDirectLink({
 				className={clsx(
 					'block text-xs font-semibold transition',
 					isActive
-						? 'text-cyan-500'
+						? 'text-orange-500'
 						: 'text-zinc-900 hover:text-zinc-600 dark:text-white dark:hover:text-zinc-300',
 				)}
 			>

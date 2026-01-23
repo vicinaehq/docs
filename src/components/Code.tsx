@@ -81,7 +81,7 @@ function CopyButton({ code }: { code: string }) {
       className={clsx(
         'group/button absolute top-3.5 right-4 overflow-hidden rounded-full py-1 pr-3 pl-2 text-2xs font-medium opacity-0 backdrop-blur-sm transition group-hover:opacity-100 focus:opacity-100',
         copied
-          ? 'bg-cyan-400/10 ring-1 ring-cyan-400/20 ring-inset'
+          ? 'bg-orange-400/10 ring-1 ring-orange-400/20 ring-inset'
           : 'bg-white/5 hover:bg-white/7.5 dark:bg-white/2.5 dark:hover:bg-white/5',
       )}
       onClick={() => {
@@ -103,7 +103,7 @@ function CopyButton({ code }: { code: string }) {
       <span
         aria-hidden={!copied}
         className={clsx(
-          'pointer-events-none absolute inset-0 flex items-center justify-center text-cyan-400 transition duration-300',
+          'pointer-events-none absolute inset-0 flex items-center justify-center text-orange-400 transition duration-300',
           !copied && 'translate-y-1.5 opacity-0',
         )}
       >
@@ -119,7 +119,7 @@ function CodePanelHeader({ tag, label }: { tag?: string; label?: string }) {
   }
 
   return (
-    <div className="flex h-9 items-center gap-2 border-y border-t-transparent border-b-white/7.5 bg-zinc-900 px-4 dark:border-b-white/5 dark:bg-zinc-950">
+    <div className="flex h-9 items-center gap-2 border-y border-t-transparent border-b-white/7.5 bg-zinc-900 px-4 dark:border-b-white/5 dark:bg-[#121212]">
       {tag && (
         <div className="dark flex">
           <Tag variant="small">{tag}</Tag>
@@ -187,7 +187,7 @@ function CodeGroupHeader({
   }
 
   return (
-    <div className="flex min-h-[calc(--spacing(10)+1px)] flex-wrap items-center gap-x-4 border-b border-zinc-700 bg-zinc-800 px-4 dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="flex min-h-[calc(--spacing(10)+1px)] flex-wrap items-center gap-x-4 border-b border-zinc-700 bg-zinc-800 px-4 dark:border-zinc-800 dark:bg-[#121212]">
       {title && (
         <h3 className="mr-auto text-xs font-semibold text-white">
           {title}
@@ -200,7 +200,7 @@ function CodeGroupHeader({
               className={clsx(
                 'border-b py-2.5 transition data-selected:not-data-focus:outline-hidden',
                 childIndex === selectedIndex
-                  ? 'border-cyan-500 text-cyan-400'
+                  ? 'border-orange-500 text-orange-400'
                   : 'border-transparent text-zinc-400 hover:text-zinc-300',
               )}
             >
@@ -323,7 +323,7 @@ export function CodeGroup({
   let hasTabs = Children.count(children) > 1
 
   let containerClassName =
-    'my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:bg-zinc-950 dark:ring-1 dark:ring-white/10'
+    'my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:bg-[#121212] dark:ring-1 dark:ring-white/10'
   let header = (
     <CodeGroupHeader title={title} selectedIndex={tabGroupProps.selectedIndex}>
       {children}

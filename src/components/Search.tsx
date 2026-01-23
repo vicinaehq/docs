@@ -146,7 +146,7 @@ function LoadingIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 function HighlightQuery({ text, query }: { text: string; query: string }) {
   return (
     <Highlighter
-      highlightClassName="underline bg-transparent text-cyan-500"
+      highlightClassName="underline bg-transparent text-orange-500"
       searchWords={[query]}
       autoEscape={true}
       textToHighlight={text}
@@ -193,7 +193,7 @@ function SearchResult({
       <div
         id={`${id}-title`}
         aria-hidden="true"
-        className="text-sm font-medium text-zinc-900 group-aria-selected:text-cyan-500 dark:text-white"
+        className="text-sm font-medium text-zinc-900 group-aria-selected:text-orange-500 dark:text-white"
       >
         <HighlightQuery text={result.title} query={query} />
       </div>
@@ -304,7 +304,7 @@ const SearchInput = forwardRef<
       />
       {autocompleteState.status === 'stalled' && (
         <div className="absolute inset-y-0 right-3 flex items-center">
-          <LoadingIcon className="h-5 w-5 animate-spin stroke-zinc-200 text-zinc-900 dark:stroke-zinc-800 dark:text-cyan-400" />
+          <LoadingIcon className="h-5 w-5 animate-spin stroke-zinc-200 text-zinc-900 dark:stroke-zinc-800 dark:text-orange-400" />
         </div>
       )}
     </div>
@@ -374,7 +374,7 @@ function SearchDialog({
       <div className="fixed inset-0 overflow-y-auto px-4 py-4 sm:px-6 sm:py-20 md:py-32 lg:px-8 lg:py-[15vh]">
         <DialogPanel
           transition
-          className="mx-auto transform-gpu overflow-hidden rounded-lg bg-zinc-50 shadow-xl ring-1 ring-zinc-900/7.5 data-closed:scale-95 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:max-w-xl dark:bg-zinc-950 dark:ring-zinc-800"
+          className="mx-auto transform-gpu overflow-hidden rounded-lg bg-zinc-50 shadow-xl ring-1 ring-zinc-900/7.5 data-closed:scale-95 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:max-w-xl dark:bg-[#121212] dark:ring-zinc-800"
         >
           <div {...autocomplete.getRootProps({})}>
             <form
