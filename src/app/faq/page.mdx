@@ -6,6 +6,8 @@ Answers to commonly asked questions.
 
 Use the [script](/install/script) to install the AppImage version, which should work fine on most systems. Don't forget to follow the quickstart guide for your environment once you are done installing.
 
+Do **not** install the AppImage directly.
+
 ## How to set a keyboard shortcut to open vicinae?
 
 Vicinae doesn't support global shortcuts at the moment. You should use whatever is the preferred way to set global shortcuts for your environment. If there is a quickstart guide for your environment, this is probably explained there.
@@ -18,6 +20,9 @@ You can use [deeplinks](/deeplinks) like so:
 vicinae vicinae://extensions/vicinae/clipboard/history
 ```
 
+How you bind this to a proper keyboard shortcut is different in every environment. Please refer to your desktop environment's documentation.
+
+
 ## How to focus the app window instead of opening a new one?
 
 You can change the default action that is executed for a given application from the settings window. Search for the `Applications` group and the option should be there.
@@ -26,9 +31,13 @@ You can change the default action that is executed for a given application from 
 
 App launchers such as `uwsm` should be detected automatically. If that is not the case, you can specify a custom app launcher in the settings.
 
+## Some of my apps do not launch or are in a weird state
+
+In 99% of cases this is an environment variable issue. See item below.
+
 ## Vicinae doesn't pass X environment variable to my apps
 
-Apps launched by vicinae inherit from the parent's environment without any modification. This probably means the environment variable that is missing is not properly injected in vicinae's environment when started.
+Apps launched by vicinae inherit from the parent's environment without any modification. This probably means the environment variable that is missing is not properly injected in vicinae's environment when started. If using the systemd user service, you need to make sure the service is started with the right set of environment variables.
 
 
 ## The vicinae window takes a long time to appear
@@ -43,6 +52,23 @@ Three main ways, from least to most customizable:
 - [script commands](/scripts/getting-started)
 - [Typescript SDK](/extensions/introduction)
 
+## How to set which terminal to use to launch terminal apps
+
+As there is no standardized way to set a default terminal emulator on a Linux desktop system, Vicinae honors the `x-scheme-handler/terminal` as some other launchers do.
+
+To set your default terminal in this way, run:
+
+```bash
+xdg-mime default {desktop_file_name}.desktop x-scheme-handler/terminal
+```
+
+Where `{desktop_file_name}` is the name of the desktop file your application maps to.
+
+For example, to set the default terminal to Alacritty:
+
+```bash
+xdg-mime default Alacritty.desktop x-scheme-handler/terminal
+```
 
 ## How to deal with read-only configuration?
 

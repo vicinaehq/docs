@@ -279,7 +279,6 @@ export const navigation: Array<NavItem> = [
 			{ title: 'Emoji Picker', href: '/emoji' },
 			{ title: 'Deeplinks', href: '/deeplinks' },
 			{ title: 'Favicon Loading', href: '/favicon' },
-			{ title: 'Set Default Terminal', href: '/default-terminal' },
 		],
 	},
 	{
