@@ -243,6 +243,7 @@ export const navigation: Array<NavItem> = [
 			{ title: 'Install from repository', href: '/install/repo' },
 			{ title: 'Install from script', href: '/install/script' },
 			{ title: 'Build from source', href: '/build' },
+			{ title: 'Build AppImage from source', href: '/build-appimage' },
 		],
 	},
 	{

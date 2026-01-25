@@ -58,4 +58,4 @@ Memory returned to the OS has to be reclaimed and it is an expensive operation. 
 
 You should be concerned about vicinae's memory usage only if your system has very little RAM left and vicinae is still using a lot of memory. In practice, this is almost never the case. Vicinae will automatically release memory if the system becomes stressed.
 
-Vicinae needs ~100MB to operate on a regular load, not much more than that.
+The main Vicinae root search needs ~100MB to operate correctly, and the node process spawned to handle third-party TypeScript extensions can eat a lot more depending on what is going on.

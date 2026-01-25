@@ -1,0 +1,69 @@
+# Build AppImage from source
+
+<Warning>
+The intended way to consume the AppImage build is to install Vicinae using the [script](/install/script). This page documents how to build the AppImage from source using the AppImage build environment. This page is mostly intended for Vicinae developers.
+</Warning>
+
+## Why AppImage
+
+Vicinae is an app that relies on a lot of bleeding edge C++ and Qt features. As such, building from source or using prebuilt binaries is mostly reserved to people running very bleeding edge systems such as Arch, NixOS, Gentoo, as other systems generally have very out of date packages.
+
+This is obviously not ideal, as many users run distributions such as Ubuntu, Fedora, Linux Mint which fall into that category.
+
+One common solution to this problem is simply to bundle most of the dependencies with the app, so that we can ignore the out of date aspect for the most part. This is essentially what an AppImage is: an app bundle.
+
+There are obviously cons to bundling most dependencies compared to using system ones, so users that can should use prebuilt binaries or build from source instead. That's a trade-off.
+
+Also, unlike flatpaks, AppImage and AppDirs do not perform any kind of sandboxing which doesn't play well with an application launcher like Vicinae.
+
+### GLibc versioning
+
+One of the few things that can't be bundled is the glibc that is used by the system to interface with the kernel. Glibc is backwards compatible. This means that in order to maximize compatibility, we need to build the AppImage in an environment that has a rather old glibc so that every system that has that version of glibc or higher can successfully run the AppImage. All the dependencies that are bundled should also be compiled against that version of glibc. This is why we need to build the AppImage on an old system. In Vicinae's case, we settled on an ubuntu:22.04 image which should support a lot of modern distributions.
+
+A consequence of that is that if we require any modern dependency (that is thus unavailable to us using apt) we need to compile it ourselves. For Vicinae, that involves compiling a lot of things, such as:
+
+- the compiler itself (gcc-15), so that we can have access to modern C++ features we rely on.
+- Recent Qt version, on par with what's available on bleeding edge distros
+- Various tools and libraries needed to build up-to-date stuff such as cmake, protobuf, etc.
+
+### Containerization
+
+In order to easily encapsulate the build environment for the AppImage we just use a [Dockerfile](https://github.com/vicinaehq/vicinae/blob/main/scripts/runners/appimage/AppImageBuilder.Dockerfile) that creates a build environment ready to build appimages.
+
+It's then pushed on DockerHub tagged as `vicinae/appimage-build-env`.
+
+## Build AppImage
+
+### Prerequisites
+
+- Docker
+- AppImage stuff (libfuse, etc...)
+
+<Note>
+All the required libraries and compiler are available inside the image so system libraries are irrelevant.
+</Note>
+
+### Run build environment (from DockerHub)
+
+From the Vicinae source tree, just run:
+
+```bash
+make appimage-build-env-run
+```
+
+From there you should be able to build the AppDir and AppImage by running:
+
+```shell
+make clean # make sure the build tree is clean
+make appimage
+```
+
+### Build build environment
+
+If for some reason you can't fetch the image from DockerHub, you can build the image locally by running:
+
+```bash
+make appimage-build-env
+```
+
+For the reasons mentioned above, building this image can take a very long time depending on hardware specs, so it is recommended to use the image uploaded to DockerHub instead.
