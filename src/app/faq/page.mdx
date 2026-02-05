@@ -39,6 +39,13 @@ In 99% of cases this is an environment variable issue. See item below.
 
 Apps launched by vicinae inherit from the parent's environment without any modification. This probably means the environment variable that is missing is not properly injected in vicinae's environment when started. If using the systemd user service, you need to make sure the service is started with the right set of environment variables.
 
+## How to center the launcher window
+
+If you have centering issues, you are probably on Gnome Wayland. The window should be explicitly centered using a tool such as Gnome Tweaks, or you can try the command below:
+
+```bash
+gsettings set org.gnome.mutter center-new-windows true
+```
 
 ## The vicinae window takes a long time to appear
 
