@@ -47,6 +47,24 @@ If you have centering issues, you are probably on Gnome Wayland. The window shou
 gsettings set org.gnome.mutter center-new-windows true
 ```
 
+## How to blur the launcher window
+
+Blur needs to be supported by your compositor. In such case, you should have a way to add a rule that will apply blur to the vicinae window. The class or scope you need is `vicinae`.
+
+This documentation contains quickstart guides for every major compositor. If blur can be done, be it natively or through some kind of extension, it is likely documented on these pages.
+
+## How to apply scaling
+
+It is possible to enable window scaling for Vicinae by setting the `QT_SCALE_FACTOR` environment variable to an appropriate value:
+
+```bash
+QT_SCALE_FACTOR=1.5 vicinae server
+```
+
+<Note>
+It is not recommended to set this value globally as it will force scaling for every QT app. If you need desktop-wide scaling you probably want your Wayland compositor to handle this for you. Only use this if you only need the Vicinae window to scale up or down.
+</Note>
+
 ## The vicinae window takes a long time to appear
 
 Make sure you are not running the unextracted AppImage directly every time you want to call `vicinae toggle`. You should probably use the [script](/install/script) to automatically extract the AppImage components.

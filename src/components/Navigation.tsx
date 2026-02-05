@@ -266,7 +266,6 @@ export const navigation: Array<NavItem> = [
 			{ title: 'Configuration', href: '/config' },
 			{ title: 'Known Caveats', href: '/caveats' },
 			{ title: 'Network and Privacy', href: '/privacy' },
-			{ title: 'Launcher Window', href: '/launcher-window' },
 			{ title: 'dmenu Mode', href: '/dmenu' },
 			{ title: 'Clipboard Management', href: '/clipboard' },
 			{ title: 'Window Management', href: '/window' },
