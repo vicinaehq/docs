@@ -1,14 +1,14 @@
 # Niri Quickstart
 
-This guide shows the best way to quickly get started with Vicinae on [Niri](https://yalter.github.io/niri).
+This guide shows the best way to quickly get started with Vicinae on [niri](https://yalter.github.io/niri).
 
 ## Main configuration
 
-Add the following to your Niri configuration, and you are good to go.
+Add the following to your niri configuration, and you are good to go.
 
 ```ini
 # ~/.config/niri/config.kdl
-spawn-sh-at-startup "vicinae server"
+spawn-at-startup "vicinae" "server"
 
 # use whatever shortcut floats your boat
 Mod+Space repeat=false { spawn "vicinae" "toggle"; }
@@ -33,23 +33,18 @@ You can do a lot with this: [learn more about deeplinks](/deeplinks).
 
 ## Blur
 
-Niri [doesn't currently support blur](https://github.com/YaLTeR/niri/issues/54). 
-
-A [patch](https://github.com/YaLTeR/niri/pull/1634) is available, but it remains buggy and doesn't seem to work with layer surfaces.
+Blur is currently a work in progress 
 
 ## Focus window on activation
-You may want to focus an application window after vicinae triggers an action related to it.
 
-*For example : using a shortcut action in vicnae that opens a browser tab → Instantly focus the window where the action happened*
+Common vicinae workflows such as opening a shortcut will spawn a command that may result in opening a new window or tab in an existing application (typically, browsers). vicinae doesn't yet pass a proper [xdg activation token](https://wayland.app/protocols/xdg-activation-v1#xdg_activation_token_v1) to apps it launches, so the compositor may not allow them to steal focus.
 
-You can have this behavior by adding this to your config:
+A straightforward fix is to enable the following option in your niri config:
 
 ```ini
 # ~/.config/niri/config.kdl
 
 debug {
-
-honor-xdg-activation-with-invalid-serial
-
+	honor-xdg-activation-with-invalid-serial
 }
 ```
