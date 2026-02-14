@@ -9,11 +9,27 @@ Vicinae can connect to your browser to search, focus and delete your browser tab
 
 ## Installation
 
+### Prerequisites
+
+<Note>
+If you installed vicinae from the AUR, using the script (as root) or from source, the prerequisites below should automatically be handled for you.
+When possible, these installation mediums automatically generate and install the required native host manifests on your system.
+
+Known exceptions are:
+- NixOS (for now)
+- AppImage install that was not performed as root
+- Any other esoteric packaging method that does not use the cmake install target
+</Note>
+
+- Chromium based browsers: the `/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json` should exist and reference a valid `vicinae-browser=link` binary. You may need to modify the allowed extension ID to match the one of the vicinae extension.
+- Firefox based browsers: the `/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json` should exist and reference a valid `vicinae-browser-link` binary.
+
 ### From web extension stores
 
-<Warning>
-The Vicinae browser extension is not published to the official chrome and firefox stores at the moment, but will very soon. Although more technical, it is still possible to install everything manually. Read more on that below.
-</Warning>
+The most straightforward way to get the extension is to download it directly from the official extension stores:
+
+- Chromium based browsers: [chrome extension store](https://chromewebstore.google.com/detail/vicinae-integration/kcmipingpfbohfjckomimmahknoddnke)
+- Firefox based browsers: coming soon
 
 ### Manual
 
