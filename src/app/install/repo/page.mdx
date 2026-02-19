@@ -31,11 +31,33 @@ emerge --sync jaredallard-overlay
 emerge gui-apps/vicinae
 ```
 
-## Fedora
+## Fedora and Derivatives
 
-VIcinae is packaged on [COPR](https://copr.fedorainfracloud.org/coprs/quadratech188/vicinae/).
+### COPR
+Vicinae is packaged on [COPR](https://copr.fedorainfracloud.org/coprs/quadratech188/vicinae/).
 
 ```bash
 dnf copr enable quadratech188/vicinae
 dnf install vicinae
+```
+
+### Terra
+Vicinae is also availible from [Terra](https://terra.fyralabs.com).
+
+Start with installing Terra:
+```bash
+sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+```
+Then install Vicinae:
+```bash
+sudo dnf install vicinae
+```
+On Fedora Atomic:
+```bash
+curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | pkexec tee /etc/yum.repos.d/terra.repo
+sudo rpm-ostree install terra-release vicinae
+```
+Bazzite users don't need to install Terra. Just set `enabled` to `1` in `/etc/yum.repos.d/terra.repo` then use `rpm-ostree`:
+```bash
+sudo rpm-ostree install vicinae
 ```
