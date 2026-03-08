@@ -111,6 +111,16 @@ See the [configuration](https://docs.vicinae.com/config) page.
 
 There is an option called `pop_to_root_on_close` you can configure that does exactly this.
 
-## Vicinae uses a lot of RAM
+## How to disable the main window animation?
 
-We are currently investigating excessive ram usage under specific situations. If you are seeing this on the latest version of vicinae please contribute to [this issue](https://github.com/vicinaehq/vicinae/issues/998).
+vicinae doesn't play any animation when showing or hiding its window, this is probably your compositor's doing.
+
+## vicinae's memory usage is too high
+
+[top/htop/btop is not a correct way to measure memory usage](https://sw.kovidgoyal.net/kitty/faq/#i-opened-and-closed-a-lot-of-windows-tabs-and-top-shows-kitty-s-memory-usage-is-very-high).
+
+If you think you have found a real memory leak, try to confirm it using [heaptrack](https://apps.kde.org/heaptrack/) or `valgrind` before reporting it as a bug.
+
+<Note>
+When vicinae is run as a systemd service, some system monitors will include the memory consumption of apps launched with vicinae to its own independant memory usage.
+</Note>
