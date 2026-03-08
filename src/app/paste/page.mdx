@@ -52,3 +52,17 @@ newgrp input
 
 Environments without full window management support (KDE Plasma or Gnome without the extension) will not be able to know whether the active window is a terminal emulator window or not, and as such vicinae will not be able to dispatch the correct paste sequence (`ctrl+shift+v`) to them.
 Paste will work in every application accepting `ctrl+v` though.
+
+## Why is pasted content copied in my clipboard?
+
+vicinae uses the clipboard as a data transfer mechanism to paste the content, because "typing" the content is very quirky and limited to ASCII text. It also avoids confusing the target app with raw input sequences that it may not expect.
+
+## Why not use `wtype`?
+
+[wtype](https://github.com/atx/wtype) uses the [virtual keyboard wayland protocol](https://wayland.app/protocols/virtual-keyboard-unstable-v1) which presents some caveats:
+
+- wayland only, X11 support requires special handling
+- may work slightly differently from a compositor to another
+- not implemented by many compositors and big desktop environments such as KDE Plasma and Gnome
+
+On the other hand, the `uinput` virtual keyboard method works everywhere in a predictable way.
