@@ -65,6 +65,19 @@ QT_SCALE_FACTOR=1.5 vicinae server
 It is not recommended to set this value globally as it will force scaling for every QT app. If you need desktop-wide scaling you probably want your Wayland compositor to handle this for you. Only use this if you only need the Vicinae window to scale up or down.
 </Note>
 
+## Scrolling is too fast/slow
+
+You can override the `QT_QUICK_FLICKABLE_WHEEL_DECELERATION` environment variable and set it to a lower value (e.g `5000`) to increase scrolling velocity.
+
+```bash
+QT_QUICK_FLICKABLE_WHEEL_DECELERATION=5000 vicinae server
+```
+
+<Note>
+Starting with v0.20.4, vicinae sets this value to a slightly lower default if the environment variable is not specified.
+</Note>
+
+
 ## The vicinae window takes a long time to appear
 
 Make sure you are not running the unextracted AppImage directly every time you want to call `vicinae toggle`. You should probably use the [script](/install/script) to automatically extract the AppImage components.
