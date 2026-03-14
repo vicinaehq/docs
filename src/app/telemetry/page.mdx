@@ -1,0 +1,55 @@
+# Telemetry
+
+vicinae collects anonymous telemetry in order to help improving the software. This page details what is collected and why. Users can opt-out at anytime by changing a single config item. {{ className: 'lead' }}
+
+## Telemetry breakdown
+
+### System info
+
+vicinae collects basic system information when starting up the daemon. Here is a typical payload sent to the vicinae servers:
+
+```jsonc
+ {
+   "userId": "user-344a37bd-2d65-49ad-9a2f-27769334f64e",
+   "desktops": [
+      "niri"
+   ],
+   "vicinaeVersion": "v0.20.5",
+   "displayProtocol": "wayland",
+   "architecture": "x86_64",
+   "operatingSystem": "linux",
+   "buildProvenance": "local",
+   "locale": "en_US", // some vicinae features are affected by localization
+   "screens": [
+      {
+         "resolution": {
+            "width": 5120,
+            "height": 1440
+         },
+         "scale": 1
+      }
+   ],
+   "chassisType": "desktop",
+   "kernelVersion": "6.16.7-gentoo",
+   "productId": "gentoo",
+   "productVersion": "2.18"
+}
+```
+
+- We only send information that can help us make better decisions for development or testing. 
+- We don't send personally identifiable information: the `userId` is unique to vicinae and does *not* use your machine ID. It cannot be used to reliably fingerprint you.
+
+<Note>
+vicinae will only send this information once every 24 hours. This is so that we can count how many daily active users we have.
+</Note>
+
+## Disable telemetry
+
+Telemetry is *opt-out* by default. It can be turned off in one of two ways:
+
+- Turn it off from the "general" settings tab
+- Edit the `telemetry` object in your [configuration](/config)
+
+<Note>
+Please consider leaving telemetry on! It's as non intrusive as possible and it is helping us to make the software better.
+</Note>
