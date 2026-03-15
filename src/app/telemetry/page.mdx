@@ -23,8 +23,8 @@ vicinae collects basic system information when starting up the daemon. Here is a
    "screens": [
       {
          "resolution": {
-            "width": 5120,
-            "height": 1440
+            "width": 1920,
+            "height": 1080
          },
          "scale": 1
       }
@@ -37,7 +37,7 @@ vicinae collects basic system information when starting up the daemon. Here is a
 ```
 
 - We only send information that can help us make better decisions for development or testing. 
-- We don't send personally identifiable information: the `userId` is unique to vicinae and does *not* use your machine ID. It cannot be used to reliably fingerprint you.
+- We don't send personally identifiable information: the `userId` is unique to vicinae and does *not* use your machine ID. It cannot be used to track you outside of vicinae.
 
 <Note>
 vicinae will only send this information once every 24 hours. This is so that we can count how many daily active users we have.
@@ -53,3 +53,7 @@ Telemetry is *opt-out* by default. It can be turned off in one of two ways:
 <Note>
 Please consider leaving telemetry on! It's as non intrusive as possible and it is helping us to make the software better.
 </Note>
+
+## Legal grounding
+
+For users based in EU member states: processing is based on legitimate interest under [Article 6(1)(e-f)](https://gdpr-info.eu/art-6-gdpr/) of GDPR. This is compatible with opt-out telemetry.
