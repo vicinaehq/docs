@@ -1,6 +1,6 @@
 # Telemetry
 
-vicinae collects anonymous telemetry in order to help improving the software. This page details what is collected and why. Users can opt-out at anytime by changing a single config item. {{ className: 'lead' }}
+vicinae collects basic telemetry in order to help improving the software. This page details what is collected and why. Users can opt-out at anytime by changing a single config item. {{ className: 'lead' }}
 
 ## Telemetry breakdown
 
@@ -10,7 +10,7 @@ vicinae collects basic system information when starting up the daemon. Here is a
 
 ```jsonc
  {
-   "userId": "user-344a37bd-2d65-49ad-9a2f-27769334f64e",
+   "userId": "user-344a37bd-2d65-49ad-9a2f-27769334f64e", // tied to vicinae installation, not derived from machine-id
    "desktops": [
       "niri"
    ],
@@ -37,7 +37,7 @@ vicinae collects basic system information when starting up the daemon. Here is a
 ```
 
 - We only send information that can help us make better decisions for development or testing. 
-- We don't send personally identifiable information: the `userId` is unique to vicinae and does *not* use your machine ID. It cannot be used to track you outside of vicinae.
+- We don't send personally identifiable information other than the `userId`: it is unique to vicinae and does *not* use your machine ID. It cannot be used to track you outside of vicinae. We mostly use this to count unique daily active users and version upgrade rates overtime.
 
 <Note>
 vicinae will only send this information once every 24 hours. This is so that we can count how many daily active users we have.
@@ -54,6 +54,24 @@ Telemetry is *opt-out* by default. It can be turned off in one of two ways:
 Please consider leaving telemetry on! It's as non intrusive as possible and it is helping us to make the software better.
 </Note>
 
-## Legal grounding
+## GDPR
 
-For users based in EU member states: processing is based on legitimate interest under [Article 6(1)(e-f)](https://gdpr-info.eu/art-6-gdpr/) of GDPR. This is compatible with opt-out telemetry.
+### Legal grounding
+
+For users based in EU member states: processing is based on legitimate interest under [Article 6(1)(f)](https://gdpr-info.eu/art-6-gdpr/) of GDPR. This is compatible with opt-out telemetry.
+
+### Retention period
+
+1 year.
+
+### Data removal
+
+Since the vicinae server stores an identifier tied to your vicinae installation (and nothing else), it can be used to identify your specific installation across several requests.
+
+You can request the immediate and permanent removal of this data by using the following command:
+
+```bash
+vicinae "vicinae://extensions/vicinae/core/forget-telemetry"
+```
+
+This will contact the vicinae server one last time to instruct it to delete the data and will automatically turn off telemetry.
