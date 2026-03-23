@@ -1,6 +1,6 @@
 # Deeplinks
 
-Deeplinks is a mechanism allowing you to control Vicinae using the `vicinae://` url scheme. It allows you to toggle the window visibility, launch a specific command, and much more.
+Deeplinks are a mechanism allowing you to control Vicinae using the `vicinae://` url scheme. It allows you to toggle the window visibility, launch a specific command, and much more.
 
 ## Using Deeplinks
 
@@ -25,7 +25,6 @@ If Vicinae is currently running, [clicking this link](vicinae://toggle) should t
 
 ## Deeplinks as keyboard shortcuts
 
-
 Deeplinks are the preferred way to bind keyboard shortcuts using your favorite window manager.
 
 For instance, someone using Hyprland would create this binding to toggle the Vicinae window when `Super + Space` is pressed:
@@ -35,38 +34,56 @@ bind = $mainMod, Space, exec, vicinae vicinae://toggle
 ```
 
 <Note>
-	If you are invoking deeplinks directly, it is recommended to execute them using the `vicinae` binary directly instead of using `xdg-open` or a similar tool, which will perform additional lookups and therefore be slower.
+If you are invoking deeplinks directly, it is recommended to execute them using the `vicinae` binary directly instead of using `xdg-open` or a similar tool, which will perform additional lookups and therefore be slower.
 </Note>
 
+## Launch any entrypoint
 
-## Launching specific commands
-
-You can launch a specific command using the following deeplink syntax:
-
-```bash
-vicinae://extensions/<author>/<extension_name>/<command_name>
-```
-
-The `author` field matches the author of the extension. Built-in extensions always have `vicinae` as their author. 
-
-As an example, this is how to open the [clipboard history command](vicinae://extensions/vicinae/clipboard/history) using a deeplink:
+To activate the primary action of an entrypoint shown in the root search:
 
 ```bash
-vicinae vicinae://extensions/vicinae/clipboard/history
+vicinae://launch/<provider>/<entrypoint>
 ```
+
+For instance, this is how to open the [clipboard history command](vicinae://launch/clipboard/history) using a deeplink:
+
+```bash
+vicinae://launch/clipboard/history
+```
+
+You can find the deeplink for any entrypoint listed in the root search by using the "Copy Deeplink" command:
+
+![](/deeplink-action.gif)
 
 ### Pass fallback text to command
 
 The query parameter `fallbackText` can be used to set a fallback search text when launching the command:
 
 ```bash
-vicinae 'vicinae://extensions/vicinae/clipboard/history?fallbackText=text'
+vicinae 'vicinae://launch/clipboard/history?fallbackText=text'
 ```
 
+### Toggle deeplink
 
-### Get deeplink for any command
+You can pass `toggle=true` to a deeplink in order to automatically close the window if it's already open, and otherwise open the deeplink like normal. This is generally useful when binding a deeplink to a keybind and wanting toggle behavior.
 
-You can get the deeplink for a command directly from the root search. Select the command you want to get the deeplink for, open the action panel and select the `Copy deeplink` item.
+```bash
+vicinae 'vicinae://launch/clipboard/history?toggle=true'
+```
+
+## Filter root search by provider
+
+It is possible to restrict search to items that are part of a given provider using the following deeplink:
+
+```bash
+vicinae 'vicinae://launch/<provider>'
+```
+
+For instance, to only search through power commands:
+
+```
+vicinae 'vicinae://launch/power'
+```
 
 ## Window controls
 
@@ -100,6 +117,6 @@ vicinae://theme/set/<theme_id>
 
 The theme id is the name of the JSON theme file without the extension. For a theme file named `gruvbox.json`, use `gruvbox`.
 
-## Raycast compatiblity
+## Raycast compatibility
 
 In order to remain compatible with Raycast, the `raycast://` scheme can be used interchangeably with `vicinae://`.
