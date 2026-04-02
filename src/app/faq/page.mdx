@@ -101,6 +101,19 @@ kitty.desktop
 
 The name of the entry must match the name of the desktop file. You can get it from the vicinae root search by using the "Copy App ID" action on an application entry.
 
+## How to force the vicinae window to show in fullscreen mode?
+
+This usually happens on niri where the `top` layer shell layer is displayed behind fullscreen applications.
+
+You can fix this by changing the layer shell layer to `overlay` in the configuration file (see `vicinae config default`)
+
+<Note>
+vicinae uses `top` instead of `overlay` for various reasons. On some environments, some IME popups end up being shown behind the vicinae window if it's
+set to overlay.
+</Note>
+
+If this happens in an environment where layer shell is not a thing, then it's probably another issue.
+
 ## Emojis do not load
 
 This is a [known issue](https://github.com/vicinaehq/vicinae/issues/304) when using the AppImage build (typically through the script installation). The TLDR is that QT does not recognize some fonts as emoji fonts. A fix is to try installing another emoji font and see if vicinae automatically picks it up. More complicated workarounds are also discussed in the previously mentionned issue.
