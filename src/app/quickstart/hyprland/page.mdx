@@ -4,12 +4,12 @@ This guide shows the best way to quickly get started with Vicinae on [Hyprland](
 
 ## Main configuration
 
-Add the following to your Hyprland configuration, and you are good to go.
+Add the following to your Hyprland configuration, and you are good to go (unless you use uwsm to manage hyprland, see below).
 
 ```ini
 # ~/.config/hypr/hyprland.conf
 
-exec-once = vicinae server
+exec-once = vicinae server # exclude this if using uwsm
 
 # use whatever shortcut floats your boat
 bind = $mainMod, Space, exec, vicinae toggle
@@ -45,6 +45,10 @@ layerrule {
 <Note>
 On first startup, Vicinae will use a lot of CPU in order to populate the file index.
 </Note>
+
+## uwsm - Universal Wayland Session Manager
+
+If you use [uwsm to launch and manage hyprland](https://wiki.hypr.land/Useful-Utilities/Systemd-start/#uwsm) then as always you should use the provided systemd service to start vicinae as well.  Exclude the exec-once line above and run `systemctl --user enable --now vicinae.service` instead; vicinae will start immediately and launch on boot moving forward.
 
 ## Bind to a custom command
 
