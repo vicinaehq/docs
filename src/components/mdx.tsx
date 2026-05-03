@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 
-import { Feedback } from '@/components/Feedback'
 import { Heading } from '@/components/Heading'
 import { Prose } from '@/components/Prose'
 import { ImageZoom } from '@/components/ImageZoom'
@@ -15,9 +14,6 @@ export function wrapper({ children }: { children: React.ReactNode }) {
   return (
     <article className="flex h-full flex-col pt-16 pb-10">
       <Prose className="flex-auto">{children}</Prose>
-      <footer className="mx-auto mt-16 w-full max-w-2xl lg:max-w-5xl">
-        <Feedback />
-      </footer>
     </article>
   )
 }
@@ -52,8 +48,8 @@ function InfoIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function Note({ children }: { children: React.ReactNode }) {
   return (
-    <div className="my-6 flex gap-2.5 rounded-2xl border border-orange-500/20 bg-orange-50/50 p-4 text-base/6 text-orange-900 dark:border-orange-500/30 dark:bg-orange-500/5 dark:text-orange-200 dark:[--tw-prose-links-hover:var(--color-orange-300)] dark:[--tw-prose-links:var(--color-white)]">
-      <InfoIcon className="mt-1 h-4 w-4 flex-none fill-orange-500 stroke-white dark:fill-orange-200/20 dark:stroke-orange-200" />
+    <div className="my-6 flex gap-2.5 rounded-2xl border border-sand-500/20 bg-sand-500/5 p-4 text-base/6 text-sand-200 [--tw-prose-links-hover:theme(colors.sand.200)] [--tw-prose-links:theme(colors.sand.300)]">
+      <InfoIcon className="mt-1 h-4 w-4 flex-none fill-sand-500/80 stroke-ink-900" />
       <div className="[&>:first-child]:mt-0 [&>:last-child]:mb-0">
         {children}
       </div>
@@ -63,8 +59,8 @@ export function Note({ children }: { children: React.ReactNode }) {
 
 export function Warning({ children }: { children: React.ReactNode }) {
   return (
-    <div className="my-6 flex gap-2.5 rounded-2xl border border-yellow-500/20 bg-yellow-50/50 p-4 text-base/6 text-yellow-900 dark:border-yellow-500/30 dark:bg-yellow-500/5 dark:text-yellow-200 dark:[--tw-prose-links-hover:var(--color-yellow-300)] dark:[--tw-prose-links:var(--color-white)]">
-      <InfoIcon className="mt-1 h-4 w-4 flex-none fill-yellow-500 stroke-white dark:fill-yellow-200/20 dark:stroke-yellow-200" />
+    <div className="my-6 flex gap-2.5 rounded-2xl border border-sage-400/20 bg-sage-400/5 p-4 text-base/6 text-sage-200 [--tw-prose-links-hover:theme(colors.sage.300)] [--tw-prose-links:theme(colors.sage.200)]">
+      <InfoIcon className="mt-1 h-4 w-4 flex-none fill-sage-400/80 stroke-ink-900" />
       <div className="[&>:first-child]:mt-0 [&>:last-child]:mb-0">
         {children}
       </div>
@@ -104,7 +100,7 @@ export function Properties({ children }: { children: React.ReactNode }) {
     <div className="my-6">
       <ul
         role="list"
-        className="m-0 max-w-[calc(var(--container-lg)-(--spacing(8)))] list-none divide-y divide-zinc-900/5 p-0 dark:divide-white/5"
+        className="m-0 max-w-[calc(var(--container-lg)-(--spacing(8)))] list-none divide-y divide-sand-700/15 p-0"
       >
         {children}
       </ul>
@@ -131,9 +127,7 @@ export function Property({
         {type && (
           <>
             <dt className="sr-only">Type</dt>
-            <dd className="font-mono text-xs text-zinc-400 dark:text-zinc-500">
-              {type}
-            </dd>
+            <dd className="font-mono text-xs text-stone-500">{type}</dd>
           </>
         )}
         <dt className="sr-only">Description</dt>
@@ -162,7 +156,7 @@ export function Video({
 }) {
   return (
     <figure className="rounded-2xl">
-      <div className="rounded-2xl shadow-md m-0 p-0">
+      <div className="m-0 rounded-2xl p-0 shadow-[0_16px_48px_-12px_rgba(154,123,63,0.08)]">
         <video
           src={src}
           autoPlay={autoPlay}
@@ -175,7 +169,7 @@ export function Video({
         </video>
       </div>
       {caption && (
-        <figcaption className="mt-3 text-center text-sm text-zinc-500 dark:text-zinc-400">
+        <figcaption className="mt-3 text-center text-sm text-stone-500">
           {caption}
         </figcaption>
       )}

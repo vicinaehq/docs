@@ -16,11 +16,6 @@ const withMDX = nextMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
-  experimental: {
-    outputFileTracingIncludes: {
-      '/**/*': ['./src/app/**/*.mdx'],
-    },
-  },
 }
 
 export default withSearch(withMDX(nextConfig))

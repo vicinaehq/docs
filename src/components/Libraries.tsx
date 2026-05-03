@@ -52,14 +52,14 @@ export function Libraries() {
       <Heading level={2} id="official-libraries">
         Official libraries
       </Heading>
-      <div className="not-prose mt-4 grid grid-cols-1 gap-x-6 gap-y-10 border-t border-zinc-900/5 pt-10 sm:grid-cols-2 xl:max-w-none xl:grid-cols-3 dark:border-white/5">
+      <div className="not-prose mt-4 grid grid-cols-1 gap-x-6 gap-y-10 border-t border-sand-700/15 pt-10 sm:grid-cols-2 xl:max-w-none xl:grid-cols-3">
         {libraries.map((library) => (
           <div key={library.name} className="flex flex-row-reverse gap-6">
             <div className="flex-auto">
-              <h3 className="text-sm font-semibold text-zinc-900 dark:text-white">
+              <h3 className="text-sm font-semibold text-white">
                 {library.name}
               </h3>
-              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+              <p className="mt-1 text-sm text-stone-400">
                 {library.description}
               </p>
               <p className="mt-4">

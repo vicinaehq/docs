@@ -27,7 +27,7 @@ const languageNames: Record<string, string> = {
   nix: 'Nix',
   cpp: 'C++',
   swift: 'Swift',
-  cmake: 'CMake'
+  cmake: 'CMake',
 }
 
 function getPanelTitle({
@@ -81,8 +81,8 @@ function CopyButton({ code }: { code: string }) {
       className={clsx(
         'group/button absolute top-3.5 right-4 overflow-hidden rounded-full py-1 pr-3 pl-2 text-2xs font-medium opacity-0 backdrop-blur-sm transition group-hover:opacity-100 focus:opacity-100',
         copied
-          ? 'bg-orange-400/10 ring-1 ring-orange-400/20 ring-inset'
-          : 'bg-white/5 hover:bg-white/7.5 dark:bg-white/2.5 dark:hover:bg-white/5',
+          ? 'bg-sand-500/10 ring-1 ring-sand-500/20 ring-inset'
+          : 'bg-ink-700/50 hover:bg-ink-700',
       )}
       onClick={() => {
         window.navigator.clipboard.writeText(code).then(() => {
@@ -93,17 +93,17 @@ function CopyButton({ code }: { code: string }) {
       <span
         aria-hidden={copied}
         className={clsx(
-          'pointer-events-none flex items-center gap-0.5 text-zinc-400 transition duration-300',
+          'pointer-events-none flex items-center gap-0.5 text-stone-500 transition duration-300',
           copied && '-translate-y-1.5 opacity-0',
         )}
       >
-        <ClipboardIcon className="h-5 w-5 fill-zinc-500/20 stroke-zinc-500 transition-colors group-hover/button:stroke-zinc-400" />
+        <ClipboardIcon className="h-5 w-5 fill-stone-600/20 stroke-stone-500 transition-colors group-hover/button:stroke-stone-400" />
         Copy
       </span>
       <span
         aria-hidden={!copied}
         className={clsx(
-          'pointer-events-none absolute inset-0 flex items-center justify-center text-orange-400 transition duration-300',
+          'pointer-events-none absolute inset-0 flex items-center justify-center text-sand-400 transition duration-300',
           !copied && 'translate-y-1.5 opacity-0',
         )}
       >
@@ -119,17 +119,17 @@ function CodePanelHeader({ tag, label }: { tag?: string; label?: string }) {
   }
 
   return (
-    <div className="flex h-9 items-center gap-2 border-y border-t-transparent border-b-white/7.5 bg-zinc-900 px-4 dark:border-b-white/5 dark:bg-[#121212]">
+    <div className="flex h-9 items-center gap-2 border-b border-sand-700/20 bg-ink-800 px-4">
       {tag && (
-        <div className="dark flex">
+        <div className="flex">
           <Tag variant="small">{tag}</Tag>
         </div>
       )}
       {tag && label && (
-        <span className="h-0.5 w-0.5 rounded-full bg-zinc-500" />
+        <span className="h-0.5 w-0.5 rounded-full bg-stone-600" />
       )}
       {label && (
-        <span className="font-mono text-xs text-zinc-400">{label}</span>
+        <span className="font-mono text-xs text-stone-500">{label}</span>
       )}
     </div>
   )
@@ -146,9 +146,10 @@ function CodePanel({
   label?: string
   code?: string
 }) {
-  let child = Children.only(children)
+  let childArray = Children.toArray(children)
+  let child = childArray.find(isValidElement)
 
-  if (isValidElement(child)) {
+  if (isValidElement<{ tag?: string; label?: string; code?: string }>(child)) {
     tag = child.props.tag ?? tag
     label = child.props.label ?? label
     code = child.props.code ?? code
@@ -161,10 +162,12 @@ function CodePanel({
   }
 
   return (
-    <div className="group dark:bg-white/2.5">
+    <div className="group bg-ink-800/40">
       <CodePanelHeader tag={tag} label={label} />
       <div className="relative">
-        <pre className="overflow-x-auto p-4 text-sm text-white">{children}</pre>
+        <pre className="overflow-x-auto p-4 text-sm text-stone-200">
+          {children}
+        </pre>
         <CopyButton code={code} />
       </div>
     </div>
@@ -187,9 +190,9 @@ function CodeGroupHeader({
   }
 
   return (
-    <div className="flex min-h-[calc(--spacing(10)+1px)] flex-wrap items-center gap-x-4 border-b border-zinc-700 bg-zinc-800 px-4 dark:border-zinc-800 dark:bg-[#121212]">
+    <div className="flex min-h-[calc(--spacing(10)+1px)] flex-wrap items-center gap-x-4 border-b border-sand-700/20 bg-ink-800 px-4">
       {title && (
-        <h3 className="mr-auto text-xs font-semibold text-white">
+        <h3 className="mr-auto text-xs font-semibold text-stone-200">
           {title}
         </h3>
       )}
@@ -198,13 +201,13 @@ function CodeGroupHeader({
           {Children.map(children, (child, childIndex) => (
             <Tab
               className={clsx(
-                'border-b py-2.5 transition data-selected:not-data-focus:outline-hidden',
+                'border-b py-2.5 transition-colors duration-200 data-selected:not-data-focus:outline-hidden',
                 childIndex === selectedIndex
-                  ? 'border-orange-500 text-orange-400'
-                  : 'border-transparent text-zinc-400 hover:text-zinc-300',
+                  ? 'border-sand-500 text-sand-400'
+                  : 'border-transparent text-stone-500 hover:text-stone-300',
               )}
             >
-              {getPanelTitle(isValidElement(child) ? child.props : {})}
+              {getPanelTitle(isValidElement<Record<string, string>>(child) ? child.props : {})}
             </Tab>
           ))}
         </TabList>
@@ -236,7 +239,7 @@ function CodeGroupPanels({
 
 function usePreventLayoutShift() {
   let positionRef = useRef<HTMLElement>(null)
-  let rafRef = useRef<number>()
+  let rafRef = useRef<number>(undefined)
 
   useEffect(() => {
     return () => {
@@ -317,13 +320,13 @@ export function CodeGroup({
 }: React.ComponentPropsWithoutRef<typeof CodeGroupPanels> & { title: string }) {
   let languages =
     Children.map(children, (child) =>
-      getPanelTitle(isValidElement(child) ? child.props : {}),
+      getPanelTitle(isValidElement<Record<string, string>>(child) ? child.props : {}),
     ) ?? []
   let tabGroupProps = useTabGroupProps(languages)
   let hasTabs = Children.count(children) > 1
 
   let containerClassName =
-    'my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:bg-[#121212] dark:ring-1 dark:ring-white/10'
+    'my-6 overflow-hidden rounded-2xl bg-ink-800 ring-1 ring-sand-700/20'
   let header = (
     <CodeGroupHeader title={title} selectedIndex={tabGroupProps.selectedIndex}>
       {children}

@@ -1,9 +1,28 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 @config '../../typography.ts';
-@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-ink-900: #0f1014;
+  --color-ink-800: #15161b;
+  --color-ink-700: #1c1d23;
+
+  --color-sand-200: #e8d5b8;
+  --color-sand-300: #d4b88e;
+  --color-sand-400: #c9a76e;
+  --color-sand-500: #b8944e;
+  --color-sand-600: #9a7b3f;
+  --color-sand-700: #7a6132;
+
+  --color-sage-300: #8aaa9c;
+  --color-sage-400: #6a8a7c;
+  --color-sage-500: #567a6c;
+  --color-sage-600: #44635a;
+  --color-sage-700: #354d46;
+
   --text-2xs: 0.75rem;
   --text-2xs--line-height: 1.25rem;
   --text-xs: 0.8125rem;
@@ -34,6 +53,7 @@
   --text-9xl--line-height: 1;
 
   --shadow-glow: 0 0 4px rgb(0 0 0 / 0.1);
+  --shadow-warm: 0 0 28px -4px rgb(184 148 78 / 0.35);
 
   --container-lg: 33rem;
   --container-2xl: 40rem;
@@ -42,19 +62,22 @@
 }
 
 @layer base {
-  :root {
-    --shiki-color-text: var(--color-white);
-    --shiki-token-constant: var(--color-emerald-300);
-    --shiki-token-string: var(--color-emerald-300);
-    --shiki-token-comment: var(--color-zinc-500);
-    --shiki-token-keyword: var(--color-sky-300);
-    --shiki-token-parameter: var(--color-pink-300);
-    --shiki-token-function: var(--color-violet-300);
-    --shiki-token-string-expression: var(--color-emerald-300);
-    --shiki-token-punctuation: var(--color-zinc-200);
+  ::selection {
+    background: rgb(201 167 110 / 0.3);
   }
 
-  /* Ensure anchor targets account for fixed header height */
+  :root {
+    --shiki-color-text: var(--color-stone-200);
+    --shiki-token-constant: var(--color-sand-300);
+    --shiki-token-string: var(--color-sage-300);
+    --shiki-token-comment: var(--color-stone-600);
+    --shiki-token-keyword: var(--color-sand-400);
+    --shiki-token-parameter: var(--color-stone-300);
+    --shiki-token-function: var(--color-sand-200);
+    --shiki-token-string-expression: var(--color-sage-300);
+    --shiki-token-punctuation: var(--color-stone-400);
+  }
+
   h1[id],
   h2[id],
   h3[id],
@@ -66,5 +89,37 @@
 
   [inert] ::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.012;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(122 97 50 / 0.3);
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(122 97 50 / 0.5);
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(122 97 50 / 0.3) transparent;
   }
 }

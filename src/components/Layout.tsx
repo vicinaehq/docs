@@ -1,13 +1,15 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Logo } from '@/components/Logo'
 import { Navigation } from '@/components/Navigation'
+import { ReadingProgress } from '@/components/ReadingProgress'
 import { SectionProvider, type Section } from '@/components/SectionProvider'
 import { TableOfContents } from '@/components/TableOfContents'
 
@@ -22,12 +24,31 @@ export function Layout({
 
   return (
     <SectionProvider sections={allSections[pathname] ?? []}>
+      <div
+        className="pointer-events-none fixed top-0 right-0 z-0 h-[600px] w-[600px] opacity-40"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(154,123,63,0.07) 0%, transparent 70%)',
+          filter: 'blur(80px)',
+        }}
+      />
+      <div
+        className="pointer-events-none fixed bottom-0 left-0 z-0 h-[500px] w-[500px] opacity-40"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(86,122,108,0.06) 0%, transparent 70%)',
+          filter: 'blur(80px)',
+        }}
+      />
+
+      <ReadingProgress />
+
       <div className="h-full lg:ml-72 xl:ml-80">
         <motion.header
           layoutScroll
           className="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex"
         >
-          <div className="contents lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pt-4 lg:pb-8 xl:w-80 lg:dark:border-white/10">
+          <div className="contents lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:border-r lg:border-sand-700/20 lg:bg-ink-900/80 lg:px-6 lg:pt-4 lg:pb-8 xl:w-80">
             <div className="hidden lg:flex">
               <Link href="/" aria-label="Home">
                 <Logo className="h-6" />
@@ -38,7 +59,10 @@ export function Layout({
           </div>
         </motion.header>
         <div className="relative flex h-full flex-col px-4 pt-14 sm:px-6 lg:px-8 xl:mr-64">
-          <main className="flex-auto">{children}</main>
+          <main className="flex-auto">
+            <Breadcrumbs />
+            {children}
+          </main>
           <Footer />
         </div>
         <aside className="fixed inset-y-0 right-0 z-20 hidden w-64 overflow-y-auto px-6 pt-20 pb-8 xl:block">

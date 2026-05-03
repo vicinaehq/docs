@@ -16,14 +16,14 @@ function ArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 const variantStyles = {
   primary:
-    'rounded-full bg-zinc-900 py-1 px-3 text-white hover:bg-zinc-700 dark:bg-orange-400/10 dark:text-orange-400 dark:ring-1 dark:ring-inset dark:ring-orange-400/20 dark:hover:bg-orange-400/10 dark:hover:text-orange-300 dark:hover:ring-orange-300',
+    'rounded-lg bg-gradient-to-b from-sand-500 to-sand-600 py-1 px-3 text-ink-900 font-medium hover:shadow-warm hover:from-sand-400 hover:to-sand-500',
   secondary:
-    'rounded-full bg-zinc-100 py-1 px-3 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800/40 dark:text-zinc-400 dark:ring-1 dark:ring-inset dark:ring-zinc-800 dark:hover:bg-zinc-800 dark:hover:text-zinc-300',
+    'rounded-lg bg-ink-800/50 py-1 px-3 text-stone-400 ring-1 ring-inset ring-sand-700/10 hover:text-stone-200 hover:ring-sand-600/18 hover:bg-ink-800/70',
   filled:
-    'rounded-full bg-zinc-900 py-1 px-3 text-white hover:bg-zinc-700 dark:bg-orange-500 dark:text-white dark:hover:bg-orange-400',
+    'rounded-lg bg-gradient-to-b from-sand-500 to-sand-600 py-1 px-3 text-ink-900 font-medium hover:shadow-warm hover:from-sand-400 hover:to-sand-500',
   outline:
-    'rounded-full py-1 px-3 text-zinc-700 ring-1 ring-inset ring-zinc-900/10 hover:bg-zinc-900/2.5 hover:text-zinc-900 dark:text-zinc-400 dark:ring-white/10 dark:hover:bg-white/5 dark:hover:text-white',
-  text: 'text-orange-500 hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-500',
+    'rounded-lg py-1 px-3 text-stone-400 ring-1 ring-inset ring-sand-700/10 hover:bg-ink-800/50 hover:text-stone-200 hover:ring-sand-600/18',
+  text: 'text-sand-400 hover:text-sand-200',
 }
 
 type ButtonProps = {
@@ -42,7 +42,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   className = clsx(
-    'inline-flex gap-0.5 justify-center overflow-hidden text-sm font-medium transition',
+    'inline-flex gap-0.5 justify-center overflow-hidden text-sm font-medium transition-all duration-200',
     variantStyles[variant],
     className,
   )

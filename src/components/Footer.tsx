@@ -28,7 +28,7 @@ function PageLink({
         href={page.href}
         tabIndex={-1}
         aria-hidden="true"
-        className="text-base font-semibold text-zinc-900 transition hover:text-zinc-600 dark:text-white dark:hover:text-zinc-300"
+        className="text-base font-semibold text-stone-200 transition-colors duration-200 hover:text-stone-400"
       >
         {page.title}
       </Link>
@@ -70,14 +70,6 @@ function PageNavigation() {
   )
 }
 
-function XIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true" {...props}>
-      <path d="M11.1527 8.92804L16.2525 3H15.044L10.6159 8.14724L7.07919 3H3L8.34821 10.7835L3 17H4.20855L8.88474 11.5643L12.6198 17H16.699L11.1524 8.92804H11.1527ZM9.49748 10.8521L8.95559 10.077L4.644 3.90978H6.50026L9.97976 8.88696L10.5216 9.66202L15.0446 16.1316H13.1883L9.49748 10.8524V10.8521Z" />
-    </svg>
-  )
-}
-
 function GitHubIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true" {...props}>
@@ -102,26 +94,21 @@ function SocialLink({
   return (
     <Link href={href} className="group">
       <span className="sr-only">{children}</span>
-      <Icon className="h-5 w-5 fill-zinc-700 transition group-hover:fill-zinc-900 dark:group-hover:fill-zinc-500" />
+      <Icon className="h-5 w-5 fill-stone-600 transition-colors duration-200 group-hover:fill-stone-400" />
     </Link>
   )
 }
 
 function SmallPrint() {
   return (
-    <div className="flex flex-col items-center justify-between gap-5 border-t border-zinc-900/5 pt-8 sm:flex-row dark:border-white/5">
-      <p className="text-xs text-zinc-600 dark:text-zinc-400">
+    <div className="flex flex-col items-center justify-between gap-5 border-t border-sand-700/15 pt-8 sm:flex-row">
+      <p className="text-xs text-stone-600">
         &copy; Copyright {new Date().getFullYear()}. All rights reserved.
       </p>
       <div className="flex gap-4">
         <SocialLink href={VICINAE_GITHUB_ORG_URL} icon={GitHubIcon}>
           Follow us on GitHub
         </SocialLink>
-        {/*
-        <SocialLink href="#" icon={DiscordIcon}>
-          Join our Discord server
-        </SocialLink>
-		*/}
       </div>
     </div>
   )

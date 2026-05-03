@@ -1,6 +1,6 @@
 'use client'
 
-import { useInView } from 'framer-motion'
+import { useInView } from 'motion/react'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
@@ -31,10 +31,10 @@ function Eyebrow({ tag, label }: { tag?: string; label?: string }) {
     <div className="flex items-center gap-x-3">
       {tag && <Tag>{tag}</Tag>}
       {tag && label && (
-        <span className="h-0.5 w-0.5 rounded-full bg-zinc-300 dark:bg-zinc-600" />
+        <span className="h-0.5 w-0.5 rounded-full bg-stone-600" />
       )}
       {label && (
-        <span className="font-mono text-xs text-zinc-400">{label}</span>
+        <span className="font-mono text-xs text-stone-500">{label}</span>
       )}
     </div>
   )
@@ -56,8 +56,8 @@ function Anchor({
     >
       {inView && (
         <div className="absolute mt-1 ml-[calc(-1*var(--width))] hidden w-(--width) opacity-0 transition [--width:calc(2.625rem+0.5px+50%-min(50%,calc(var(--container-lg)+(--spacing(8)))))] group-hover:opacity-100 group-focus:opacity-100 md:block lg:z-50 2xl:[--width:--spacing(10)]">
-          <div className="group/anchor block h-5 w-5 rounded-lg bg-zinc-50 ring-1 ring-zinc-300 transition ring-inset hover:ring-zinc-500 dark:bg-zinc-800 dark:ring-zinc-700 dark:hover:bg-zinc-700 dark:hover:ring-zinc-600">
-            <AnchorIcon className="h-5 w-5 stroke-zinc-500 transition dark:stroke-zinc-400 dark:group-hover/anchor:stroke-white" />
+          <div className="group/anchor block h-5 w-5 rounded-lg bg-ink-800 ring-1 ring-sand-700/10 transition ring-inset hover:ring-sand-600/18 hover:bg-ink-700">
+            <AnchorIcon className="h-5 w-5 stroke-stone-500 transition group-hover/anchor:stroke-stone-200" />
           </div>
         </div>
       )}

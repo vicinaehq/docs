@@ -44,7 +44,7 @@ export function ImageZoom({
             />
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute right-2 top-2 rounded-full bg-zinc-900/50 p-2 text-white transition hover:bg-zinc-900/75"
+              className="absolute right-2 top-2 rounded-full bg-ink-800/50 p-2 text-stone-200 transition hover:bg-ink-700"
               aria-label="Close"
             >
               <svg

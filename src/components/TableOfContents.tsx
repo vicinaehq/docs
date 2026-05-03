@@ -19,7 +19,7 @@ export function TableOfContents() {
 
   return (
     <nav aria-label="Table of contents">
-      <h2 className="text-sm font-semibold text-zinc-900 dark:text-white">
+      <h2 className="text-xs font-medium tracking-wider uppercase text-stone-200">
         On this page
       </h2>
       <ul className="mt-4 space-y-3 text-sm">
@@ -28,25 +28,25 @@ export function TableOfContents() {
             <Link
               href={`#${section.id}`}
               className={clsx(
-                'block transition',
+                'block transition-colors duration-200',
                 isActive(section.id)
-                  ? 'text-orange-500'
-                  : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white',
+                  ? 'text-sand-400'
+                  : 'text-stone-400 hover:text-stone-100',
               )}
             >
               {section.title}
             </Link>
             {section.children && section.children.length > 0 && (
-              <ul className="mt-2 space-y-2 border-l border-zinc-200 pl-4 dark:border-zinc-800">
+              <ul className="mt-2 space-y-2 border-l border-sand-700/15 pl-4">
                 {section.children.map((child) => (
                   <li key={child.id}>
                     <Link
                       href={`#${child.id}`}
                       className={clsx(
-                        'block text-sm transition',
+                        'block text-sm transition-colors duration-200',
                         isActive(child.id)
-                          ? 'text-orange-500'
-                          : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300',
+                          ? 'text-sand-400'
+                          : 'text-stone-500 hover:text-stone-300',
                       )}
                     >
                       {child.title}

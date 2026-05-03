@@ -25,7 +25,7 @@ function FeedbackButton(
   return (
     <button
       type="submit"
-      className="px-3 text-sm font-medium text-zinc-600 transition hover:bg-zinc-900/2.5 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white"
+      className="px-3 text-sm font-medium text-stone-500 transition-colors duration-200 hover:bg-ink-700 hover:text-stone-200"
       {...props}
     />
   )
@@ -45,12 +45,10 @@ const FeedbackForm = forwardRef<
         'absolute inset-0 flex items-center justify-center gap-6 md:justify-start',
       )}
     >
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        Was this page helpful?
-      </p>
-      <div className="group grid h-8 grid-cols-[1fr_1px_1fr] overflow-hidden rounded-full border border-zinc-900/10 dark:border-white/10">
+      <p className="text-sm text-stone-500">Was this page helpful?</p>
+      <div className="group grid h-8 grid-cols-[1fr_1px_1fr] overflow-hidden rounded-full border border-sand-700/20">
         <FeedbackButton data-response="yes">Yes</FeedbackButton>
-        <div className="bg-zinc-900/10 dark:bg-white/10" />
+        <div className="bg-sand-700/20" />
         <FeedbackButton data-response="no">No</FeedbackButton>
       </div>
     </form>
@@ -70,8 +68,8 @@ const FeedbackThanks = forwardRef<
         'absolute inset-0 flex justify-center md:justify-start',
       )}
     >
-      <div className="flex items-center gap-3 rounded-full bg-orange-50/50 py-1 pr-3 pl-1.5 text-sm text-orange-900 ring-1 ring-orange-500/20 ring-inset dark:bg-orange-500/5 dark:text-orange-200 dark:ring-orange-500/30">
-        <CheckIcon className="h-5 w-5 flex-none fill-orange-500 stroke-white dark:fill-orange-200/20 dark:stroke-orange-200" />
+      <div className="flex items-center gap-3 rounded-full bg-sand-500/5 py-1 pr-3 pl-1.5 text-sm text-sand-200 ring-1 ring-sand-500/20 ring-inset">
+        <CheckIcon className="h-5 w-5 flex-none fill-sand-500/80 stroke-ink-900" />
         Thanks for your feedback!
       </div>
     </div>
@@ -83,10 +81,6 @@ export function Feedback() {
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-
-    // event.nativeEvent.submitter.dataset.response
-    // => "yes" or "no"
-
     setSubmitted(true)
   }
 

@@ -1,9 +1,8 @@
 import clsx from 'clsx'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'motion/react'
 import Link from 'next/link'
 import { forwardRef } from 'react'
 
-import { Button } from '@/components/Button'
 import { Logo } from '@/components/Logo'
 import {
   MobileNavigation,
@@ -11,7 +10,6 @@ import {
   useMobileNavigationStore,
 } from '@/components/MobileNavigation'
 import { MobileSearch, Search } from '@/components/Search'
-import { ThemeToggle } from '@/components/ThemeToggle'
 import { CloseButton } from '@headlessui/react'
 import { VICINAE_DISCORD_URL, VICINAE_GITHUB_REPO_URL } from '@/lib/constants'
 
@@ -26,7 +24,7 @@ function TopLevelNavItem({
     <li>
       <Link
         href={href}
-        className="text-sm/5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+        className="text-sm/5 text-stone-500 transition-colors duration-200 hover:text-stone-200"
       >
         {children}
       </Link>
@@ -57,14 +55,12 @@ function GitHubIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 export function GithubLink() {
   return (
     <a
-	  href={VICINAE_GITHUB_REPO_URL}
-      type="button"
-      className="flex size-6 items-center justify-center rounded-md transition hover:bg-zinc-900/5 dark:hover:bg-white/5"
-      aria-label={'Github Link'}
+      href={VICINAE_GITHUB_REPO_URL}
+      className="flex size-6 items-center justify-center rounded-md transition-colors duration-200 hover:bg-ink-700"
+      aria-label="GitHub"
     >
       <span className="absolute size-12 pointer-fine:hidden" />
-      <GitHubIcon className="h-5 w-5 fill-black dark:hidden" />
-      <GitHubIcon className="hidden h-5 w-5 fill-white dark:block" />
+      <GitHubIcon className="h-5 w-5 fill-stone-500 transition-colors duration-200 hover:fill-stone-200" />
     </a>
   )
 }
@@ -72,14 +68,12 @@ export function GithubLink() {
 export function DiscordLink() {
   return (
     <a
-	  href={VICINAE_DISCORD_URL}
-      type="button"
-      className="flex size-6 items-center justify-center rounded-md transition hover:bg-zinc-900/5 dark:hover:bg-white/5"
-      aria-label={'Discord Link'}
+      href={VICINAE_DISCORD_URL}
+      className="flex size-6 items-center justify-center rounded-md transition-colors duration-200 hover:bg-ink-700"
+      aria-label="Discord"
     >
       <span className="absolute size-12 pointer-fine:hidden" />
-      <DiscordIcon className="h-5 w-5 fill-black dark:hidden" />
-      <DiscordIcon className="hidden h-5 w-5 fill-white dark:block" />
+      <DiscordIcon className="h-5 w-5 fill-stone-500 transition-colors duration-200 hover:fill-stone-200" />
     </a>
   )
 }
@@ -92,8 +86,8 @@ export const Header = forwardRef<
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
 
   let { scrollY } = useScroll()
-  let bgOpacityLight = useTransform(scrollY, [0, 72], ['50%', '90%'])
-  let bgOpacityDark = useTransform(scrollY, [0, 72], ['20%', '80%'])
+  let bgOpacity = useTransform(scrollY, [0, 72], ['0%', '80%'])
+  let borderOpacity = useTransform(scrollY, [0, 72], [0, 1])
 
   return (
     <motion.div
@@ -101,26 +95,21 @@ export const Header = forwardRef<
       ref={ref}
       className={clsx(
         className,
-        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6 lg:left-72 lg:z-30 lg:px-8 xl:left-80',
-        !isInsideMobileNavigation &&
-          'backdrop-blur-xs lg:left-72 xl:left-80 dark:backdrop-blur-sm',
-        isInsideMobileNavigation
-          ? 'bg-white dark:bg-[#121212]'
-          : 'bg-white/(--bg-opacity-light) dark:bg-[#121212]/(--bg-opacity-dark)',
+        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition-all duration-300 sm:px-6 lg:left-72 lg:z-30 lg:px-8 xl:left-80',
+        isInsideMobileNavigation ? 'bg-ink-900' : 'backdrop-blur-xl',
       )}
       style={
-        {
-          '--bg-opacity-light': bgOpacityLight,
-          '--bg-opacity-dark': bgOpacityDark,
-        } as React.CSSProperties
+        !isInsideMobileNavigation
+          ? ({
+              backgroundColor: `rgb(15 16 20 / var(--bg-opacity))`,
+              '--bg-opacity': bgOpacity,
+            } as React.CSSProperties)
+          : undefined
       }
     >
-     <div
-        className={clsx(
-          'absolute inset-x-0 top-full h-px transition',
-          (isInsideMobileNavigation || !mobileNavIsOpen) &&
-            'bg-zinc-900/7.5 dark:bg-white/7.5',
-        )}
+      <motion.div
+        className="absolute inset-x-0 top-full h-px bg-sand-700/20"
+        style={{ opacity: isInsideMobileNavigation ? 1 : borderOpacity }}
       />
       <Search />
       <div className="flex items-center gap-5 lg:hidden">
@@ -132,17 +121,18 @@ export const Header = forwardRef<
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
           <ul role="list" className="flex items-center gap-8">
-            <TopLevelNavItem href={VICINAE_GITHUB_REPO_URL + '/releases/latest'}>Latest version</TopLevelNavItem>
+            <TopLevelNavItem
+              href={VICINAE_GITHUB_REPO_URL + '/releases/latest'}
+            >
+              Latest version
+            </TopLevelNavItem>
           </ul>
         </nav>
-        <div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
+        <div className="hidden md:block md:h-5 md:w-px md:bg-sand-700/20" />
         <div className="flex gap-2">
           <MobileSearch />
-          <ThemeToggle />
-		  <GithubLink />
-		  <DiscordLink />
-        </div>
-        <div className="hidden min-[416px]:contents">
+          <GithubLink />
+          <DiscordLink />
         </div>
       </div>
     </motion.div>
