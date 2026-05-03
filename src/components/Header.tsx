@@ -95,7 +95,7 @@ export const Header = forwardRef<
       ref={ref}
       className={clsx(
         className,
-        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition-all duration-300 sm:px-6 lg:left-72 lg:z-30 lg:px-8 xl:left-80',
+        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition-all duration-300 sm:px-6 lg:left-64 lg:z-30 lg:px-8',
         isInsideMobileNavigation ? 'bg-ink-900' : 'backdrop-blur-xl',
       )}
       style={

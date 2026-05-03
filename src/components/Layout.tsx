@@ -43,12 +43,12 @@ export function Layout({
 
       <ReadingProgress />
 
-      <div className="h-full lg:ml-72 xl:ml-80">
+      <div className="h-full lg:ml-64">
         <motion.header
           layoutScroll
           className="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex"
         >
-          <div className="contents lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:border-r lg:border-sand-700/20 lg:bg-ink-900/80 lg:px-6 lg:pt-4 lg:pb-8 xl:w-80">
+          <div className="contents lg:pointer-events-auto lg:block lg:w-64 lg:overflow-y-auto lg:border-r lg:border-sand-700/20 lg:px-6 lg:pt-4 lg:pb-8">
             <div className="hidden lg:flex">
               <Link href="/" aria-label="Home">
                 <Logo className="h-6" />
