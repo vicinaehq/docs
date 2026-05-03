@@ -20,7 +20,7 @@ If Vicinae is already packaged by your distribution, you should install it throu
 Run the following command to install Vicinae:
 
 ```bash
-curl -fsSL https://vicinae.com/install.sh | bash
+curl -fsSL https://vicinae.com/install | bash
 ```
 
 <Warning>
@@ -50,7 +50,7 @@ Provenance: appimage
 To update Vicinae, run the installation script again. It will detect your existing installation (if using the same prefix) and update it.
 
 ```bash
-curl -fsSL https://vicinae.com/install.sh | bash
+curl -fsSL https://vicinae.com/install | bash
 ```
 
 ## Uninstall
@@ -58,7 +58,7 @@ curl -fsSL https://vicinae.com/install.sh | bash
 To uninstall Vicinae, run the installation script with the `--uninstall` argument:
 
 ```bash
-curl -fsSL https://vicinae.com/install.sh | bash -s -- --uninstall
+curl -fsSL https://vicinae.com/install | bash -s -- --uninstall
 ```
 
 ## Install with custom prefix
@@ -68,7 +68,7 @@ By default, the script tries to install Vicinae under `/usr/local`, but for user
 To accommodate these users, the script provides a `--prefix` option:
 
 ```bash
-curl -fsSL https://vicinae.com/install.sh | bash -s -- --prefix ~/.local
+curl -fsSL https://vicinae.com/install | bash -s -- --prefix ~/.local
 ```
 
 ### Custom prefix caveats
