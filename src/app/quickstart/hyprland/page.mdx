@@ -2,6 +2,10 @@
 
 This guide shows the best way to quickly get started with Vicinae on [Hyprland](https://hypr.land/).
 
+<Note>
+Using Hyprland 0.55+? See [Hyprland Lua quickstart](/quickstart/hyprland-lua)
+</Note>
+
 ## Main configuration
 
 Add the following to your Hyprland configuration, and you are good to go (unless you use uwsm to manage hyprland, see below).
@@ -47,8 +51,7 @@ On first startup, Vicinae will use a lot of CPU in order to populate the file in
 </Note>
 
 ## uwsm - Universal Wayland Session Manager
-
-If you use [uwsm to launch and manage hyprland](https://wiki.hypr.land/Useful-Utilities/Systemd-start/#uwsm) then as always you should use the provided systemd service to start vicinae as well.  Exclude the exec-once line above and run `systemctl --user enable --now vicinae.service` instead; vicinae will start immediately and launch on boot moving forward.
+If you use [uwsm to launch and manage hyprland](https://wiki.hypr.land/Useful-Utilities/Systemd-start/#uwsm) then as always you should use the provided systemd service to start vicinae as well. Exclude the exec-once line above and run `systemctl --user enable --now vicinae.service` instead; vicinae will start immediately and launch on boot moving forward.
 
 ## Bind to a custom command
 
@@ -65,7 +68,7 @@ You can do a lot with this: [learn more about deeplinks](/deeplinks).
 ## Focus window on activation
 You may want to focus an application window after vicinae triggers an action related to it.
 
-*For example : using a shortcut action in vicinae that opens a browser tab → Instantly focus the window where the action happened*
+*For example: using a shortcut action in vicinae that opens a browser tab → Instantly focus the window where the action happened*
 
 You can have this behavior by adding this to your config:
 
