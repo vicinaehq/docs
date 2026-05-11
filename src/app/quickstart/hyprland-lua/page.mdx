@@ -1,0 +1,78 @@
+# Hyprland Lua Quickstart
+
+This guide shows the best way to quickly get started with Vicinae on [Hyprland](https://hypr.land/).
+
+<Note>
+This page is for Hyprland 0.55+ Lua configuration. If you are using hyprlang syntax, see [Hyprland Quickstart](/quickstart/hyprland).
+</Note>
+
+## Main configuration
+
+Add the following to your Hyprland configuration, and you are good to go (unless you use uwsm to manage Hyprland, see below).
+
+```lua
+-- ~/.config/hypr/hyprland.lua
+
+local mainMod = "SUPER"
+
+-- autostart
+hl.on("hyprland.start", function()
+  hl.exec_cmd("vicinae server")
+end)
+
+-- use whatever shortcut floats your boat
+hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("vicinae toggle"))
+
+-- blur
+hl.layer_rule({
+  match = { namespace = "vicinae" },
+  name = "vicinae-blur",
+  blur = true,
+  ignore_alpha = 0,
+})
+
+-- disable animation for vicinae only
+hl.layer_rule({
+  match = { namespace = "vicinae" },
+  name = "vicinae-no-animation",
+  no_anim = true,
+})
+```
+
+<Note>
+On first startup, Vicinae will use a lot of CPU in order to populate the file index.
+</Note>
+
+## uwsm - Universal Wayland Session Manager
+If you use <a href="https://wiki.hypr.land/Useful-Utilities/Systemd-start/#uwsm" target="_blank" rel="noopener noreferrer">uwsm to launch and manage Hyprland</a>, use the provided systemd service to start vicinae. Exclude the autostart command above and run `systemctl --user enable --now vicinae.service` instead; vicinae will start immediately and launch on boot moving forward.
+
+## Bind to a custom command
+
+You can easily create a binding to open any vicinae command directly:
+
+```lua
+-- ~/.config/hypr/hyprland.lua
+
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("vicinae vicinae://launch/clipboard/history"))
+```
+
+You can do a lot with this: [learn more about deeplinks](/deeplinks).
+
+## Focus window on activation
+You may want to focus an application window after vicinae triggers an action related to it.
+
+*For example: using a shortcut action in vicinae that opens a browser tab → Instantly focus the window where the action happened*
+
+You can have this behavior by adding this to your config:
+
+```lua
+-- ~/.config/hypr/hyprland.lua
+
+hl.config({
+  misc = {
+    focus_on_activate = true,
+  },
+})
+```
+
+
