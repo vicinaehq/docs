@@ -77,10 +77,13 @@ QT_QUICK_FLICKABLE_WHEEL_DECELERATION=5000 vicinae server
 Starting with v0.20.4, vicinae sets this value to a slightly lower default if the environment variable is not specified.
 </Note>
 
+## How to fix: "extension manager is not running" ?
 
-## The vicinae window takes a long time to appear
+This likely means you don't have [nodejs](https://nodejs.org) installed on your system, which is required if you want to run third-party extensions.
 
-Make sure you are not running the unextracted AppImage directly every time you want to call `vicinae toggle`. You should probably use the [script](/install/script) to automatically extract the AppImage components.
+You should install a recent enough version of node (>= 20) however you like and make sure the `node` binary is in your `PATH`.
+
+Most of the packages distributing vicinae do list `nodejs` as an optional dependency, but maybe the particular one you used doesn't. In that case you are encouraged to reach out to the maintainer of that package.
 
 ## How can I extend vicinae?
 
