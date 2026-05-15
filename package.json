@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "node scripts/generate-llms-txt.mjs && next build --webpack",
+    "build": "node scripts/prebuild.mjs && next build --webpack",
     "start": "next start",
     "lint": "biome check .",
     "format": "biome format --write ."

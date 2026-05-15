@@ -193,8 +193,19 @@ const sitemap = await Promise.all(
   }),
 )
 
+const sitemapXml = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ...pages.map(
+    (p) => `  <url><loc>${SITE_URL}${p.href}</loc></url>`,
+  ),
+  '</urlset>',
+  '',
+].join('\n')
+
 writeFileSync(resolve(publicDir, 'llms.txt'), generateIndex(pages))
 writeFileSync(resolve(publicDir, 'sitemap.json'), JSON.stringify(sitemap, null, 2) + '\n')
+writeFileSync(resolve(publicDir, 'sitemap.xml'), sitemapXml)
 const [, mdCount] = await Promise.all([
   generateFull(pages).then((full) =>
     writeFileSync(resolve(publicDir, 'llms-full.txt'), full),
@@ -203,5 +214,5 @@ const [, mdCount] = await Promise.all([
 ])
 
 console.log(
-  `Generated llms.txt, llms-full.txt, sitemap.json, and ${mdCount} page .md files`,
+  `Generated llms.txt, llms-full.txt, sitemap.json, sitemap.xml, and ${mdCount} page .md files`,
 )

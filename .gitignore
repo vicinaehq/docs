@@ -31,6 +31,7 @@ yarn-error.log*
 /public/llms.txt
 /public/llms-full.txt
 /public/sitemap.json
+/public/sitemap.xml
 /public/index.md
 /public/**/*.md
 
