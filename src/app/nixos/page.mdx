@@ -23,19 +23,25 @@ If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/n
     # ...
     vicinae.url = "github:vicinaehq/vicinae";
   };
-  outputs =
-    {
-      nixpkgs,
-      home-manager,
-      vicinae,
-      ...
-    }:
-    {
-      homeConfigurations."..." = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."<system>"; # e.g. x86_64-linux
-        modules = [ vicinae.homeManagerModules.default ];
-      };
+  outputs = {
+    nixpkgs,
+    home-manager,
+    vicinae,
+    ...
+  }: {
+    nixosConfigurations."..." = nixpkgs.lib.nixosSystem {
+      system = "<system>"; # e.g., x86_64-linux
+      modules = [
+        # ... your other configuration modules ...
+        vicinae.nixosModules.default
+      ];
     };
+
+    homeConfigurations."..." = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages."<system>"; # e.g. x86_64-linux
+      modules = [vicinae.homeManagerModules.default];
+    };
+  };
 }
 ```
 
