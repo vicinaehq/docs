@@ -27,6 +27,12 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# generated llms.txt files
+/public/llms.txt
+/public/llms-full.txt
+/public/index.md
+/public/**/*.md
+
 # vercel
 .vercel
 
