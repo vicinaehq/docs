@@ -30,6 +30,7 @@ yarn-error.log*
 # generated llms.txt files
 /public/llms.txt
 /public/llms-full.txt
+/public/sitemap.json
 /public/index.md
 /public/**/*.md
 

@@ -3,6 +3,7 @@ import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { remark } from 'remark'
 import remarkMdx from 'remark-mdx'
+import { toString } from 'mdast-util-to-string'
 import { visit, SKIP } from 'unist-util-visit'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -78,10 +79,26 @@ function remarkAbsoluteUrls() {
 }
 
 const processor = remark().use(remarkMdx).use(remarkStripMdx).use(remarkAbsoluteUrls)
+const parser = remark().use(remarkMdx)
 
 async function stripMdx(content) {
   const result = await processor.process(content)
   return String(result).replace(/\n{3,}/g, '\n\n').trim()
+}
+
+async function extractDescription(content) {
+  const tree = parser.parse(content)
+  let foundH1 = false
+  for (const node of tree.children) {
+    if (node.type === 'heading' && node.depth === 1) {
+      foundH1 = true
+      continue
+    }
+    if (foundH1 && node.type === 'paragraph') {
+      return toString(node).replace(/\{[^}]*\}/g, '').replace(/\s+/g, ' ').trim()
+    }
+  }
+  return null
 }
 
 function flattenNav(nav) {
@@ -168,7 +185,16 @@ async function generatePageMds(pages) {
 const nav = parseNavigation()
 const pages = flattenNav(nav)
 
+const sitemap = await Promise.all(
+  pages.map(async (p) => {
+    const raw = readPage(p.href)
+    const description = raw ? await extractDescription(raw) : null
+    return { title: p.title, url: `${SITE_URL}${p.href}`, ...(description && { description }) }
+  }),
+)
+
 writeFileSync(resolve(publicDir, 'llms.txt'), generateIndex(pages))
+writeFileSync(resolve(publicDir, 'sitemap.json'), JSON.stringify(sitemap, null, 2) + '\n')
 const [, mdCount] = await Promise.all([
   generateFull(pages).then((full) =>
     writeFileSync(resolve(publicDir, 'llms-full.txt'), full),
@@ -177,5 +203,5 @@ const [, mdCount] = await Promise.all([
 ])
 
 console.log(
-  `Generated llms.txt, llms-full.txt, and ${mdCount} page .md files`,
+  `Generated llms.txt, llms-full.txt, sitemap.json, and ${mdCount} page .md files`,
 )
