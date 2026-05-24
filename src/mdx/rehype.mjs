@@ -22,7 +22,7 @@ let highlighter
 function rehypeShiki() {
   return async (tree) => {
     highlighter =
-      highlighter ?? (await shiki.getHighlighter({ theme: 'nord' }))
+      highlighter ?? (await shiki.getHighlighter({ theme: 'css-variables' }))
 
     visit(tree, 'element', (node) => {
       if (node.tagName === 'pre' && node.children[0]?.tagName === 'code') {

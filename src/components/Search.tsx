@@ -9,6 +9,7 @@ import {
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import clsx from 'clsx'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { Search as SearchLucide, SearchX } from 'lucide-react'
 import {
   Fragment,
   Suspense,
@@ -21,7 +22,8 @@ import {
 } from 'react'
 import Highlighter from 'react-highlight-words'
 
-import { navigation } from '@/components/Navigation'
+import { useCurrentNavigation } from '@/components/Navigation'
+import { useDocsModeStore } from '@/components/DocsMode'
 import { type Result } from '@/mdx/search.mjs'
 import { useMobileNavigationStore } from './MobileNavigation'
 
@@ -34,9 +36,19 @@ type Autocomplete = AutocompleteApi<
   React.KeyboardEvent
 >
 
+const DEVELOPER_PREFIX = '/extensions'
+
 function useAutocomplete({ onNavigate }: { onNavigate: () => void }) {
   let id = useId()
   let router = useRouter()
+  let modeRef = useRef(useDocsModeStore.getState().mode)
+
+  useEffect(() => {
+    return useDocsModeStore.subscribe((state) => {
+      modeRef.current = state.mode
+    })
+  }, [])
+
   let [autocompleteState, setAutocompleteState] = useState<
     AutocompleteState<Result> | EmptyObject
   >({})
@@ -73,7 +85,11 @@ function useAutocomplete({ onNavigate }: { onNavigate: () => void }) {
             {
               sourceId: 'documentation',
               getItems() {
-                return search(query, { limit: 5 })
+                let results = search(query, { limit: 20 }) as Result[]
+                return results.filter((item) => {
+                  let isDev = item.url.startsWith(DEVELOPER_PREFIX)
+                  return modeRef.current === 'developer' ? isDev : !isDev
+                }).slice(0, 5)
               },
               getItemUrl({ item }) {
                 return item.url
@@ -89,29 +105,6 @@ function useAutocomplete({ onNavigate }: { onNavigate: () => void }) {
   return { autocomplete, autocompleteState }
 }
 
-function SearchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...props}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12.01 12a4.25 4.25 0 1 0-6.02-6 4.25 4.25 0 0 0 6.02 6Zm0 0 3.24 3.25"
-      />
-    </svg>
-  )
-}
-
-function NoResultsIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...props}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12.01 12a4.237 4.237 0 0 0 1.24-3c0-.62-.132-1.207-.37-1.738M12.01 12A4.237 4.237 0 0 1 9 13.25c-.635 0-1.237-.14-1.777-.388M12.01 12l3.24 3.25m-3.715-9.661a4.25 4.25 0 0 0-5.975 5.908M4.5 15.5l11-11"
-      />
-    </svg>
-  )
-}
 
 function LoadingIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   let id = useId()
@@ -168,6 +161,7 @@ function SearchResult({
 }) {
   let id = useId()
 
+  let navigation = useCurrentNavigation()
   let sectionTitle = navigation.find((item) =>
     'links' in item
       ? item.links.find((link) => link.href === result.url.split('#')[0])
@@ -234,7 +228,7 @@ function SearchResults({
   if (collection.items.length === 0) {
     return (
       <div className="p-6 text-center">
-        <NoResultsIcon className="mx-auto h-5 w-5 stroke-stone-600" />
+        <SearchX className="mx-auto h-5 w-5 text-stone-600" />
         <p className="mt-2 text-xs text-stone-500">
           Nothing found for{' '}
           <strong className="font-semibold break-words text-stone-200">
@@ -274,7 +268,7 @@ const SearchInput = forwardRef<
 
   return (
     <div className="group relative flex h-12">
-      <SearchIcon className="pointer-events-none absolute top-0 left-3 h-full w-5 stroke-stone-500" />
+      <SearchLucide className="pointer-events-none absolute top-0 left-3 h-full w-5 text-stone-500" />
       <input
         ref={inputRef}
         data-autofocus
@@ -444,13 +438,13 @@ export function Search() {
   }, [])
 
   return (
-    <div className="hidden lg:block lg:max-w-md lg:flex-auto">
+    <div className="hidden lg:block">
       <button
         type="button"
-        className="hidden h-8 w-full items-center gap-2 rounded-full bg-ink-800/50 pr-3 pl-2 text-sm text-stone-500 ring-1 ring-sand-700/10 ring-inset transition-colors duration-200 hover:ring-sand-600/18 lg:flex"
+        className="hidden h-8 w-full items-center gap-2 rounded-full bg-white/[0.03] pr-3 pl-2 text-sm text-stone-500 ring-1 ring-white/[0.06] ring-inset transition-colors duration-200 hover:bg-white/[0.05] hover:ring-white/[0.1] lg:flex"
         {...buttonProps}
       >
-        <SearchIcon className="h-5 w-5 stroke-current" />
+        <SearchLucide className="h-5 w-5" />
         Find something...
         <kbd className="ml-auto text-2xs text-stone-600">
           <kbd className="font-sans">{modifierKey}</kbd>
@@ -477,7 +471,7 @@ export function MobileSearch() {
         {...buttonProps}
       >
         <span className="absolute size-12 pointer-fine:hidden" />
-        <SearchIcon className="h-5 w-5 stroke-stone-300" />
+        <SearchLucide className="h-5 w-5 text-stone-300" />
       </button>
       <Suspense fallback={null}>
         <SearchDialog

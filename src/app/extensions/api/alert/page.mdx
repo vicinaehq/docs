@@ -1,0 +1,22 @@
+# Alert
+
+Alerts are modal dialogs used to ask the user for confirmation before performing a potentially destructive or important action.
+
+## confirmAlert
+
+```tsx
+import { confirmAlert } from '@vicinae/api';
+
+const confirmed = await confirmAlert({
+  title: 'Delete item?',
+  message: 'This action cannot be undone.',
+});
+
+if (confirmed) {
+  // proceed
+}
+```
+
+## Options
+
+{/* TODO: Options table */}

@@ -1,0 +1,24 @@
+# Preferences
+
+Preferences allow extensions to define user-configurable settings. They are declared in the manifest and can be accessed at runtime.
+
+## getPreferenceValues
+
+```tsx
+import { getPreferenceValues } from '@vicinae/api';
+
+interface Preferences {
+  apiKey: string;
+  showDetails: boolean;
+}
+
+const prefs = getPreferenceValues<Preferences>();
+```
+
+## Manifest declaration
+
+{/* TODO: How to declare preferences in package.json */}
+
+## Preference types
+
+{/* TODO: Available types */}

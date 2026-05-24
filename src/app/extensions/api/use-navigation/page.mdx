@@ -1,0 +1,43 @@
+# useNavigation
+
+The `useNavigation` hook allows you to push and pop views on the navigation stack from within a view command.
+
+## Example
+
+```tsx
+import { Detail, ActionPanel, Action, useNavigation } from '@vicinae/api';
+
+function SecondView() {
+  const { pop } = useNavigation();
+
+  return (
+    <Detail
+      markdown="# Second View"
+      actions={
+        <ActionPanel>
+          <Action title="Go back" onAction={pop} />
+        </ActionPanel>
+      }
+    />
+  );
+}
+
+export default function Command() {
+  const { push } = useNavigation();
+
+  return (
+    <Detail
+      markdown="# First View"
+      actions={
+        <ActionPanel>
+          <Action title="Push view" onAction={() => push(<SecondView />)} />
+        </ActionPanel>
+      }
+    />
+  );
+}
+```
+
+## Return value
+
+{/* TODO: Return value table */}

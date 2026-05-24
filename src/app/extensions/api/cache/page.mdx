@@ -1,0 +1,23 @@
+# Cache
+
+The `Cache` class provides a simple key-value store that persists across command runs. It is useful for caching data that is expensive to fetch.
+
+## Example
+
+```tsx
+import { Cache } from '@vicinae/api';
+
+const cache = new Cache();
+
+cache.set('key', 'value');
+const value = cache.get('key');
+cache.remove('key');
+```
+
+## Constructor
+
+{/* TODO */}
+
+## Methods
+
+{/* TODO: Methods table */}

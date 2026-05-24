@@ -1,0 +1,32 @@
+# OAuth
+
+The OAuth API provides utilities for implementing OAuth 2.0 authorization flows in extensions. This is useful for connecting to third-party services that require user authentication.
+
+## Example
+
+```tsx
+import { OAuth } from '@vicinae/api';
+
+const client = new OAuth.PKCEClient({
+  redirectMethod: OAuth.RedirectMethod.Web,
+  providerName: 'GitHub',
+  providerIcon: 'github.png',
+  description: 'Connect your GitHub account',
+});
+```
+
+## OAuth.PKCEClient
+
+{/* TODO */}
+
+## OAuth.AuthorizationRequest
+
+{/* TODO */}
+
+## OAuth.TokenSet
+
+{/* TODO */}
+
+## OAuth.RedirectMethod
+
+{/* TODO */}

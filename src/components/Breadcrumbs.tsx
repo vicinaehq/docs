@@ -2,10 +2,11 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { navigation } from '@/components/Navigation'
+import { useCurrentNavigation } from '@/components/Navigation'
 
 export function Breadcrumbs() {
 	let pathname = usePathname()
+	let navigation = useCurrentNavigation()
 
 	if (pathname === '/') return null
 

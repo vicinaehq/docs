@@ -1,0 +1,58 @@
+# Form
+
+The `Form` component is used to collect user input through various field types. Forms can include text fields, checkboxes, dropdowns, date pickers, and more.
+
+## Example
+
+```tsx
+import { Form, ActionPanel, Action, showToast } from '@vicinae/api';
+
+export default function Command() {
+  return (
+    <Form
+      actions={
+        <ActionPanel>
+          <Action.SubmitForm title="Submit" onSubmit={(values) => showToast({ title: JSON.stringify(values) })} />
+        </ActionPanel>
+      }
+    >
+      <Form.TextField id="name" title="Name" placeholder="Enter your name" />
+      <Form.Checkbox id="agree" title="I agree" label="Accept terms" />
+    </Form>
+  );
+}
+```
+
+## Props
+
+{/* TODO: Props table */}
+
+## Subcomponents
+
+### Form.TextField
+
+{/* TODO */}
+
+### Form.TextArea
+
+{/* TODO */}
+
+### Form.Checkbox
+
+{/* TODO */}
+
+### Form.Dropdown
+
+{/* TODO */}
+
+### Form.DatePicker
+
+{/* TODO */}
+
+### Form.Separator
+
+{/* TODO */}
+
+### Form.Description
+
+{/* TODO */}

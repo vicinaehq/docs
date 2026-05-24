@@ -1,5 +1,6 @@
 'use client'
 
+import { Link as LinkIcon } from 'lucide-react'
 import { useInView } from 'motion/react'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
@@ -7,20 +8,6 @@ import { useEffect, useRef } from 'react'
 import { useSectionStore } from '@/components/SectionProvider'
 import { Tag } from '@/components/Tag'
 import { remToPx } from '@/lib/remToPx'
-
-function AnchorIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      strokeLinecap="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m6.5 11.5-.964-.964a3.535 3.535 0 1 1 5-5l.964.964m2 2 .964.964a3.536 3.536 0 0 1-5 5L8.5 13.5m0-5 3 3" />
-    </svg>
-  )
-}
 
 function Eyebrow({ tag, label }: { tag?: string; label?: string }) {
   if (!tag && !label) {
@@ -57,7 +44,7 @@ function Anchor({
       {inView && (
         <div className="absolute mt-1 ml-[calc(-1*var(--width))] hidden w-(--width) opacity-0 transition [--width:calc(2.625rem+0.5px+50%-min(50%,calc(var(--container-lg)+(--spacing(8)))))] group-hover:opacity-100 group-focus:opacity-100 md:block lg:z-50 2xl:[--width:--spacing(10)]">
           <div className="group/anchor block h-5 w-5 rounded-lg bg-ink-800 ring-1 ring-sand-700/10 transition ring-inset hover:ring-sand-600/18 hover:bg-ink-700">
-            <AnchorIcon className="h-5 w-5 stroke-stone-500 transition group-hover/anchor:stroke-stone-200" />
+            <LinkIcon className="h-5 w-5 text-stone-500 transition group-hover/anchor:text-stone-200" />
           </div>
         </div>
       )}
