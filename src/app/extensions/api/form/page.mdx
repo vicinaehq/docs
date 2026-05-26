@@ -1,58 +1,136 @@
 # Form
 
-The `Form` component is used to collect user input through various field types. Forms can include text fields, checkboxes, dropdowns, date pickers, and more.
+Collect user input through text fields, checkboxes, dropdowns, date pickers, tag pickers, and file pickers.
 
-## Example
+![](/extensions/api/form/form.png)
+
+## Basic Form
 
 ```tsx
-import { Form, ActionPanel, Action, showToast } from '@vicinae/api';
+import { Action, ActionPanel, Form, showToast } from "@vicinae/api";
 
 export default function Command() {
   return (
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm title="Submit" onSubmit={(values) => showToast({ title: JSON.stringify(values) })} />
+          <Action.SubmitForm
+            title="Submit"
+            onSubmit={(values) => showToast({ title: `Added ${values.name}` })}
+          />
         </ActionPanel>
       }
     >
-      <Form.TextField id="name" title="Name" placeholder="Enter your name" />
-      <Form.Checkbox id="agree" title="I agree" label="Accept terms" />
+      <Form.TextField id="name" title="Name" placeholder="Apple" />
+      <Form.TextArea id="description" title="Description" placeholder="A crisp, sweet fruit..." />
+      <Form.Checkbox id="organic" label="Organic" />
     </Form>
   );
 }
 ```
 
-## Props
+## Dropdown and TagPicker
 
-{/* TODO: Props table */}
+```tsx
+import { Form } from "@vicinae/api";
 
-## Subcomponents
+export default function Command() {
+  return (
+    <Form>
+      <Form.Dropdown id="type" title="Type">
+        <Form.Dropdown.Item title="Berry" value="berry" icon="🍓" />
+        <Form.Dropdown.Item title="Citrus" value="citrus" icon="🍊" />
+        <Form.Dropdown.Item title="Tropical" value="tropical" icon="🥭" />
+      </Form.Dropdown>
+      <Form.TagPicker id="tags" title="Tags">
+        <Form.TagPicker.Item title="Sweet" value="sweet" icon="🍬" />
+        <Form.TagPicker.Item title="Sour" value="sour" icon="🍋" />
+        <Form.TagPicker.Item title="Juicy" value="juicy" icon="💧" />
+      </Form.TagPicker>
+    </Form>
+  );
+}
+```
 
-### Form.TextField
+## DatePicker
 
-{/* TODO */}
+```tsx
+import { Form } from "@vicinae/api";
 
-### Form.TextArea
+export default function Command() {
+  return (
+    <Form>
+      <Form.DatePicker id="harvestDate" title="Harvest Date" type={Form.DatePicker.Type.Date} />
+      <Form.DatePicker id="expiresAt" title="Expires At" type={Form.DatePicker.Type.DateTime} />
+    </Form>
+  );
+}
+```
 
-{/* TODO */}
+## FilePicker
 
-### Form.Checkbox
+```tsx
+import { Form } from "@vicinae/api";
 
-{/* TODO */}
+export default function Command() {
+  return (
+    <Form>
+      <Form.FilePicker id="photo" title="Photo" />
+      <Form.FilePicker id="gallery" title="Gallery" allowMultipleSelection />
+      <Form.FilePicker id="folder" title="Folder" canChooseDirectories canChooseFiles={false} />
+    </Form>
+  );
+}
+```
 
-### Form.Dropdown
+## Validation
 
-{/* TODO */}
+Use `error` to show validation messages on individual fields.
 
-### Form.DatePicker
+```tsx
+import { useState } from "react";
+import { Action, ActionPanel, Form } from "@vicinae/api";
 
-{/* TODO */}
+export default function Command() {
+  const [nameError, setNameError] = useState<string | undefined>();
 
-### Form.Separator
+  return (
+    <Form
+      actions={
+        <ActionPanel>
+          <Action.SubmitForm title="Submit" onSubmit={(values) => console.log(values)} />
+        </ActionPanel>
+      }
+    >
+      <Form.TextField
+        id="name"
+        title="Name"
+        error={nameError}
+        onChange={(value) => setNameError(value.length === 0 ? "Required" : undefined)}
+        onBlur={(event) => {
+          if (!event.target.value) setNameError("Required");
+        }}
+      />
+    </Form>
+  );
+}
+```
 
-{/* TODO */}
+## Separator and Description
 
-### Form.Description
+Use `Form.Separator` to visually group fields and `Form.Description` for help text.
 
-{/* TODO */}
+```tsx
+import { Form } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Form>
+      <Form.TextField id="name" title="Name" />
+      <Form.Separator />
+      <Form.Description title="Note" text="Nutritional values are approximate." />
+      <Form.TextField id="calories" title="Calories" placeholder="95" />
+    </Form>
+  );
+}
+```

@@ -1,36 +1,49 @@
 # useNavigation
 
-The `useNavigation` hook allows you to push and pop views on the navigation stack from within a view command.
+Push and pop views on the navigation stack from within a command.
 
-## Example
+## Push a View
 
 ```tsx
-import { Detail, ActionPanel, Action, useNavigation } from '@vicinae/api';
+import { Action, ActionPanel, Detail, List, useNavigation } from "@vicinae/api";
 
-function SecondView() {
-  const { pop } = useNavigation();
-
-  return (
-    <Detail
-      markdown="# Second View"
-      actions={
-        <ActionPanel>
-          <Action title="Go back" onAction={pop} />
-        </ActionPanel>
-      }
-    />
-  );
+function FruitDetail({ name, emoji }: { name: string; emoji: string }) {
+  return <Detail markdown={`# ${name} ${emoji}`} />;
 }
 
 export default function Command() {
   const { push } = useNavigation();
 
   return (
+    <List>
+      <List.Item
+        title="Apple"
+        icon="🍎"
+        actions={
+          <ActionPanel>
+            <Action title="View" onAction={() => push(<FruitDetail name="Apple" emoji="🍎" />)} />
+          </ActionPanel>
+        }
+      />
+    </List>
+  );
+}
+```
+
+## Pop Back
+
+```tsx
+import { Action, ActionPanel, Detail, useNavigation } from "@vicinae/api";
+
+function FruitDetail() {
+  const { pop } = useNavigation();
+
+  return (
     <Detail
-      markdown="# First View"
+      markdown="# Apple 🍎"
       actions={
         <ActionPanel>
-          <Action title="Push view" onAction={() => push(<SecondView />)} />
+          <Action title="Go Back" onAction={pop} />
         </ActionPanel>
       }
     />
@@ -38,6 +51,4 @@ export default function Command() {
 }
 ```
 
-## Return value
-
-{/* TODO: Return value table */}
+You can also use `Action.Push` as a declarative alternative to `push`.

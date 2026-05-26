@@ -1,19 +1,47 @@
 # Toast
 
-Toasts are used to show brief, non-intrusive feedback messages to the user. They appear at the bottom of the Vicinae window and disappear automatically.
+Brief feedback notifications at the bottom of the Vicinae window.
 
 ## showToast
 
 ```tsx
-import { showToast, Toast } from '@vicinae/api';
+import { showToast, Toast } from "@vicinae/api";
 
-await showToast({ title: 'Success', style: Toast.Style.Success });
+await showToast({ title: "Fruit added", style: Toast.Style.Success });
 ```
 
-## Toast.Style
+## Styles
 
-{/* TODO: Style enum values */}
+| Style | Description |
+| --- | --- |
+| `Toast.Style.Success` | Green checkmark, for completed actions |
+| `Toast.Style.Failure` | Red cross, for errors |
+| `Toast.Style.Animated` | Spinning indicator, for in-progress operations |
 
-## Options
+## Animated Toast
 
-{/* TODO: Options table */}
+Show a loading toast and update it when the operation completes.
+
+```tsx
+import { showToast, Toast } from "@vicinae/api";
+
+const toast = await showToast({ title: "Uploading...", style: Toast.Style.Animated });
+
+// ... do work ...
+
+toast.style = Toast.Style.Success;
+toast.title = "Upload complete";
+```
+
+## Error Handling
+
+```tsx
+import { showToast, Toast } from "@vicinae/api";
+
+try {
+  await fetchFruits();
+  await showToast({ title: "Loaded fruits" });
+} catch (error) {
+  await showToast({ title: "Failed to load", message: String(error), style: Toast.Style.Failure });
+}
+```

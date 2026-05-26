@@ -1,24 +1,27 @@
 # Preferences
 
-Preferences allow extensions to define user-configurable settings. They are declared in the manifest and can be accessed at runtime.
+Read user-configured settings at runtime. See [Preferences](/extensions/preferences) for how to declare them in the manifest.
 
 ## getPreferenceValues
 
 ```tsx
-import { getPreferenceValues } from '@vicinae/api';
+import { getPreferenceValues } from "@vicinae/api";
 
 interface Preferences {
   apiKey: string;
   showDetails: boolean;
 }
 
-const prefs = getPreferenceValues<Preferences>();
+const { apiKey, showDetails } = getPreferenceValues<Preferences>();
 ```
 
-## Manifest declaration
+## Opening Preferences
 
-{/* TODO: How to declare preferences in package.json */}
+Navigate the user to the extension or command preferences in the settings window.
 
-## Preference types
+```tsx
+import { openExtensionPreferences, openCommandPreferences } from "@vicinae/api";
 
-{/* TODO: Available types */}
+await openExtensionPreferences();
+await openCommandPreferences();
+```

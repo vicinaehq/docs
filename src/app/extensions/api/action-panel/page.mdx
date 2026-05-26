@@ -1,20 +1,22 @@
 # ActionPanel
 
-The `ActionPanel` component provides a list of actions that the user can perform in the current context. It is typically placed inside a `List.Item`, `Grid.Item`, `Detail`, or `Form`.
+A container for actions the user can perform on the current item. Attach it to `List.Item`, `Grid.Item`, `Detail`, or `Form` via the `actions` prop.
 
-## Example
+## Basic ActionPanel
 
 ```tsx
-import { List, ActionPanel, Action } from '@vicinae/api';
+import { Action, ActionPanel, List } from "@vicinae/api";
 
 export default function Command() {
   return (
     <List>
       <List.Item
-        title="Item"
+        title="Apple"
+        icon="🍎"
         actions={
           <ActionPanel>
-            <Action title="Do something" onAction={() => console.log('done')} />
+            <Action.CopyToClipboard title="Copy Emoji" content="🍎" />
+            <Action.OpenInBrowser title="Wikipedia" url="https://en.wikipedia.org/wiki/Apple" />
           </ActionPanel>
         }
       />
@@ -23,12 +25,60 @@ export default function Command() {
 }
 ```
 
-## Props
+## Sections
 
-{/* TODO: Props table */}
+Group related actions under titled sections. The first action in the first section is the default.
 
-## Subcomponents
+```tsx
+import { Action, ActionPanel, List } from "@vicinae/api";
 
-### ActionPanel.Section
+export default function Command() {
+  return (
+    <List>
+      <List.Item
+        title="Apple"
+        icon="🍎"
+        actions={
+          <ActionPanel>
+            <ActionPanel.Section title="Copy">
+              <Action.CopyToClipboard title="Copy Emoji" content="🍎" />
+              <Action.CopyToClipboard title="Copy Name" content="Apple" />
+            </ActionPanel.Section>
+            <ActionPanel.Section title="Other">
+              <Action.OpenInBrowser title="Wikipedia" url="https://en.wikipedia.org/wiki/Apple" />
+            </ActionPanel.Section>
+          </ActionPanel>
+        }
+      />
+    </List>
+  );
+}
+```
 
-{/* TODO */}
+## Submenu
+
+Nest a group of actions under a submenu for less common operations.
+
+```tsx
+import { Action, ActionPanel, Icon, List } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <List>
+      <List.Item
+        title="Apple"
+        icon="🍎"
+        actions={
+          <ActionPanel>
+            <Action.CopyToClipboard title="Copy Emoji" content="🍎" />
+            <ActionPanel.Submenu title="Share" icon={Icon.Link}>
+              <Action.CopyToClipboard title="Copy as Markdown" content="[Apple](🍎)" />
+              <Action.Paste title="Paste Emoji" content="🍎" />
+            </ActionPanel.Submenu>
+          </ActionPanel>
+        }
+      />
+    </List>
+  );
+}
+```

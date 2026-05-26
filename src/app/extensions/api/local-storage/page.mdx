@@ -1,29 +1,44 @@
 # Local Storage
 
-The Local Storage API provides persistent key-value storage for extensions. Unlike `Cache`, data stored here is meant to be long-lived and is not automatically evicted.
+Persistent key-value storage for extensions. Data persists across command runs and is not automatically evicted, unlike `Cache`.
 
-## Functions
-
-### LocalStorage.getItem
+## Store and Retrieve
 
 ```tsx
-import { LocalStorage } from '@vicinae/api';
+import { LocalStorage } from "@vicinae/api";
 
-const value = await LocalStorage.getItem<string>('key');
+await LocalStorage.setItem("favoriteFruit", "🍎");
+
+const fruit = await LocalStorage.getItem<string>("favoriteFruit");
 ```
 
-### LocalStorage.setItem
+## Remove
 
-{/* TODO */}
+```tsx
+import { LocalStorage } from "@vicinae/api";
 
-### LocalStorage.removeItem
+await LocalStorage.removeItem("favoriteFruit");
+```
 
-{/* TODO */}
+## List All Items
 
-### LocalStorage.allItems
+```tsx
+import { LocalStorage } from "@vicinae/api";
 
-{/* TODO */}
+const items = await LocalStorage.allItems();
+// { favoriteFruit: "🍎", count: 42 }
+```
 
-### LocalStorage.clear
+## Clear
 
-{/* TODO */}
+Remove all stored items for this extension.
+
+```tsx
+import { LocalStorage } from "@vicinae/api";
+
+await LocalStorage.clear();
+```
+
+## Supported Value Types
+
+Values can be `string`, `number`, or `boolean`. For complex data, serialize with `JSON.stringify` and parse back with `JSON.parse`.

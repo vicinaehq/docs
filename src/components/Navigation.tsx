@@ -288,8 +288,13 @@ export const devNavigation: Array<NavItem> = [
 		links: [
 			{ title: 'Introduction', href: '/extensions/introduction' },
 			{ title: 'Create Your First Extension', href: '/extensions/create' },
+			{ title: 'View Commands', href: '/extensions/view-command' },
+			{ title: 'No-View Commands', href: '/extensions/no-view-command' },
 			{ title: 'File Structure', href: '/extensions/file-structure' },
 			{ title: 'Manifest', href: '/extensions/manifest' },
+			{ title: 'Arguments', href: '/extensions/arguments' },
+			{ title: 'Preferences', href: '/extensions/preferences' },
+			{ title: 'Debug Raycast Extensions', href: '/extensions/debug-raycast' },
 		],
 	},
 	{
@@ -301,6 +306,9 @@ export const devNavigation: Array<NavItem> = [
 			{ title: 'Form', href: '/extensions/api/form' },
 			{ title: 'ActionPanel', href: '/extensions/api/action-panel' },
 			{ title: 'Actions', href: '/extensions/api/actions' },
+			{ title: 'Icons', href: '/extensions/api/icons' },
+			{ title: 'Colors', href: '/extensions/api/colors' },
+			{ title: 'Images', href: '/extensions/api/images' },
 		],
 	},
 	{
@@ -327,25 +335,10 @@ export const devNavigation: Array<NavItem> = [
 			{ title: 'Keyboard', href: '/extensions/api/keyboard' },
 			{ title: 'OAuth', href: '/extensions/api/oauth' },
 			{ title: 'AI', href: '/extensions/api/ai' },
+			{ title: 'Utilities', href: '/extensions/api/utilities' },
 			{ title: 'Window Management', href: '/extensions/api/window-management' },
 			{ title: 'File Search', href: '/extensions/api/file-search' },
 			{ title: 'Commands', href: '/extensions/api/commands' },
-		],
-	},
-	{
-		title: 'Appearance',
-		links: [
-			{ title: 'Icons', href: '/extensions/api/icons' },
-			{ title: 'Colors', href: '/extensions/api/colors' },
-			{ title: 'Images', href: '/extensions/api/images' },
-		],
-	},
-	{
-		title: 'Guides',
-		links: [
-			{ title: 'View Commands', href: '/extensions/view-command' },
-			{ title: 'No-View Commands', href: '/extensions/no-view-command' },
-			{ title: 'Debug Raycast Extensions', href: '/extensions/debug-raycast' },
 		],
 	},
 ]

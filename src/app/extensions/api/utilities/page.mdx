@@ -1,0 +1,99 @@
+# Utilities
+
+System-level functions for opening files, running terminal commands, querying applications, and controlling the launcher window.
+
+## open
+
+Open a URL or file with the default application, or a specific one.
+
+```tsx
+import { open } from "@vicinae/api";
+
+await open("https://vicinae.org");
+await open("/path/to/file.pdf");
+await open("/path/to/file.txt", "code");
+```
+
+## runInTerminal
+
+Run a command in a new terminal window. The arguments are not interpreted by a shell.
+
+```tsx
+import { runInTerminal } from "@vicinae/api";
+
+await runInTerminal(["journalctl", "--user", "-u", "vicinae", "-f"]);
+```
+
+To run a shell command, wrap it explicitly:
+
+```tsx
+await runInTerminal(["/bin/bash", "-c", "echo $HOME"], { hold: true });
+```
+
+### Options
+
+| Option | Description |
+| --- | --- |
+| `hold` | Keep the terminal open after the command finishes |
+| `workingDirectory` | Set the working directory |
+| `appId` | Override the application ID for the terminal window |
+| `title` | Override the window title |
+
+Options are hints to the terminal emulator and may not be honored by all terminals. Vicinae follows the [xdg-terminal-exec](https://gitlab.freedesktop.org/terminal-wg/specifications/-/merge_requests/3/diffs) specification.
+
+## showInFileBrowser
+
+Reveal a file or folder in the system file browser.
+
+```tsx
+import { showInFileBrowser } from "@vicinae/api";
+
+await showInFileBrowser("/path/to/file.txt");
+await showInFileBrowser("/path/to/file.txt", { select: true });
+```
+
+## trash
+
+Move files to the system trash.
+
+```tsx
+import { trash } from "@vicinae/api";
+
+await trash("/path/to/file.txt");
+await trash(["/path/to/a.txt", "/path/to/b.txt"]);
+```
+
+## Applications
+
+Query installed applications on the system.
+
+```tsx
+import { getApplications, getDefaultApplication, getFrontmostApplication } from "@vicinae/api";
+
+const apps = await getApplications();
+const defaultApp = await getDefaultApplication("/path/to/file.pdf");
+const frontmost = await getFrontmostApplication();
+```
+
+Each `Application` has `id`, `name`, `path`, and an optional `icon`.
+
+## Launcher Window
+
+Control the Vicinae launcher window.
+
+```tsx
+import { closeMainWindow, showHUD, popToRoot, getSelectedText } from "@vicinae/api";
+
+await closeMainWindow();
+await showHUD("Done!");
+await popToRoot();
+
+const selected = await getSelectedText();
+```
+
+| Function | Description |
+| --- | --- |
+| `closeMainWindow()` | Close the launcher window |
+| `showHUD(title)` | Close the window and show a brief HUD message |
+| `popToRoot()` | Reset the navigation stack to the root view |
+| `getSelectedText()` | Read the text the user had selected before opening Vicinae |

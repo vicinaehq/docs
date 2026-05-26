@@ -1,0 +1,89 @@
+# Preferences
+
+Preferences are persistent settings that the user configures before running your extension. Vicinae shows them in the settings window and prompts the user for required values before the first run.
+
+## Declaring preferences
+
+Add a `preferences` array at the top level of your `package.json` for extension-wide preferences, or inside a specific command for command-level preferences:
+
+```json
+{
+  "preferences": [
+    {
+      "name": "api-key",
+      "title": "API Key",
+      "description": "Your API key for the fruit service",
+      "type": "password",
+      "required": true
+    },
+    {
+      "name": "show-details",
+      "title": "Show Details",
+      "description": "Show the detail panel by default",
+      "type": "checkbox",
+      "default": false,
+      "required": false
+    }
+  ]
+}
+```
+
+<Note>
+Extension preferences are shared across all commands. Command preferences only apply to the command they are declared on and can override extension preferences with the same `name`.
+</Note>
+
+## Reading preferences
+
+Use `getPreferenceValues` to access the current values at runtime:
+
+```tsx
+import { getPreferenceValues } from "@vicinae/api";
+
+interface Preferences {
+  "api-key": string;
+  "show-details": boolean;
+}
+
+const prefs = getPreferenceValues<Preferences>();
+```
+
+## Preference types
+
+| Type | Description |
+| --- | --- |
+| `textfield` | Free-form text input |
+| `password` | Masked text input for secrets |
+| `checkbox` | Boolean toggle |
+| `dropdown` | A predefined list of values |
+| `file` | File picker |
+| `directory` | Directory picker |
+
+## Dropdown preferences
+
+For `dropdown` type preferences, provide a `data` array:
+
+```json
+{
+  "name": "artwork",
+  "title": "Artwork Style",
+  "description": "Choose the preferred artwork style",
+  "type": "dropdown",
+  "default": "official",
+  "required": false,
+  "data": [
+    { "title": "Official Artwork", "value": "official" },
+    { "title": "Pixel Art", "value": "pixel" }
+  ]
+}
+```
+
+## Opening preferences programmatically
+
+Navigate the user to the settings window directly from your extension:
+
+```tsx
+import { openExtensionPreferences, openCommandPreferences } from "@vicinae/api";
+
+await openExtensionPreferences();
+await openCommandPreferences();
+```

@@ -1,25 +1,60 @@
 # Clipboard
 
-The Clipboard API allows extensions to read from and write to the system clipboard.
+Read from and write to the system clipboard.
 
-## Functions
-
-### Clipboard.copy
+## Copy
 
 ```tsx
-import { Clipboard } from '@vicinae/api';
+import { Clipboard } from "@vicinae/api";
 
-await Clipboard.copy('Hello, world!');
+await Clipboard.copy("🍎 Apple");
 ```
 
-### Clipboard.paste
+Pass `concealed` to prevent the entry from being indexed by the clipboard manager (useful for secrets).
 
-{/* TODO */}
+```tsx
+await Clipboard.copy("secret-api-key", { concealed: true });
+```
 
-### Clipboard.readText
+## Paste
 
-{/* TODO */}
+Paste content into the frontmost application. Falls back to a regular copy if pasting isn't supported.
 
-## Types
+```tsx
+import { Clipboard } from "@vicinae/api";
 
-{/* TODO: Types */}
+await Clipboard.paste("🍎");
+```
+
+## Read
+
+Read the current clipboard content. Can contain text, HTML, or a file path.
+
+```tsx
+import { Clipboard } from "@vicinae/api";
+
+const { text } = await Clipboard.read();
+```
+
+Or read just the text:
+
+```tsx
+const text = await Clipboard.readText();
+```
+
+## Clear
+
+```tsx
+import { Clipboard } from "@vicinae/api";
+
+await Clipboard.clear();
+```
+
+## Content Types
+
+`Clipboard.copy` and `Clipboard.paste` accept a string or a `Clipboard.Content` object:
+
+```tsx
+await Clipboard.copy({ html: "<b>Apple</b>", text: "Apple" });
+await Clipboard.copy({ file: "/path/to/image.png" });
+```

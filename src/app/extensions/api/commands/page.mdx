@@ -1,11 +1,15 @@
 # Commands
 
-The Commands API allows extensions to programmatically launch other commands within Vicinae.
+Update metadata for the current command at runtime.
 
-## launchCommand
+## updateCommandMetadata
+
+Change the subtitle shown next to the command in Vicinae. Useful for displaying live data like counts or status.
 
 ```tsx
-import { launchCommand } from '@vicinae/api';
+import { updateCommandMetadata } from "@vicinae/api";
+
+await updateCommandMetadata({ subtitle: "12 fruits" });
 ```
 
-{/* TODO: Document available functions and types */}
+Pass `null` to clear the custom subtitle and fall back to the one defined in `package.json`.

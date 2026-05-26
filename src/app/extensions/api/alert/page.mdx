@@ -1,22 +1,43 @@
 # Alert
 
-Alerts are modal dialogs used to ask the user for confirmation before performing a potentially destructive or important action.
+A confirmation dialog for destructive or important actions. The user must explicitly confirm or cancel.
 
 ## confirmAlert
 
 ```tsx
-import { confirmAlert } from '@vicinae/api';
+import { confirmAlert, Alert } from "@vicinae/api";
 
 const confirmed = await confirmAlert({
-  title: 'Delete item?',
-  message: 'This action cannot be undone.',
+  title: "Delete Apple?",
+  message: "This cannot be undone.",
+  primaryAction: {
+    title: "Delete",
+    style: Alert.ActionStyle.Destructive,
+  },
 });
 
 if (confirmed) {
-  // proceed
+  // delete the fruit
 }
 ```
 
-## Options
+## Remember User Choice
 
-{/* TODO: Options table */}
+Pass `rememberUserChoice` so the user isn't prompted again for the same decision.
+
+```tsx
+import { confirmAlert } from "@vicinae/api";
+
+await confirmAlert({
+  title: "Enable notifications?",
+  rememberUserChoice: true,
+});
+```
+
+## Action Styles
+
+| Style | Description |
+| --- | --- |
+| `Alert.ActionStyle.Default` | Standard confirm button |
+| `Alert.ActionStyle.Destructive` | Red, used for irreversible actions |
+| `Alert.ActionStyle.Cancel` | Dismisses the dialog |

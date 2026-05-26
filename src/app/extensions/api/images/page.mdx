@@ -1,15 +1,40 @@
 # Images
 
-The Image module provides types for working with images across the extension API. Images can be used as icons, thumbnails, and other visual elements.
+Types for specifying images across the extension API.
 
 ## ImageLike
 
-{/* TODO: ImageLike type documentation */}
+Anywhere Vicinae expects an image, you can pass an `Icon`, a URL, an asset path, or a full `Image` object.
 
-## Image.Mask
+```tsx
+import { Icon, List } from "@vicinae/api";
 
-{/* TODO */}
+<List.Item title="From Icon" icon={Icon.Star} />
+<List.Item title="From Emoji" icon="🍎" />
+<List.Item title="From Asset" icon="apple.png" />
+```
 
-## Usage
+## Image Object
 
-{/* TODO: Examples */}
+For more control, use the full `Image` type with tint and mask options.
+
+```tsx
+import { Color, Icon, Image, List } from "@vicinae/api";
+
+<List.Item
+  title="Tinted"
+  icon={{ source: Icon.Circle, tintColor: Color.Green }}
+/>
+<List.Item
+  title="Masked"
+  icon={{ source: "avatar.png", mask: Image.Mask.Circle }}
+/>
+```
+
+## Themed Images
+
+Provide different images for light and dark themes.
+
+```tsx
+const icon = { light: "icon-light.png", dark: "icon-dark.png" };
+```

@@ -1,32 +1,64 @@
 # OAuth
 
-The OAuth API provides utilities for implementing OAuth 2.0 authorization flows in extensions. This is useful for connecting to third-party services that require user authentication.
+Built-in support for OAuth 2.0 PKCE flows, allowing extensions to authenticate with third-party services.
 
-## Example
+## Setup
+
+Create a PKCE client with your provider details.
 
 ```tsx
-import { OAuth } from '@vicinae/api';
+import { OAuth } from "@vicinae/api";
 
 const client = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
-  providerName: 'GitHub',
-  providerIcon: 'github.png',
-  description: 'Connect your GitHub account',
+  providerName: "GitHub",
+  providerIcon: "github.png",
+  description: "Connect your GitHub account",
 });
 ```
 
-## OAuth.PKCEClient
+## Authorization Flow
 
-{/* TODO */}
+```tsx
+import { OAuth } from "@vicinae/api";
 
-## OAuth.AuthorizationRequest
+const client = new OAuth.PKCEClient({
+  redirectMethod: OAuth.RedirectMethod.Web,
+  providerName: "GitHub",
+  providerIcon: "github.png",
+});
 
-{/* TODO */}
+const authRequest = await client.authorizationRequest({
+  endpoint: "https://github.com/login/oauth/authorize",
+  clientId: "your-client-id",
+  scope: "repo user",
+});
 
-## OAuth.TokenSet
+const { authorizationCode } = await client.authorize(authRequest);
+// Exchange authorizationCode for tokens via your provider's token endpoint
+```
 
-{/* TODO */}
+## Token Storage
 
-## OAuth.RedirectMethod
+Store and retrieve tokens securely. Vicinae automatically shows a logout option when tokens are saved.
 
-{/* TODO */}
+```tsx
+await client.setTokens({
+  accessToken: "gho_...",
+  refreshToken: "ghr_...",
+  expiresIn: 3600,
+});
+
+const tokens = await client.getTokens();
+if (tokens?.isExpired()) {
+  // refresh the token
+}
+```
+
+## Redirect Methods
+
+| Method | Description |
+| --- | --- |
+| `OAuth.RedirectMethod.Web` | Redirects through the Vicinae website |
+| `OAuth.RedirectMethod.App` | Uses `raycast://` app scheme |
+| `OAuth.RedirectMethod.AppURI` | Uses `com.raycast:/` URI scheme |

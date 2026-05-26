@@ -1,16 +1,46 @@
 # Environment
 
-The `environment` object provides information about the current runtime context, such as paths, extension metadata, and the active theme.
+Runtime information about the current extension, command, and Vicinae instance.
 
 ## Usage
 
 ```tsx
-import { environment } from '@vicinae/api';
+import { environment } from "@vicinae/api";
 
 console.log(environment.extensionName);
-console.log(environment.assetsPath);
+console.log(environment.commandName);
+console.log(environment.isDevelopment);
 ```
 
-## Properties
+## Key Properties
 
-{/* TODO: Properties table */}
+| Property | Description |
+| --- | --- |
+| `extensionName` | Name of the extension from `package.json` |
+| `commandName` | Name of the currently running command |
+| `commandMode` | `"view"`, `"no-view"`, or `"menu-bar"` |
+| `appearance` | `"light"` or `"dark"` |
+| `textSize` | `"medium"` or `"large"` |
+| `isDevelopment` | Whether this is a development build |
+| `launchType` | `LaunchType.UserInitiated` or `LaunchType.Background` |
+| `assetsPath` | Absolute path to the extension's `assets/` directory |
+| `supportPath` | Writable directory for extension data and files |
+
+```tsx
+import { environment } from "@vicinae/api";
+import { readFileSync } from "fs";
+
+const data = readFileSync(`${environment.supportPath}/data.json`, "utf-8");
+```
+
+## LaunchProps
+
+Commands receive `LaunchProps` with the launch type, arguments, draft values, and launch context.
+
+```tsx
+import { LaunchProps, Detail } from "@vicinae/api";
+
+export default function Command(props: LaunchProps<{ arguments: { query: string } }>) {
+  return <Detail markdown={`You searched: ${props.arguments.query}`} />;
+}
+```
