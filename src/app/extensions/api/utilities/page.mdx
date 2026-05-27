@@ -63,6 +63,10 @@ await trash("/path/to/file.txt");
 await trash(["/path/to/a.txt", "/path/to/b.txt"]);
 ```
 
+<Warning>
+On Linux, Vicinae currently does not try to simulate a proper trash nor use any of the available ones (sometimes exposed by file managers). The files are immediately and permanently removed from the filesystem.
+</Warning>
+
 ## Applications
 
 Query installed applications on the system.
@@ -77,23 +81,47 @@ const frontmost = await getFrontmostApplication();
 
 Each `Application` has `id`, `name`, `path`, and an optional `icon`.
 
-## Launcher Window
+<Note>
+The icon returned for an application, if any, should not be considered stable and should not be stored as-is. It is meant to be passed as an icon at runtime to any Vicinae API that accepts them.
+</Note>
 
-Control the Vicinae launcher window.
+## closeMainWindow
+
+Close the launcher window. Useful after performing an action that doesn't need further user interaction.
 
 ```tsx
-import { closeMainWindow, showHUD, popToRoot, getSelectedText } from "@vicinae/api";
+import { closeMainWindow } from "@vicinae/api";
 
 await closeMainWindow();
-await showHUD("Done!");
-await popToRoot();
-
-const selected = await getSelectedText();
 ```
 
-| Function | Description |
-| --- | --- |
-| `closeMainWindow()` | Close the launcher window |
-| `showHUD(title)` | Close the window and show a brief HUD message |
-| `popToRoot()` | Reset the navigation stack to the root view |
-| `getSelectedText()` | Read the text the user had selected before opening Vicinae |
+## showHUD
+
+Close the launcher window and show a brief heads-up message.
+
+```tsx
+import { showHUD } from "@vicinae/api";
+
+await showHUD("Copied to clipboard!");
+```
+
+## popToRoot
+
+Reset the navigation stack to the root view of the current command.
+
+```tsx
+import { popToRoot } from "@vicinae/api";
+
+await popToRoot();
+```
+
+## getSelectedText
+
+Get the currently selected text. Often combined with `Clipboard.paste` to replace the selected text with something else.
+
+```tsx
+import { getSelectedText, Clipboard } from "@vicinae/api";
+
+const selected = await getSelectedText();
+await Clipboard.paste(selected.toUpperCase());
+```

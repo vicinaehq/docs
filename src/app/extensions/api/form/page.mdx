@@ -1,6 +1,6 @@
 # Form
 
-Collect user input through text fields, checkboxes, dropdowns, date pickers, tag pickers, and file pickers.
+Collect user input through text fields, checkboxes, dropdowns, date pickers, and file pickers.
 
 ![](/extensions/api/form/form.png)
 
@@ -29,7 +29,7 @@ export default function Command() {
 }
 ```
 
-## Dropdown and TagPicker
+## Dropdown
 
 ```tsx
 import { Form } from "@vicinae/api";
@@ -42,11 +42,6 @@ export default function Command() {
         <Form.Dropdown.Item title="Citrus" value="citrus" icon="🍊" />
         <Form.Dropdown.Item title="Tropical" value="tropical" icon="🥭" />
       </Form.Dropdown>
-      <Form.TagPicker id="tags" title="Tags">
-        <Form.TagPicker.Item title="Sweet" value="sweet" icon="🍬" />
-        <Form.TagPicker.Item title="Sour" value="sour" icon="🍋" />
-        <Form.TagPicker.Item title="Juicy" value="juicy" icon="💧" />
-      </Form.TagPicker>
     </Form>
   );
 }

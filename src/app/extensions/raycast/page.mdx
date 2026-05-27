@@ -1,0 +1,58 @@
+# Raycast Compatibility
+
+## Compatibility Goals
+
+Raycast extensions are compatible with Vicinae, and that is one of the goals of this project. Some Raycast extensions use APIs that may not be available on all platforms, but most things have their counterpart in Vicinae.
+
+Native Vicinae extensions are developed using the `@vicinae/api` package, which is **not** strictly compatible with `@raycast/api`. The tooling (development sessions, production builds) is also different between the two.
+
+The general goal is to remain compatible with Raycast without restricting ourselves to their model.
+
+This is why we also have our own [extension store](https://www.vicinae.com/extensions).
+
+## Debug Raycast Extensions
+
+Vicinae is compatible with most Raycast extensions, so you can run them in development mode as you would any Vicinae extension.
+
+### Get Raycast Extensions (optional)
+
+Extensions installed from the Raycast store cannot be debugged directly as they are already bundled for production.
+
+If you want to debug a Raycast extension published to the official store, you need to download the source code.
+
+Official Raycast extensions are maintained in a [single git repository](https://github.com/raycast/extensions), so start by cloning it:
+
+```bash
+git clone https://github.com/raycast/extensions
+```
+
+Then find the extension you are interested in by navigating to the `extensions/<extension_name>` directory.
+
+<Warning>
+Installing the store version of an extension and debugging it from source at the same time is not recommended. They are technically two different extensions, and this will result in duplicates in the UI which may make it hard to differentiate the store version from the development one.
+</Warning>
+
+### Install Vicinae SDK
+
+To run a Raycast extension in development mode, install the Vicinae SDK as you would for any Vicinae extension.
+
+From the extension source tree, run:
+
+```bash
+npm install
+npm install --save-dev @vicinae/api
+```
+
+You cannot simply run `npm run dev` since for a Raycast extension, this would invoke the `ray` binary which only works with Raycast.
+
+Instead, explicitly invoke the `vici` CLI exported from the `@vicinae/api` package:
+
+```bash
+npx vici develop
+```
+
+This should work seamlessly as it does for any other extension.
+
+<Note>
+When debugging a Raycast extension, make sure you use exports from the `@raycast/api` package and not from the `@vicinae/api` one. Mixing them will work but may yield unexpected results.
+</Note>

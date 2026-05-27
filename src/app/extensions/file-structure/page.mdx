@@ -4,8 +4,8 @@ This page describes the file structure of a Vicinae extension.
 
 A valid Vicinae extension is a directory containing at least two things:
 
-- a manifest file named `package.json`, which is essentially a regular `package.json` file with Vicinae specific additions to it.
-- one or more command entrypoints under the `src` subdirectory, such as `src/command_name.tsx`. They need to map to a valid command name inside the manifest.
+- a manifest file named `package.json`, which is a regular `package.json` file with Vicinae-specific additions.
+- one or more command entrypoints under the `src` subdirectory, such as `src/command_name.tsx`. Each must map to a valid command name in the manifest.
 
 This is what a typical extension directory looks like:
 
@@ -22,7 +22,7 @@ my-first-extension
 ```
 
 <Note>
-We may add configuration files for more quality of life Javascript tooling in the future (eslint, prettier, etc...)
+We may add configuration files for JavaScript tooling in the future (eslint, prettier, etc.).
 </Note>
 
 
@@ -41,9 +41,9 @@ Using `.tsx` for no-view commands is still supported but not the other way aroun
 
 ## Assets directory
 
-The `assets` directory can contain icons that will be packaged into the extension bundle. All assets can be referenced at runtime and used as images where Vicinae expects them.  This is also where extension or command icons referenced in the manifest should be placed.
+The `assets` directory contains icons and other files that are packaged into the extension bundle. All assets can be referenced at runtime and used as images where Vicinae expects them. This is also where extension or command icons referenced in the manifest should be placed.
 
 ## Other files
 
-- `node_modules`: dependencies required for the extension to run. Do not make any manual change to this directory.
-- `package-lock.json`: locked version of the dependencies to install: do not edit directly.
+- `node_modules`: dependencies required for the extension to run. Do not modify this directory manually.
+- `package-lock.json`: locked versions of the dependencies. Do not edit directly.

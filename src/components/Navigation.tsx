@@ -294,7 +294,7 @@ export const devNavigation: Array<NavItem> = [
 			{ title: 'Manifest', href: '/extensions/manifest' },
 			{ title: 'Arguments', href: '/extensions/arguments' },
 			{ title: 'Preferences', href: '/extensions/preferences' },
-			{ title: 'Debug Raycast Extensions', href: '/extensions/debug-raycast' },
+			{ title: 'Raycast Compatibility', href: '/extensions/raycast' },
 		],
 	},
 	{
@@ -306,9 +306,8 @@ export const devNavigation: Array<NavItem> = [
 			{ title: 'Form', href: '/extensions/api/form' },
 			{ title: 'ActionPanel', href: '/extensions/api/action-panel' },
 			{ title: 'Actions', href: '/extensions/api/actions' },
-			{ title: 'Icons', href: '/extensions/api/icons' },
-			{ title: 'Colors', href: '/extensions/api/colors' },
 			{ title: 'Images', href: '/extensions/api/images' },
+			{ title: 'Colors', href: '/extensions/api/colors' },
 		],
 	},
 	{

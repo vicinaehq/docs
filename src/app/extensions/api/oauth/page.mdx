@@ -2,6 +2,10 @@
 
 Built-in support for OAuth 2.0 PKCE flows, allowing extensions to authenticate with third-party services.
 
+<Warning>
+The OAuth implementation is still tied to Raycast services, as it was first implemented to support Raycast extensions. Native Vicinae methods will be proposed in the future.
+</Warning>
+
 ## Setup
 
 Create a PKCE client with your provider details.
@@ -40,7 +44,7 @@ const { authorizationCode } = await client.authorize(authRequest);
 
 ## Token Storage
 
-Store and retrieve tokens securely. Vicinae automatically shows a logout option when tokens are saved.
+Store and retrieve tokens.
 
 ```tsx
 await client.setTokens({
@@ -59,6 +63,6 @@ if (tokens?.isExpired()) {
 
 | Method | Description |
 | --- | --- |
-| `OAuth.RedirectMethod.Web` | Redirects through the Vicinae website |
+| `OAuth.RedirectMethod.Web` | Redirects through the **Raycast** website. A Vicinae equivalent will ship in the future. |
 | `OAuth.RedirectMethod.App` | Uses `raycast://` app scheme |
 | `OAuth.RedirectMethod.AppURI` | Uses `com.raycast:/` URI scheme |

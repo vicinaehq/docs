@@ -2,6 +2,10 @@
 
 Push and pop views on the navigation stack from within a command.
 
+<Note>
+In most cases, prefer `<Action.Push />` over calling `push` directly.
+</Note>
+
 ## Push a View
 
 ```tsx
@@ -50,5 +54,3 @@ function FruitDetail() {
   );
 }
 ```
-
-You can also use `Action.Push` as a declarative alternative to `push`.

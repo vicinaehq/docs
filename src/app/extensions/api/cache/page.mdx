@@ -1,6 +1,6 @@
 # Cache
 
-An LRU disk cache for data that is expensive to fetch. Unlike `LocalStorage`, cache entries are evicted when the capacity is exceeded and data is not encrypted.
+An LRU disk cache for data that is expensive to fetch. Unlike `LocalStorage`, cache entries are evicted when the capacity / TTL is exceeded.
 
 ## Basic Usage
 
@@ -37,6 +37,10 @@ import { Cache } from "@vicinae/api";
 
 const cache = new Cache({ namespace: "my-command" });
 ```
+
+<Note>
+If no namespace is specified, the default namespace is shared across all commands of the same extension.
+</Note>
 
 ## Subscribing to Changes
 

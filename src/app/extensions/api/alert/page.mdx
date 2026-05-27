@@ -2,6 +2,8 @@
 
 A confirmation dialog for destructive or important actions. The user must explicitly confirm or cancel.
 
+![](/extensions/api/alert/alert.png)
+
 ## confirmAlert
 
 ```tsx
@@ -19,19 +21,6 @@ const confirmed = await confirmAlert({
 if (confirmed) {
   // delete the fruit
 }
-```
-
-## Remember User Choice
-
-Pass `rememberUserChoice` so the user isn't prompted again for the same decision.
-
-```tsx
-import { confirmAlert } from "@vicinae/api";
-
-await confirmAlert({
-  title: "Enable notifications?",
-  rememberUserChoice: true,
-});
 ```
 
 ## Action Styles

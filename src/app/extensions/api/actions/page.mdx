@@ -10,6 +10,10 @@ The base component for custom actions.
 <Action title="Say Hello" icon={Icon.SpeechBubble} onAction={() => console.log("Hello!")} />
 ```
 
+<Note>
+All the other actions listed below except `<Action.Submit />` are wrappers around `<Action />` and exposed Vicinae APIs, provided for convenience and saner defaults.
+</Note>
+
 ## Action.CopyToClipboard
 
 Copy text to the clipboard. Shows a confirmation toast automatically.
@@ -42,6 +46,14 @@ Open a file or URL with the default or a specific application.
 
 ```tsx
 <Action.Open title="Open File" target="/path/to/file.txt" />
+```
+
+## Action.OpenWith
+
+Open a file with a specific application chosen by the user.
+
+```tsx
+<Action.OpenWith title="Open With..." path="/path/to/image.png" />
 ```
 
 ## Action.Push
