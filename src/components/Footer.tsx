@@ -119,7 +119,6 @@ export function Footer() {
   return (
     <footer className="mx-auto w-full max-w-2xl space-y-10 pb-16 lg:mx-[calc(50%-min(50%,var(--container-lg)))] lg:max-w-3xl">
       <PageNavigation />
-      <SmallPrint />
     </footer>
   )
 }
