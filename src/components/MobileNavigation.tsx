@@ -6,40 +6,14 @@ import {
   DialogPanel,
   TransitionChild,
 } from '@headlessui/react'
+import { Menu, X } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Suspense, createContext, useContext } from 'react'
 import { create } from 'zustand'
 
+import { DocsModeSwitch } from '@/components/DocsMode'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
-
-function MenuIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg
-      viewBox="0 0 10 9"
-      fill="none"
-      strokeLinecap="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M.5 1h9M.5 8h9M.5 4.5h9" />
-    </svg>
-  )
-}
-
-function XIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg
-      viewBox="0 0 10 9"
-      fill="none"
-      strokeLinecap="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m1.5 1 7 7M8.5 1l-7 7" />
-    </svg>
-  )
-}
 
 const IsInsideMobileNavigationContext = createContext(false)
 
@@ -72,6 +46,9 @@ function MobileNavigationDialog({
             layoutScroll
             className="fixed top-14 bottom-0 left-0 w-full overflow-y-auto bg-ink-900 px-4 pt-6 pb-4 shadow-lg ring-1 ring-sand-700/20 duration-500 ease-in-out data-closed:-translate-x-full min-[416px]:max-w-sm sm:px-6 sm:pb-10"
           >
+            <div className="mb-6">
+              <DocsModeSwitch />
+            </div>
             <Navigation />
           </motion.div>
         </TransitionChild>
@@ -99,7 +76,7 @@ export const useMobileNavigationStore = create<{
 export function MobileNavigation() {
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
   let { isOpen, toggle, close } = useMobileNavigationStore()
-  let ToggleIcon = isOpen ? XIcon : MenuIcon
+  let ToggleIcon = isOpen ? X : Menu
 
   return (
     <IsInsideMobileNavigationContext.Provider value={true}>
@@ -110,7 +87,7 @@ export function MobileNavigation() {
         onClick={toggle}
       >
         <span className="absolute size-12 pointer-fine:hidden" />
-        <ToggleIcon className="w-2.5 stroke-stone-300" />
+        <ToggleIcon className="h-4 w-4 text-stone-300" />
       </button>
       {!isInsideMobileNavigation && (
         <Suspense fallback={null}>

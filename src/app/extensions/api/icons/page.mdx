@@ -1,0 +1,43 @@
+# Icons
+
+A built-in icon library with hundreds of icons for use in lists, actions, grids, and more.
+
+## Usage
+
+```tsx
+import { Icon, List } from "@vicinae/api";
+
+<List.Item title="Settings" icon={Icon.Cog} />
+<List.Item title="Download" icon={Icon.Download} />
+<List.Item title="Search" icon={Icon.MagnifyingGlass} />
+```
+
+## Tinted Icons
+
+Apply a color tint by using the `Image` object form.
+
+```tsx
+import { Color, Icon, List } from "@vicinae/api";
+
+<List.Item
+  title="Error"
+  icon={{ source: Icon.XMarkCircle, tintColor: Color.Red }}
+/>
+```
+
+## Common Icons
+
+Some commonly used icons:
+
+- `Icon.Check`, `Icon.Xmark` for confirmations
+- `Icon.Plus`, `Icon.Minus` for add/remove
+- `Icon.Star`, `Icon.Heart` for favorites
+- `Icon.Cog`, `Icon.WrenchScrewdriver` for settings
+- `Icon.MagnifyingGlass` for search
+- `Icon.ArrowRight`, `Icon.ArrowLeft` for navigation
+- `Icon.Download`, `Icon.Upload` for transfers
+- `Icon.Lock`, `Icon.Key` for security
+- `Icon.Person`, `Icon.TwoPeople` for users
+- `Icon.Folder`, `Icon.BlankDocument` for files
+
+The full list includes technology logos (React, Python, Docker, etc.), UI elements, and general-purpose symbols. Refer to the TypeScript types for the complete `Icon` enum.

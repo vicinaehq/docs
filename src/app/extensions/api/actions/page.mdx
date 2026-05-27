@@ -1,0 +1,119 @@
+# Actions
+
+Individual operations that live inside an `ActionPanel`. Vicinae ships several built-in actions for common tasks.
+
+## Action
+
+The base component for custom actions.
+
+```tsx
+<Action title="Say Hello" icon={Icon.SpeechBubble} onAction={() => console.log("Hello!")} />
+```
+
+<Note>
+All the other actions listed below except `<Action.Submit />` are wrappers around `<Action />` and exposed Vicinae APIs, provided for convenience and saner defaults.
+</Note>
+
+## Action.CopyToClipboard
+
+Copy text to the clipboard. Shows a confirmation toast automatically.
+
+```tsx
+<Action.CopyToClipboard title="Copy Emoji" content="🍎" />
+```
+
+Pass `concealed` to prevent the content from being indexed by the clipboard manager.
+
+## Action.Paste
+
+Paste content into the frontmost application.
+
+```tsx
+<Action.Paste title="Paste Emoji" content="🍎" />
+```
+
+## Action.OpenInBrowser
+
+Open a URL in the default browser.
+
+```tsx
+<Action.OpenInBrowser title="Wikipedia" url="https://en.wikipedia.org/wiki/Apple" />
+```
+
+## Action.Open
+
+Open a file or URL with the default or a specific application.
+
+```tsx
+<Action.Open title="Open File" target="/path/to/file.txt" />
+```
+
+## Action.OpenWith
+
+Open a file with a specific application chosen by the user.
+
+```tsx
+<Action.OpenWith title="Open With..." path="/path/to/image.png" />
+```
+
+## Action.Push
+
+Push a new view onto the navigation stack.
+
+```tsx
+<Action.Push title="Show Details" target={<Detail markdown="# Apple 🍎" />} />
+```
+
+## Action.SubmitForm
+
+Submit a form. Typically the primary action inside a `Form`.
+
+```tsx
+<Action.SubmitForm title="Save" onSubmit={(values) => console.log(values)} />
+```
+
+## Action.Trash
+
+Move files to the trash.
+
+```tsx
+<Action.Trash title="Delete" paths={["/path/to/file.txt"]} />
+```
+
+## Action.ShowInFinder
+
+Reveal a file in the system file browser.
+
+```tsx
+<Action.ShowInFinder title="Reveal" path="/path/to/file.txt" />
+```
+
+## Action.RunInTerminal
+
+Run a command in a new terminal window.
+
+```tsx
+<Action.RunInTerminal title="Run Tests" args={["npm", "test"]} />
+```
+
+## Keyboard Shortcuts
+
+Bind a shortcut to any action. Use named shortcuts from `Keyboard.Shortcut.Common` when possible.
+
+```tsx
+import { Action, Keyboard } from "@vicinae/api";
+
+<Action.CopyToClipboard
+  title="Copy"
+  content="🍎"
+  shortcut={Keyboard.Shortcut.Common.Copy}
+/>
+```
+
+## Destructive Style
+
+Mark an action as destructive to visually warn the user.
+
+```tsx
+<Action title="Delete" style="destructive" onAction={() => {}} />
+```

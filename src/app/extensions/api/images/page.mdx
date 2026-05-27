@@ -1,0 +1,76 @@
+# Images
+
+Anywhere the API accepts an image (`icon`, `content`, etc.), you can pass one of these types:
+
+```tsx
+import { Color, Icon, Image, List } from "@vicinae/api";
+
+// Built-in icon
+<List.Item title="Settings" icon={Icon.Cog} />
+
+// Emoji
+<List.Item title="Apple" icon="🍎" />
+
+// Asset file (from the extension's assets directory)
+<List.Item title="Logo" icon="logo.png" />
+
+// Remote URL
+<List.Item title="Avatar" icon="https://example.com/avatar.png" />
+
+// File icon (system icon for a file type)
+<List.Item title="Document" icon={{ fileIcon: "/path/to/file.pdf" }} />
+
+// Tinted icon
+<List.Item title="Error" icon={{ source: Icon.XMarkCircle, tintColor: Color.Red }} />
+
+// Themed (light/dark variants)
+<List.Item title="Logo" icon={{ light: "logo-light.png", dark: "logo-dark.png" }} />
+
+// Circle mask
+<List.Item title="User" icon={{ source: "avatar.png", mask: Image.Mask.Circle }} />
+
+// With fallback (used if source fails to load)
+<List.Item
+  title="Profile"
+  icon={{ source: "https://example.com/avatar.png", fallback: Icon.Person }}
+/>
+```
+
+## Icons
+
+The `Icon` enum provides hundreds of built-in icons covering UI elements, technology logos, and general-purpose symbols. Refer to the TypeScript types for the complete list.
+
+```tsx
+import { Icon } from "@vicinae/api";
+
+Icon.Star
+Icon.MagnifyingGlass
+Icon.Download
+Icon.Cog
+```
+
+## Image Object
+
+For tinting, masking, fallbacks, or theming, pass an object instead of a plain source.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `source` | `Icon \| string \| ThemedSource` | Icon enum value, asset path, URL, or `{ light, dark }` object |
+| `fallback` | `Icon \| string \| ThemedSource` | Image to use if `source` fails to load |
+| `tintColor` | `Color \| string` | Color applied over the image |
+| `mask` | `Image.Mask` | Shape mask applied to the image |
+
+## Themed Images
+
+Provide different assets for light and dark themes by passing an object with `light` and `dark` keys as the source.
+
+```tsx
+const icon = { light: "icon-light.png", dark: "icon-dark.png" };
+```
+
+## Image.Mask
+
+| Value | Description |
+| --- | --- |
+| `Image.Mask.Circle` | Circular crop |
+| `Image.Mask.RoundedRectangle` | Rounded rectangle crop |

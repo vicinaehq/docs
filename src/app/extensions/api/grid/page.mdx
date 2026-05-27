@@ -1,0 +1,103 @@
+# Grid
+
+A searchable grid layout for visual content like images, icons, or colors.
+
+![](/extensions/api/grid/grid.png)
+
+## Basic Grid
+
+```tsx
+import { Grid } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Grid columns={4}>
+      <Grid.Item content="🍎" title="Apple" />
+      <Grid.Item content="🍌" title="Banana" />
+      <Grid.Item content="🍒" title="Cherry" />
+      <Grid.Item content="🍊" title="Orange" />
+      <Grid.Item content="🍇" title="Grape" />
+      <Grid.Item content="🍓" title="Strawberry" />
+    </Grid>
+  );
+}
+```
+
+## Sections
+
+```tsx
+import { Grid } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Grid columns={5}>
+      <Grid.Section title="Berries">
+        <Grid.Item content="🍓" title="Strawberry" />
+        <Grid.Item content="🫐" title="Blueberry" />
+        <Grid.Item content="🍇" title="Grape" />
+      </Grid.Section>
+      <Grid.Section title="Citrus">
+        <Grid.Item content="🍊" title="Orange" />
+        <Grid.Item content="🍋" title="Lemon" />
+      </Grid.Section>
+    </Grid>
+  );
+}
+```
+
+## Color Swatches
+
+Grid items can display solid colors instead of images.
+
+```tsx
+import { Color, Grid } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Grid columns={6} aspectRatio="1">
+      <Grid.Item content={{ color: Color.Red }} title="Red" />
+      <Grid.Item content={{ color: Color.Orange }} title="Orange" />
+      <Grid.Item content={{ color: Color.Yellow }} title="Yellow" />
+      <Grid.Item content={{ color: Color.Green }} title="Green" />
+      <Grid.Item content={{ color: Color.Blue }} title="Blue" />
+      <Grid.Item content={{ color: Color.Purple }} title="Purple" />
+    </Grid>
+  );
+}
+```
+
+## Aspect Ratio and Fit
+
+Control the shape of grid cells and how content fills them.
+
+```tsx
+import { Grid } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Grid columns={3} aspectRatio="3/2" fit={Grid.Fit.Fill}>
+      <Grid.Item content="https://example.com/apple.jpg" title="Apple" />
+      <Grid.Item content="https://example.com/banana.jpg" title="Banana" />
+      {/* ... */}
+    </Grid>
+  );
+}
+```
+
+## Inset
+
+Control spacing around grid items with `inset`.
+
+```tsx
+import { Grid } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Grid columns={4} inset={Grid.Inset.Large}>
+      <Grid.Item content="🍎" title="Apple" />
+      <Grid.Item content="🍌" title="Banana" />
+      {/* ... */}
+    </Grid>
+  );
+}
+```

@@ -1,0 +1,72 @@
+# Arguments
+
+Arguments are values the user provides inline when launching a command. They appear as input fields next to the command name in Vicinae. A command can have up to 3 arguments.
+
+## Declaring arguments
+
+Add an `arguments` array to a command in your `package.json`:
+
+```json
+{
+  "commands": [
+    {
+      "name": "search-fruits",
+      "title": "Search Fruits",
+      "description": "Search for a fruit by name",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "query",
+          "placeholder": "Fruit name",
+          "type": "text",
+          "required": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Reading arguments
+
+Arguments are passed to your command via `LaunchProps`:
+
+```tsx
+import { LaunchProps, List } from "@vicinae/api";
+
+export default function Command(props: LaunchProps<{ arguments: { query: string } }>) {
+  const { query } = props.arguments;
+
+  return (
+    <List searchBarPlaceholder={`Results for "${query}"...`}>
+      {/* filtered items */}
+    </List>
+  );
+}
+```
+
+## Argument types
+
+| Type | Description |
+| --- | --- |
+| `text` | Free-form text input |
+| `password` | Masked text input |
+| `dropdown` | A predefined list of values |
+
+## Dropdown arguments
+
+For `dropdown` type arguments, provide a `data` array with the available options:
+
+```json
+{
+  "name": "category",
+  "placeholder": "Category",
+  "type": "dropdown",
+  "required": false,
+  "data": [
+    { "title": "Berry", "value": "berry" },
+    { "title": "Citrus", "value": "citrus" },
+    { "title": "Tropical", "value": "tropical" }
+  ]
+}
+```

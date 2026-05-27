@@ -1,0 +1,27 @@
+# Preferences
+
+Read user-configured settings at runtime. See [Preferences](/extensions/preferences) for how to declare them in the manifest.
+
+## getPreferenceValues
+
+```tsx
+import { getPreferenceValues } from "@vicinae/api";
+
+interface Preferences {
+  apiKey: string;
+  showDetails: boolean;
+}
+
+const { apiKey, showDetails } = getPreferenceValues<Preferences>();
+```
+
+## Opening Preferences
+
+Navigate the user to the extension or command preferences in the settings window.
+
+```tsx
+import { openExtensionPreferences, openCommandPreferences } from "@vicinae/api";
+
+await openExtensionPreferences();
+await openCommandPreferences();
+```

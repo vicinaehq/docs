@@ -19,7 +19,7 @@ export function TableOfContents() {
 
   return (
     <nav aria-label="Table of contents">
-      <h2 className="text-xs font-medium tracking-wider uppercase text-stone-200">
+      <h2 className="text-2xs font-medium tracking-wider uppercase text-stone-600">
         On this page
       </h2>
       <ul className="mt-4 space-y-3 text-sm">
@@ -31,13 +31,13 @@ export function TableOfContents() {
                 'block transition-colors duration-200',
                 isActive(section.id)
                   ? 'text-sand-400'
-                  : 'text-stone-400 hover:text-stone-100',
+                  : 'text-stone-500 hover:text-stone-300',
               )}
             >
               {section.title}
             </Link>
             {section.children && section.children.length > 0 && (
-              <ul className="mt-2 space-y-2 border-l border-sand-700/15 pl-4">
+              <ul className="mt-2 space-y-2 border-l border-white/[0.05] pl-4">
                 {section.children.map((child) => (
                   <li key={child.id}>
                     <Link
@@ -46,7 +46,7 @@ export function TableOfContents() {
                         'block text-sm transition-colors duration-200',
                         isActive(child.id)
                           ? 'text-sand-400'
-                          : 'text-stone-500 hover:text-stone-300',
+                          : 'text-stone-600 hover:text-stone-400',
                       )}
                     >
                       {child.title}

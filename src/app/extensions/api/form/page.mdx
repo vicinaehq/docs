@@ -1,0 +1,131 @@
+# Form
+
+Collect user input through text fields, checkboxes, dropdowns, date pickers, and file pickers.
+
+![](/extensions/api/form/form.png)
+
+## Basic Form
+
+```tsx
+import { Action, ActionPanel, Form, showToast } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Form
+      actions={
+        <ActionPanel>
+          <Action.SubmitForm
+            title="Submit"
+            onSubmit={(values) => showToast({ title: `Added ${values.name}` })}
+          />
+        </ActionPanel>
+      }
+    >
+      <Form.TextField id="name" title="Name" placeholder="Apple" />
+      <Form.TextArea id="description" title="Description" placeholder="A crisp, sweet fruit..." />
+      <Form.Checkbox id="organic" label="Organic" />
+    </Form>
+  );
+}
+```
+
+## Dropdown
+
+```tsx
+import { Form } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Form>
+      <Form.Dropdown id="type" title="Type">
+        <Form.Dropdown.Item title="Berry" value="berry" icon="🍓" />
+        <Form.Dropdown.Item title="Citrus" value="citrus" icon="🍊" />
+        <Form.Dropdown.Item title="Tropical" value="tropical" icon="🥭" />
+      </Form.Dropdown>
+    </Form>
+  );
+}
+```
+
+## DatePicker
+
+```tsx
+import { Form } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Form>
+      <Form.DatePicker id="harvestDate" title="Harvest Date" type={Form.DatePicker.Type.Date} />
+      <Form.DatePicker id="expiresAt" title="Expires At" type={Form.DatePicker.Type.DateTime} />
+    </Form>
+  );
+}
+```
+
+## FilePicker
+
+```tsx
+import { Form } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Form>
+      <Form.FilePicker id="photo" title="Photo" />
+      <Form.FilePicker id="gallery" title="Gallery" allowMultipleSelection />
+      <Form.FilePicker id="folder" title="Folder" canChooseDirectories canChooseFiles={false} />
+    </Form>
+  );
+}
+```
+
+## Validation
+
+Use `error` to show validation messages on individual fields.
+
+```tsx
+import { useState } from "react";
+import { Action, ActionPanel, Form } from "@vicinae/api";
+
+export default function Command() {
+  const [nameError, setNameError] = useState<string | undefined>();
+
+  return (
+    <Form
+      actions={
+        <ActionPanel>
+          <Action.SubmitForm title="Submit" onSubmit={(values) => console.log(values)} />
+        </ActionPanel>
+      }
+    >
+      <Form.TextField
+        id="name"
+        title="Name"
+        error={nameError}
+        onChange={(value) => setNameError(value.length === 0 ? "Required" : undefined)}
+        onBlur={(event) => {
+          if (!event.target.value) setNameError("Required");
+        }}
+      />
+    </Form>
+  );
+}
+```
+
+## Separator and Description
+
+Use `Form.Separator` to visually group fields and `Form.Description` for help text.
+
+```tsx
+import { Form } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Form>
+      <Form.TextField id="name" title="Name" />
+      <Form.Separator />
+      <Form.Description title="Note" text="Nutritional values are approximate." />
+      <Form.TextField id="calories" title="Calories" placeholder="95" />
+    </Form>
+  );
+}
+```

@@ -1,0 +1,49 @@
+# Colors
+
+Semantic colors for tags, icons, tints, and backgrounds across the extension UI.
+
+## Color Enum
+
+Use the built-in `Color` enum for consistent colors that adapt to the theme.
+
+```tsx
+import { Color, List } from "@vicinae/api";
+
+<List.Item
+  title="Apple"
+  accessories={[{ tag: { value: "fruit", color: Color.Red } }]}
+/>
+```
+
+| Value | Usage |
+| --- | --- |
+| `Color.Red` | Errors, destructive |
+| `Color.Orange` | Warnings |
+| `Color.Yellow` | Caution |
+| `Color.Green` | Success |
+| `Color.Blue` | Info, links |
+| `Color.Purple` | Accents |
+| `Color.Magenta` | Accents |
+| `Color.PrimaryText` | Primary text color |
+| `Color.SecondaryText` | Muted text color |
+
+## Raw Colors
+
+Pass any CSS color string where a `ColorLike` is expected.
+
+```tsx
+import { List } from "@vicinae/api";
+
+<List.Item
+  title="Custom"
+  accessories={[{ tag: { value: "custom", color: "#ff6b6b" } }]}
+/>
+```
+
+## Dynamic Colors
+
+Provide different colors for light and dark themes.
+
+```tsx
+const dynamicColor = { light: "#000000", dark: "#ffffff" };
+```

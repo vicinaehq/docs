@@ -1,0 +1,56 @@
+# Detail
+
+A full-page markdown view with an optional metadata sidebar.
+
+![](/extensions/api/detail/detail.png)
+
+## Basic Detail
+
+```tsx
+import { Action, ActionPanel, Detail } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Detail
+      markdown="# Apple 🍎\n\nA crisp, sweet fruit popular in pies and cider.\n\n- Low calorie\n- High in fiber\n- Rich in antioxidants"
+      actions={
+        <ActionPanel>
+          <Action.CopyToClipboard title="Copy Emoji" content="🍎" />
+        </ActionPanel>
+      }
+    />
+  );
+}
+```
+
+## Metadata
+
+Add a structured sidebar alongside the markdown content.
+
+```tsx
+import { Color, Detail } from "@vicinae/api";
+
+export default function Command() {
+  return (
+    <Detail
+      markdown="# Apple 🍎\n\nA crisp, sweet fruit."
+      metadata={
+        <Detail.Metadata>
+          <Detail.Metadata.Label title="Calories" text="95 kcal" />
+          <Detail.Metadata.Label title="Type" text="Pome" />
+          <Detail.Metadata.Separator />
+          <Detail.Metadata.TagList title="Season">
+            <Detail.Metadata.TagList.Item text="Autumn" color={Color.Orange} />
+            <Detail.Metadata.TagList.Item text="Winter" color={Color.Blue} />
+          </Detail.Metadata.TagList>
+          <Detail.Metadata.Link
+            title="Wikipedia"
+            target="https://en.wikipedia.org/wiki/Apple"
+            text="Learn more"
+          />
+        </Detail.Metadata>
+      }
+    />
+  );
+}
+```

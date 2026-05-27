@@ -1,0 +1,44 @@
+# Environment
+
+Runtime information about the current extension, command, and Vicinae instance.
+
+## Usage
+
+```tsx
+import { environment } from "@vicinae/api";
+
+console.log(environment.extensionName);
+console.log(environment.commandName);
+console.log(environment.isDevelopment);
+```
+
+## Key Properties
+
+| Property | Description |
+| --- | --- |
+| `extensionName` | Name of the extension from `package.json` |
+| `commandName` | Name of the currently running command |
+| `commandMode` | `"view"`, `"no-view"`, or `"menu-bar"` |
+| `appearance` | `"light"` or `"dark"` |
+| `isDevelopment` | Whether this is a development build |
+| `assetsPath` | Absolute path to the extension's `assets/` directory |
+| `supportPath` | Writable directory for extension data and files |
+
+```tsx
+import { environment } from "@vicinae/api";
+import { readFileSync } from "fs";
+
+const data = readFileSync(`${environment.supportPath}/data.json`, "utf-8");
+```
+
+## LaunchProps
+
+Commands receive `LaunchProps` with the launch type, arguments, draft values, and launch context.
+
+```tsx
+import { LaunchProps, Detail } from "@vicinae/api";
+
+export default function Command(props: LaunchProps<{ arguments: { query: string } }>) {
+  return <Detail markdown={`You searched: ${props.arguments.query}`} />;
+}
+```

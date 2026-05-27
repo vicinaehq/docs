@@ -16,16 +16,44 @@ const SITE_TITLE = 'Vicinae'
 const SITE_DESCRIPTION =
   'Vicinae is a cross-desktop, keyboard-driven application launcher for Linux. It supports extensions, theming, clipboard management, and more.'
 
+function extractNavArray(src, name) {
+  const re = new RegExp(`export const ${name}[^=]*=\\s*(\\[[\\s\\S]*?\\n\\])`, 'm')
+  const match = src.match(re)
+  if (!match) throw new Error(`Could not extract ${name} array`)
+  return new Function(`return ${match[1]}`)()
+}
+
 function parseNavigation() {
   const src = readFileSync(
     resolve(root, 'src/components/Navigation.tsx'),
     'utf-8',
   )
-  const match = src.match(
-    /export const navigation[^=]*=\s*(\[[\s\S]*?\n\])\s*$/m,
-  )
-  if (!match) throw new Error('Could not extract navigation array')
-  return new Function(`return ${match[1]}`)()
+  const user = extractNavArray(src, 'userNavigation')
+  const dev = extractNavArray(src, 'devNavigation')
+  return deduplicateNav([...user, ...dev])
+}
+
+function deduplicateNav(nav) {
+  const seen = new Set()
+  const result = []
+  for (const item of nav) {
+    if ('links' in item) {
+      const filtered = item.links.filter((l) => {
+        if (seen.has(l.href)) return false
+        seen.add(l.href)
+        return true
+      })
+      if (filtered.length > 0) {
+        result.push({ ...item, links: filtered })
+      }
+    } else {
+      if (!seen.has(item.href)) {
+        seen.add(item.href)
+        result.push(item)
+      }
+    }
+  }
+  return result
 }
 
 function readPage(href) {

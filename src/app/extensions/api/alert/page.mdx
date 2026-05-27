@@ -1,0 +1,32 @@
+# Alert
+
+A confirmation dialog for destructive or important actions. The user must explicitly confirm or cancel.
+
+![](/extensions/api/alert/alert.png)
+
+## confirmAlert
+
+```tsx
+import { confirmAlert, Alert } from "@vicinae/api";
+
+const confirmed = await confirmAlert({
+  title: "Delete Apple?",
+  message: "This cannot be undone.",
+  primaryAction: {
+    title: "Delete",
+    style: Alert.ActionStyle.Destructive,
+  },
+});
+
+if (confirmed) {
+  // delete the fruit
+}
+```
+
+## Action Styles
+
+| Style | Description |
+| --- | --- |
+| `Alert.ActionStyle.Default` | Standard confirm button |
+| `Alert.ActionStyle.Destructive` | Red, used for irreversible actions |
+| `Alert.ActionStyle.Cancel` | Dismisses the dialog |

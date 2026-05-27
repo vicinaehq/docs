@@ -6,6 +6,7 @@
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
+  --color-ink-950: #0b0c10;
   --color-ink-900: #0f1014;
   --color-ink-800: #15161b;
   --color-ink-700: #1c1d23;
@@ -72,7 +73,7 @@
     --shiki-token-string: var(--color-sage-300);
     --shiki-token-comment: var(--color-stone-600);
     --shiki-token-keyword: var(--color-sand-400);
-    --shiki-token-parameter: var(--color-stone-300);
+    --shiki-token-parameter: var(--color-stone-200);
     --shiki-token-function: var(--color-sand-200);
     --shiki-token-string-expression: var(--color-sage-300);
     --shiki-token-punctuation: var(--color-stone-400);

@@ -1,0 +1,15 @@
+# Commands
+
+Update metadata for the current command at runtime.
+
+## updateCommandMetadata
+
+Change the subtitle shown next to the command in Vicinae. Useful for displaying live data like counts or status.
+
+```tsx
+import { updateCommandMetadata } from "@vicinae/api";
+
+await updateCommandMetadata({ subtitle: "12 fruits" });
+```
+
+Pass `null` to clear the custom subtitle and fall back to the one defined in `package.json`.

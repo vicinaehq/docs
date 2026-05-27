@@ -51,12 +51,12 @@ extension is loaded.
 
 ## Root component types
 
-A Vicinae view always expect to be of one of the supported root component types. Here are the main ones: 
+A Vicinae view must use one of the supported root component types. Here are the main ones:
 
-- `List` - used to render vertical lists with an optional detail component.
-- `Grid` - used to render grid lists.
-- `Detail` - used to render markdown with an optional metadata section.
-- `Form` - used to render forms made of various kind of inputs.
+- `List` - a vertical list with an optional detail panel.
+- `Grid` - a grid layout for visual content.
+- `Detail` - a markdown view with an optional metadata sidebar.
+- `Form` - a form with various input types.
 
 For a full list of available root components, please refer to the [API Reference](/extensions/api).
 
@@ -65,13 +65,13 @@ Returning an element that is not of one of the supported root types will throw a
 </Warning>
 
 <Note>
-Don't even try to return HTML. [No, really](/extensions/introduction#wheres-the-browser-at).
+Don't even try to return HTML.
 </Note>
 
 
 ## Pushing more views
 
-A view command is not limited to presenting only one single view: it can push and pop views as it wants.
+A view command is not limited to a single view. It can push and pop views on the navigation stack.
 
 To do that, all you need is the `useNavigation` hook:
 
@@ -142,6 +142,6 @@ export default function MyFirstCommand() {
 ```
 
 <Warning>
-There is currently no practical limitations as to how many views a command can push on the stack.
-However, having to push more than 5 views on top of each other probably suggests that your command does too much!
+There is no hard limit on how many views a command can push on the stack.
+However, pushing more than 5 views deep probably suggests that your command does too much!
 </Warning>

@@ -1,11 +1,13 @@
 'use client'
 
 import clsx from 'clsx'
+import { ChevronRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import { useDocsModeStore } from '@/components/DocsMode'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
 import { Tag } from '@/components/Tag'
 import { remToPx } from '@/lib/remToPx'
@@ -48,26 +50,41 @@ function NavLink({
 	active?: boolean
 	isAnchorLink?: boolean
 }) {
+	let isInsideMobileNavigation = useIsInsideMobileNavigation()
+	let linkProps = {
+		href,
+		'aria-current': active ? ('page' as const) : undefined,
+		className: clsx(
+			'flex justify-between gap-2 py-1 pr-3 text-sm transition-colors duration-200',
+			isAnchorLink ? 'pl-7' : 'pl-4',
+			active
+				? 'font-medium text-stone-100'
+				: 'text-stone-500 hover:text-stone-300',
+		),
+	}
+
+	if (isInsideMobileNavigation) {
+		return (
+			<CloseButton as={Link} {...linkProps}>
+				<span className="truncate">{children}</span>
+				{tag && (
+					<Tag variant="small" color="zinc">
+						{tag}
+					</Tag>
+				)}
+			</CloseButton>
+		)
+	}
+
 	return (
-		<CloseButton
-			as={Link}
-			href={href}
-			aria-current={active ? 'page' : undefined}
-			className={clsx(
-				'flex justify-between gap-2 py-1 pr-3 text-sm transition-colors duration-200',
-				isAnchorLink ? 'pl-7' : 'pl-4',
-				active
-					? 'font-medium text-white'
-					: 'text-stone-400 hover:text-stone-100',
-			)}
-		>
+		<Link {...linkProps}>
 			<span className="truncate">{children}</span>
 			{tag && (
 				<Tag variant="small" color="zinc">
 					{tag}
 				</Tag>
 			)}
-		</CloseButton>
+		</Link>
 	)
 }
 
@@ -95,24 +112,6 @@ function ActivePageMarker({
 	)
 }
 
-function ChevronIcon({ className }: { className?: string }) {
-	return (
-		<svg
-			viewBox="0 0 16 16"
-			fill="none"
-			aria-hidden="true"
-			className={className}
-		>
-			<path
-				d="M5 4l4 4-4 4"
-				stroke="currentColor"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-		</svg>
-	)
-}
 
 function NavigationGroup({
 	group,
@@ -129,21 +128,24 @@ function NavigationGroup({
 
 	let [isExpanded, setIsExpanded] = useState(isActiveGroup)
 
+	useEffect(() => {
+		if (isActiveGroup) {
+			setIsExpanded(true)
+		}
+	}, [isActiveGroup])
+
 	return (
 		<li className={clsx('relative mt-4', className)}>
 			<button
 				onClick={() => setIsExpanded(!isExpanded)}
 				className="flex w-full items-center justify-between text-left"
 			>
-				<motion.h2
-					layout="position"
-					className="text-xs font-medium tracking-wider uppercase text-stone-400"
-				>
+				<h2 className="text-2xs font-medium tracking-wider uppercase text-stone-600">
 					{group.title}
-				</motion.h2>
-				<ChevronIcon
+				</h2>
+				<ChevronRight
 					className={clsx(
-						'h-4 w-4 text-stone-600 transition-transform duration-200',
+						'h-3.5 w-3.5 text-stone-700 transition-transform duration-200',
 						isExpanded && 'rotate-90',
 					)}
 				/>
@@ -157,10 +159,7 @@ function NavigationGroup({
 						transition={{ duration: 0.2 }}
 						className="relative mt-2 overflow-hidden pl-2"
 					>
-						<motion.div
-							layout
-							className="absolute inset-y-0 left-2 w-px bg-sand-700/15"
-						/>
+						<div className="absolute inset-y-0 left-2 w-px bg-white/[0.04]" />
 						<AnimatePresence initial={false}>
 							{isActiveGroup && (
 								<ActivePageMarker group={group} pathname={pathname} />
@@ -168,15 +167,11 @@ function NavigationGroup({
 						</AnimatePresence>
 						<ul role="list" className="border-l border-transparent">
 							{group.links.map((link) => (
-								<motion.li
-									key={link.href}
-									layout="position"
-									className="relative"
-								>
+								<li key={link.href} className="relative">
 									<NavLink href={link.href} active={link.href === pathname}>
 										{link.title}
 									</NavLink>
-								</motion.li>
+								</li>
 							))}
 						</ul>
 					</motion.div>
@@ -197,23 +192,27 @@ function NavigationDirectLink({
 	let pathname = useInitialValue(usePathname(), isInsideMobileNavigation)
 	let isActive = link.href === pathname
 
+	let linkClassName = clsx(
+		'block text-2xs font-medium tracking-wider uppercase transition-colors duration-200',
+		isActive ? 'text-sand-400' : 'text-stone-600 hover:text-stone-400',
+	)
+
 	return (
 		<li className={clsx('relative mt-4', className)}>
-			<CloseButton
-				as={Link}
-				href={link.href}
-				className={clsx(
-					'block text-xs font-medium tracking-wider uppercase transition-colors duration-200',
-					isActive ? 'text-sand-400' : 'text-stone-400 hover:text-stone-100',
-				)}
-			>
-				{link.title}
-			</CloseButton>
+			{isInsideMobileNavigation ? (
+				<CloseButton as={Link} href={link.href} className={linkClassName}>
+					{link.title}
+				</CloseButton>
+			) : (
+				<Link href={link.href} className={linkClassName}>
+					{link.title}
+				</Link>
+			)}
 		</li>
 	)
 }
 
-export const navigation: Array<NavItem> = [
+export const userNavigation: Array<NavItem> = [
 	{
 		title: 'Installation',
 		links: [
@@ -281,29 +280,80 @@ export const navigation: Array<NavItem> = [
 			},
 		],
 	},
+]
+
+export const devNavigation: Array<NavItem> = [
 	{
-		title: 'Extensions',
+		title: 'Getting Started',
 		links: [
 			{ title: 'Introduction', href: '/extensions/introduction' },
 			{ title: 'Create Your First Extension', href: '/extensions/create' },
+			{ title: 'View Commands', href: '/extensions/view-command' },
+			{ title: 'No-View Commands', href: '/extensions/no-view-command' },
 			{ title: 'File Structure', href: '/extensions/file-structure' },
 			{ title: 'Manifest', href: '/extensions/manifest' },
-			{ title: 'Debug Raycast Extensions', href: '/extensions/debug-raycast' },
-			{ title: 'API Reference', href: 'https://api-reference.vicinae.com' },
-			{ title: 'Create a view command', href: '/extensions/view-command' },
-			{
-				title: 'Create a no-view command',
-				href: '/extensions/no-view-command',
-			},
+			{ title: 'Arguments', href: '/extensions/arguments' },
+			{ title: 'Preferences', href: '/extensions/preferences' },
+			{ title: 'Raycast Compatibility', href: '/extensions/raycast' },
+		],
+	},
+	{
+		title: 'User Interface',
+		links: [
+			{ title: 'List', href: '/extensions/api/list' },
+			{ title: 'Grid', href: '/extensions/api/grid' },
+			{ title: 'Detail', href: '/extensions/api/detail' },
+			{ title: 'Form', href: '/extensions/api/form' },
+			{ title: 'ActionPanel', href: '/extensions/api/action-panel' },
+			{ title: 'Actions', href: '/extensions/api/actions' },
+			{ title: 'Images', href: '/extensions/api/images' },
+			{ title: 'Colors', href: '/extensions/api/colors' },
+		],
+	},
+	{
+		title: 'Navigation',
+		links: [
+			{ title: 'useNavigation', href: '/extensions/api/use-navigation' },
+		],
+	},
+	{
+		title: 'Feedback',
+		links: [
+			{ title: 'Toast', href: '/extensions/api/toast' },
+			{ title: 'Alert', href: '/extensions/api/alert' },
+		],
+	},
+	{
+		title: 'System',
+		links: [
+			{ title: 'Clipboard', href: '/extensions/api/clipboard' },
+			{ title: 'Cache', href: '/extensions/api/cache' },
+			{ title: 'Local Storage', href: '/extensions/api/local-storage' },
+			{ title: 'Preferences', href: '/extensions/api/preferences' },
+			{ title: 'Environment', href: '/extensions/api/environment' },
+			{ title: 'Keyboard', href: '/extensions/api/keyboard' },
+			{ title: 'OAuth', href: '/extensions/api/oauth' },
+			{ title: 'AI', href: '/extensions/api/ai' },
+			{ title: 'Utilities', href: '/extensions/api/utilities' },
+			{ title: 'Window Management', href: '/extensions/api/window-management' },
+			{ title: 'File Search', href: '/extensions/api/file-search' },
+			{ title: 'Commands', href: '/extensions/api/commands' },
 		],
 	},
 ]
 
+export function useCurrentNavigation(): Array<NavItem> {
+	let { mode } = useDocsModeStore()
+	return mode === 'developer' ? devNavigation : userNavigation
+}
+
 export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
+	let items = useCurrentNavigation()
+
 	return (
 		<nav {...props}>
 			<ul role="list">
-				{navigation.map((item, index) =>
+				{items.map((item, index) =>
 					isNavGroup(item) ? (
 						<NavigationGroup
 							key={item.title}

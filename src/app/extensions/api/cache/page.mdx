@@ -1,0 +1,66 @@
+# Cache
+
+An LRU disk cache for data that is expensive to fetch. Unlike `LocalStorage`, cache entries are evicted when the capacity / TTL is exceeded.
+
+## Basic Usage
+
+```tsx
+import { Cache } from "@vicinae/api";
+
+const cache = new Cache();
+
+cache.set("fruits", JSON.stringify(["🍎", "🍌", "🍒"]));
+const data = cache.get("fruits");
+```
+
+All methods are synchronous, no `await` needed.
+
+## Expiration
+
+Set a time-to-live in milliseconds, either globally or per key.
+
+```tsx
+import { Cache } from "@vicinae/api";
+
+const cache = new Cache({ ttl: 60_000 });
+
+cache.set("fresh", "data");
+cache.set("stale-faster", "data", { ttl: 10_000 });
+```
+
+## Namespaces
+
+Isolate cache data between commands of the same extension.
+
+```tsx
+import { Cache } from "@vicinae/api";
+
+const cache = new Cache({ namespace: "my-command" });
+```
+
+<Note>
+If no namespace is specified, the default namespace is shared across all commands of the same extension.
+</Note>
+
+## Subscribing to Changes
+
+Get notified when cache data changes.
+
+```tsx
+import { Cache } from "@vicinae/api";
+
+const cache = new Cache();
+
+const unsubscribe = cache.subscribe((key, data) => {
+  console.log(`${key} changed`);
+});
+```
+
+## Other Methods
+
+| Method | Description |
+| --- | --- |
+| `cache.has(key)` | Check existence without affecting LRU order |
+| `cache.remove(key)` | Remove a single entry |
+| `cache.clear()` | Remove all entries |
+| `cache.isEmpty` | Whether the cache has any entries |

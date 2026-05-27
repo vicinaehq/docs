@@ -1,8 +1,8 @@
 # Manifest
 
-The extension manifest is an extension of the regular `package.json` format found across most npm-managed Javascript projects.
+The extension manifest extends the regular `package.json` format found in npm-managed JavaScript projects.
 
-It contains information about the dependencies to install, but also about extension-specific stuff, such as what commands the extension exports, with what preferences, with what arguments, etc...
+It contains information about dependencies, but also extension-specific fields such as what commands the extension exports, their preferences, arguments, etc.
 
 <Warning>
 Our manifest documentation is still incomplete. You can refer to the [Raycast documentation](https://developers.raycast.com/information/manifest) for an exhaustive list of supported keys, as we share the same manifest format.
@@ -52,16 +52,16 @@ Some fields are particularly interesting to us:
 - `name`: the identifier of the extension, which should be in a sluggified format.
 - `title`: the display name of an extension, which will be shown to users. 
 - `author`: the author of the extension. Needs to be a single username. This is used for a variety of things inside Vicinae. 
-- `icon` is used to resolve the extension's icon at runtime. Vicinae will try find it relative to the extension's `assets` directory. This same thing applies to command icons, if any is specified.
+- `icon` is used to resolve the extension's icon at runtime. Vicinae looks for it relative to the extension's `assets` directory. The same applies to command icons, if specified.
 - `commands` lists all the available commands for this extension. The `name` key for each command should map to a proper command entrypoint under `src`. In this case, `src/my-first-command.tsx` is expected. At least one command should be specified to make it a valid extension.
 
 ## Dealing with preferences 
 
 ### Anatomy of a preference object
 
-An extension and every one of its commands can declare a set of preferences that they expect to be set before they can be run.
+An extension and each of its commands can declare preferences that must be set before they can run.
 
-This can be useful to require the user to provide an access token, tweak the behaviour of some command, and more...
+This is useful for requiring the user to provide an access token, tweaking command behavior, and more.
 
 A preference object looks like this:
 
@@ -75,10 +75,10 @@ A preference object looks like this:
 }
 ```
 
-- `name` is the id of the preference, which should remain in a slugified form
-- `title` is the display name of the preference - shown to users
-- `required` if a preference is required and has no default value, Vicinae will explicitly ask the user to supply it before a command can be started.
-- `type` is the type of preference. Right now we mainly support `textfield`, `password` and `dropdown`. 
+- `name` is the identifier of the preference, which should remain in slugified form
+- `title` is the display name of the preference, shown to users
+- `required` indicates whether the preference must be set. If required and no default value is provided, Vicinae will ask the user to supply it before the command can start.
+- `type` is the type of preference. Currently supported: `textfield`, `password`, `checkbox`, `dropdown`, `file`, and `directory`.
 
 If a preference is of type `dropdown` an additional `data` field is expected:
 
@@ -105,9 +105,9 @@ If a preference is of type `dropdown` an additional `data` field is expected:
 
 ### Add preferences
 
-To specify a set of extension preferences, just fill in the top-level `preferences` array with as many preference objects as you want.
+To specify extension preferences, fill in the top-level `preferences` array with preference objects.
 
-You can do the same for each command inside `commands` to specificy command-local preferences.
+You can do the same for each command inside `commands` to specify command-level preferences.
 
 <Note>
 Extension preferences are shared across all commands of that same extension whereas command preferences are only considered for the command it's specified for.

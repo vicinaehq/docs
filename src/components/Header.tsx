@@ -3,13 +3,14 @@ import { motion, useScroll, useTransform } from 'motion/react'
 import Link from 'next/link'
 import { forwardRef } from 'react'
 
+import { DocsModeSwitch } from '@/components/DocsMode'
 import { Logo } from '@/components/Logo'
 import {
   MobileNavigation,
   useIsInsideMobileNavigation,
   useMobileNavigationStore,
 } from '@/components/MobileNavigation'
-import { MobileSearch, Search } from '@/components/Search'
+import { MobileSearch } from '@/components/Search'
 import { CloseButton } from '@headlessui/react'
 import { VICINAE_DISCORD_URL, VICINAE_GITHUB_REPO_URL } from '@/lib/constants'
 
@@ -56,11 +57,11 @@ export function GithubLink() {
   return (
     <a
       href={VICINAE_GITHUB_REPO_URL}
-      className="flex size-6 items-center justify-center rounded-md transition-colors duration-200 hover:bg-ink-700"
+      className="group flex size-6 items-center justify-center rounded-md transition-colors duration-200 hover:bg-white/[0.06]"
       aria-label="GitHub"
     >
       <span className="absolute size-12 pointer-fine:hidden" />
-      <GitHubIcon className="h-5 w-5 fill-stone-500 transition-colors duration-200 hover:fill-stone-200" />
+      <GitHubIcon className="h-5 w-5 fill-stone-600 transition-colors duration-200 group-hover:fill-stone-300" />
     </a>
   )
 }
@@ -69,11 +70,11 @@ export function DiscordLink() {
   return (
     <a
       href={VICINAE_DISCORD_URL}
-      className="flex size-6 items-center justify-center rounded-md transition-colors duration-200 hover:bg-ink-700"
+      className="group flex size-6 items-center justify-center rounded-md transition-colors duration-200 hover:bg-white/[0.06]"
       aria-label="Discord"
     >
       <span className="absolute size-12 pointer-fine:hidden" />
-      <DiscordIcon className="h-5 w-5 fill-stone-500 transition-colors duration-200 hover:fill-stone-200" />
+      <DiscordIcon className="h-5 w-5 fill-stone-600 transition-colors duration-200 group-hover:fill-stone-300" />
     </a>
   )
 }
@@ -95,7 +96,7 @@ export const Header = forwardRef<
       ref={ref}
       className={clsx(
         className,
-        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition-all duration-300 sm:px-6 lg:left-64 lg:z-30 lg:px-8',
+        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition-all duration-300 sm:px-6 lg:left-72 lg:z-30 lg:px-8',
         isInsideMobileNavigation ? 'bg-ink-900' : 'backdrop-blur-xl',
       )}
       style={
@@ -108,32 +109,19 @@ export const Header = forwardRef<
       }
     >
       <motion.div
-        className="absolute inset-x-0 top-full h-px bg-sand-700/20"
+        className="absolute inset-x-0 top-full h-px bg-sand-700/20 lg:hidden"
         style={{ opacity: isInsideMobileNavigation ? 1 : borderOpacity }}
       />
-      <Search />
       <div className="flex items-center gap-5 lg:hidden">
         <MobileNavigation />
         <CloseButton as={Link} href="/" aria-label="Home">
           <Logo className="h-6" />
         </CloseButton>
       </div>
-      <div className="flex items-center gap-5">
-        <nav className="hidden md:block">
-          <ul role="list" className="flex items-center gap-8">
-            <TopLevelNavItem
-              href={VICINAE_GITHUB_REPO_URL + '/releases/latest'}
-            >
-              Latest version
-            </TopLevelNavItem>
-          </ul>
-        </nav>
-        <div className="hidden md:block md:h-5 md:w-px md:bg-sand-700/20" />
-        <div className="flex gap-2">
-          <MobileSearch />
-          <GithubLink />
-          <DiscordLink />
-        </div>
+      <div className="flex gap-2 lg:hidden">
+        <MobileSearch />
+        <GithubLink />
+        <DiscordLink />
       </div>
     </motion.div>
   )

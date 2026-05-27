@@ -1,0 +1,68 @@
+# OAuth
+
+Built-in support for OAuth 2.0 PKCE flows, allowing extensions to authenticate with third-party services.
+
+<Warning>
+The OAuth implementation is still tied to Raycast services, as it was first implemented to support Raycast extensions. Native Vicinae methods will be proposed in the future.
+</Warning>
+
+## Setup
+
+Create a PKCE client with your provider details.
+
+```tsx
+import { OAuth } from "@vicinae/api";
+
+const client = new OAuth.PKCEClient({
+  redirectMethod: OAuth.RedirectMethod.Web,
+  providerName: "GitHub",
+  providerIcon: "github.png",
+  description: "Connect your GitHub account",
+});
+```
+
+## Authorization Flow
+
+```tsx
+import { OAuth } from "@vicinae/api";
+
+const client = new OAuth.PKCEClient({
+  redirectMethod: OAuth.RedirectMethod.Web,
+  providerName: "GitHub",
+  providerIcon: "github.png",
+});
+
+const authRequest = await client.authorizationRequest({
+  endpoint: "https://github.com/login/oauth/authorize",
+  clientId: "your-client-id",
+  scope: "repo user",
+});
+
+const { authorizationCode } = await client.authorize(authRequest);
+// Exchange authorizationCode for tokens via your provider's token endpoint
+```
+
+## Token Storage
+
+Store and retrieve tokens.
+
+```tsx
+await client.setTokens({
+  accessToken: "gho_...",
+  refreshToken: "ghr_...",
+  expiresIn: 3600,
+});
+
+const tokens = await client.getTokens();
+if (tokens?.isExpired()) {
+  // refresh the token
+}
+```
+
+## Redirect Methods
+
+| Method | Description |
+| --- | --- |
+| `OAuth.RedirectMethod.Web` | Redirects through the **Raycast** website. A Vicinae equivalent will ship in the future. |
+| `OAuth.RedirectMethod.App` | Uses `raycast://` app scheme |
+| `OAuth.RedirectMethod.AppURI` | Uses `com.raycast:/` URI scheme |

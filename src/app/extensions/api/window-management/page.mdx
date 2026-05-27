@@ -1,0 +1,61 @@
+# Window Management
+
+Interact with application windows, workspaces, and screens.
+
+## List Windows
+
+```tsx
+import { WindowManagement } from "@vicinae/api";
+
+const windows = await WindowManagement.getWindows();
+
+for (const win of windows) {
+  console.log(win.title, win.application?.name, win.active);
+}
+```
+
+## Focus a Window
+
+```tsx
+import { WindowManagement } from "@vicinae/api";
+
+const windows = await WindowManagement.getWindows();
+const browser = windows.find((w) => w.application?.name?.includes("firefox"));
+
+if (browser) {
+  await browser.focus();
+}
+```
+
+## Active Window
+
+```tsx
+import { WindowManagement } from "@vicinae/api";
+
+const active = await WindowManagement.getActiveWindow();
+console.log(active.title);
+```
+
+## Workspaces
+
+```tsx
+import { WindowManagement } from "@vicinae/api";
+
+const workspaces = await WindowManagement.getWorkspaces();
+const active = await WindowManagement.getActiveWorkspace();
+const windows = await WindowManagement.getWindowsOnActiveWorkspace();
+```
+
+## Screens
+
+Get information about attached screens.
+
+```tsx
+import { WindowManagement } from "@vicinae/api";
+
+const screens = await WindowManagement.getScreens();
+
+for (const screen of screens) {
+  console.log(screen.name, screen.make, screen.model, screen.bounds);
+}
+```

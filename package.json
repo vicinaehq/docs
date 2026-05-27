@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "node scripts/prebuild.mjs && next dev --webpack",
     "build": "node scripts/prebuild.mjs && next build --webpack",
     "start": "next start",
     "lint": "biome check .",
@@ -31,6 +31,7 @@
     "fast-glob": "^3.3.0",
     "flexsearch": "^0.7.31",
     "geist": "^1.7.0",
+    "lucide-react": "^1.16.0",
     "mdast-util-to-string": "^4.0.0",
     "mdx-annotations": "^0.1.1",
     "motion": "^12.38.0",

@@ -1,0 +1,17 @@
+# File Search
+
+Search for files on the user's system using Vicinae's built-in file index.
+
+## Search
+
+```tsx
+import { FileSearch } from "@vicinae/api";
+
+const results = await FileSearch.search("invoice");
+
+for (const file of results) {
+  console.log(file.name, file.path);
+}
+```
+
+The search uses fuzzy filename matching. For example, a file named "example folder" matches queries like "fol exa" or "ex fold".

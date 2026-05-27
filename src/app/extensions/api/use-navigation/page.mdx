@@ -1,0 +1,56 @@
+# useNavigation
+
+Push and pop views on the navigation stack from within a command.
+
+<Note>
+In most cases, prefer `<Action.Push />` over calling `push` directly.
+</Note>
+
+## Push a View
+
+```tsx
+import { Action, ActionPanel, Detail, List, useNavigation } from "@vicinae/api";
+
+function FruitDetail({ name, emoji }: { name: string; emoji: string }) {
+  return <Detail markdown={`# ${name} ${emoji}`} />;
+}
+
+export default function Command() {
+  const { push } = useNavigation();
+
+  return (
+    <List>
+      <List.Item
+        title="Apple"
+        icon="🍎"
+        actions={
+          <ActionPanel>
+            <Action title="View" onAction={() => push(<FruitDetail name="Apple" emoji="🍎" />)} />
+          </ActionPanel>
+        }
+      />
+    </List>
+  );
+}
+```
+
+## Pop Back
+
+```tsx
+import { Action, ActionPanel, Detail, useNavigation } from "@vicinae/api";
+
+function FruitDetail() {
+  const { pop } = useNavigation();
+
+  return (
+    <Detail
+      markdown="# Apple 🍎"
+      actions={
+        <ActionPanel>
+          <Action title="Go Back" onAction={pop} />
+        </ActionPanel>
+      }
+    />
+  );
+}
+```

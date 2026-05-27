@@ -1,0 +1,65 @@
+# Local Storage
+
+Persistent key-value storage for extensions. Data persists across command runs and is never evicted as long as the extension remains installed.
+
+Local storage data is stored in the internal Vicinae database, which will become fully encrypted in a future version.
+
+## Store and Retrieve
+
+```tsx
+import { LocalStorage } from "@vicinae/api";
+
+await LocalStorage.setItem("favoriteFruit", "🍎");
+
+const fruit = await LocalStorage.getItem<string>("favoriteFruit");
+```
+
+## Remove
+
+```tsx
+import { LocalStorage } from "@vicinae/api";
+
+await LocalStorage.removeItem("favoriteFruit");
+```
+
+## List All Items
+
+```tsx
+import { LocalStorage } from "@vicinae/api";
+
+const items = await LocalStorage.allItems();
+// { favoriteFruit: "🍎", count: 42 }
+```
+
+## Clear
+
+Remove all stored items for this extension.
+
+```tsx
+import { LocalStorage } from "@vicinae/api";
+
+await LocalStorage.clear();
+```
+
+## Supported Value Types
+
+Values can be `string`, `number`, or `boolean`. More complex data needs to be serialized as a `string`.
+
+Common approaches include stringifying JSON using `JSON.stringify` or encoding binary data as base64 using Node.js `Buffer`:
+
+```ts
+// store json data
+const json = await res.json();
+await LocalStorage.set('myData', JSON.stringify(json));
+
+// store binary data
+const blob = readFileSync('./my_icon.png').toString('base64');
+await LocalStorage.set('icon', blob);
+```
+
+## LocalStorage or Cache?
+
+Use LocalStorage over Cache if you:
+
+- need full control over the lifetime of stored values (cache data can be evicted at any time)
+- need to store sensitive user data such as API keys or secrets (the internal database is not yet encrypted, so this is a forward-looking best practice).

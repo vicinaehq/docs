@@ -1,0 +1,59 @@
+# Keyboard
+
+Types and utilities for binding keyboard shortcuts to actions.
+
+## Keyboard.Shortcut
+
+A shortcut is a combination of a key and one or more modifiers.
+
+```tsx
+import { Action, Keyboard } from "@vicinae/api";
+
+<Action
+  title="Refresh"
+  shortcut={{ key: "r", modifiers: ["cmd"] }}
+  onAction={() => {}}
+/>
+```
+
+## Common Shortcuts
+
+Use `Keyboard.Shortcut.Common` for standard operations. These respect user-configured keybindings.
+
+```tsx
+import { Action, Keyboard } from "@vicinae/api";
+
+<Action.CopyToClipboard
+  title="Copy"
+  content="🍎"
+  shortcut={Keyboard.Shortcut.Common.Copy}
+/>
+```
+
+| Shortcut | Name |
+| --- | --- |
+| `Keyboard.Shortcut.Common.Copy` | Copy |
+| `Keyboard.Shortcut.Common.Save` | Save |
+| `Keyboard.Shortcut.Common.Edit` | Edit |
+| `Keyboard.Shortcut.Common.New` | New |
+| `Keyboard.Shortcut.Common.Open` | Open |
+| `Keyboard.Shortcut.Common.OpenWith` | Open With |
+| `Keyboard.Shortcut.Common.Duplicate` | Duplicate |
+| `Keyboard.Shortcut.Common.Refresh` | Refresh |
+| `Keyboard.Shortcut.Common.Remove` | Remove |
+| `Keyboard.Shortcut.Common.RemoveAll` | Remove All |
+| `Keyboard.Shortcut.Common.Pin` | Pin |
+| `Keyboard.Shortcut.Common.MoveUp` | Move Up |
+| `Keyboard.Shortcut.Common.MoveDown` | Move Down |
+| `Keyboard.Shortcut.Common.CopyDeeplink` | Copy Deeplink |
+| `Keyboard.Shortcut.Common.CopyName` | Copy Name |
+| `Keyboard.Shortcut.Common.CopyPath` | Copy Path |
+
+## Modifiers
+
+| Modifier | Key |
+| --- | --- |
+| `cmd` | Command |
+| `ctrl` | Control |
+| `opt` | Option / Alt |
+| `shift` | Shift |

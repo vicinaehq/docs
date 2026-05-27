@@ -1,0 +1,57 @@
+# Toast
+
+Brief feedback notifications at the bottom of the Vicinae window.
+
+![](/extensions/api/toast/toast.png)
+
+
+## showToast
+
+```tsx
+import { showToast, Toast } from "@vicinae/api";
+
+await showToast({ title: "Fruit added", style: Toast.Style.Success });
+```
+
+<Note>
+Non-animated toasts will automatically be dismissed after some time. This is not configurable at the extension level.
+
+It is undefined behavior to show multiple toasts at once: no specific order is guaranteed.
+</Note>
+
+## Styles
+
+| Style | Description |
+| --- | --- |
+| `Toast.Style.Success` | Something succeeded |
+| `Toast.Style.Failure` | Something failed |
+| `Toast.Style.Animated` | Spinning indicator for ongoing operations |
+
+## Animated Toast
+
+Show a loading toast and update it when the operation completes.
+
+```tsx
+import { showToast, Toast } from "@vicinae/api";
+
+const toast = await showToast({ title: "Uploading...", style: Toast.Style.Animated });
+
+// ... do work ...
+
+// assigning these properties immediately updates the toast
+toast.style = Toast.Style.Success;
+toast.title = "Upload complete";
+```
+
+## Error Handling
+
+```tsx
+import { showToast, Toast } from "@vicinae/api";
+
+try {
+  await fetchFruits();
+  await showToast({ title: "Loaded fruits" });
+} catch (error) {
+  await showToast({ title: "Failed to load", message: String(error), style: Toast.Style.Failure });
+}
+```
