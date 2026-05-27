@@ -27,13 +27,15 @@ yarn-error.log*
 # local env files
 .env*.local
 
-# generated llms.txt files
+# generated prebuild files
 /public/llms.txt
 /public/llms-full.txt
 /public/sitemap.json
 /public/sitemap.xml
 /public/index.md
 /public/**/*.md
+/src/app/**/layout.tsx
+!/src/app/layout.tsx
 
 # vercel
 .vercel

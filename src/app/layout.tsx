@@ -23,6 +23,13 @@ export const metadata: Metadata = {
   },
   description:
     'A keyboard-driven command launcher for Linux, inspired by Raycast.',
+  openGraph: {
+    type: 'website',
+    siteName: 'Vicinae Docs',
+  },
+  twitter: {
+    card: 'summary',
+  },
 }
 
 export default async function RootLayout({

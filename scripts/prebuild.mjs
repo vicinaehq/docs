@@ -1,5 +1,6 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
+import glob from 'fast-glob'
 import { fileURLToPath } from 'node:url'
 import { remark } from 'remark'
 import remarkMdx from 'remark-mdx'
@@ -114,6 +115,16 @@ async function stripMdx(content) {
   return String(result).replace(/\n{3,}/g, '\n\n').trim()
 }
 
+function extractTitle(content) {
+  const tree = parser.parse(content)
+  for (const node of tree.children) {
+    if (node.type === 'heading' && node.depth === 1) {
+      return toString(node)
+    }
+  }
+  return null
+}
+
 async function extractDescription(content) {
   const tree = parser.parse(content)
   let foundH1 = false
@@ -210,6 +221,70 @@ async function generatePageMds(pages) {
   return count
 }
 
+async function generateMetadataLayouts(navPages) {
+  const navTitleMap = new Map()
+  for (const page of navPages) {
+    navTitleMap.set(page.href, page.title)
+  }
+
+  const allPageFiles = await glob('**/page.mdx', { cwd: appDir })
+  const pageDirs = new Set(allPageFiles.map((p) => dirname(p)))
+
+  let created = 0
+  for (const pageFile of allPageFiles) {
+    const pageDir = dirname(pageFile)
+    const layoutPath = resolve(appDir, pageDir, 'layout.tsx')
+
+    if (pageDir === '.') continue
+    if (existsSync(layoutPath)) continue
+
+    const href = '/' + pageDir
+    const content = readPage(href)
+    if (!content) continue
+
+    const title = navTitleMap.get(href) || extractTitle(content)
+    if (!title) continue
+
+    let description = await extractDescription(content)
+    if (description && description.length > 160) {
+      const truncated = description.slice(0, 160)
+      const lastSentence = truncated.search(/[.!] [A-Z][^.]*$/)
+      if (lastSentence > 60) {
+        description = truncated.slice(0, lastSentence + 1)
+      } else {
+        const lastSpace = truncated.lastIndexOf(' ')
+        description = (lastSpace > 60 ? truncated.slice(0, lastSpace) : truncated) + '...'
+      }
+    }
+
+    const hasChildPages = [...pageDirs].some(
+      (d) => d !== pageDir && d.startsWith(pageDir + '/'),
+    )
+
+    const titleField = hasChildPages
+      ? `{\n    template: '%s - Vicinae Docs',\n    default: ${JSON.stringify(title)},\n  }`
+      : JSON.stringify(title)
+
+    const layoutContent = `import { type Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: ${titleField},
+  description:
+    ${JSON.stringify(description || '')},
+}
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return children
+}
+`
+
+    writeFileSync(layoutPath, layoutContent)
+    created++
+  }
+
+  return created
+}
+
 const nav = parseNavigation()
 const pages = flattenNav(nav)
 
@@ -234,13 +309,14 @@ const sitemapXml = [
 writeFileSync(resolve(publicDir, 'llms.txt'), generateIndex(pages))
 writeFileSync(resolve(publicDir, 'sitemap.json'), JSON.stringify(sitemap, null, 2) + '\n')
 writeFileSync(resolve(publicDir, 'sitemap.xml'), sitemapXml)
-const [, mdCount] = await Promise.all([
+const [, mdCount, layoutCount] = await Promise.all([
   generateFull(pages).then((full) =>
     writeFileSync(resolve(publicDir, 'llms-full.txt'), full),
   ),
   generatePageMds(pages),
+  generateMetadataLayouts(pages),
 ])
 
 console.log(
-  `Generated llms.txt, llms-full.txt, sitemap.json, sitemap.xml, and ${mdCount} page .md files`,
+  `Generated llms.txt, llms-full.txt, sitemap.json, sitemap.xml, ${mdCount} page .md files, and ${layoutCount} metadata layouts`,
 )
