@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/prebuild.mjs && next dev --webpack",
-    "build": "node scripts/prebuild.mjs && next build",
+    "build": "node scripts/prebuild.mjs && next build --webpack",
     "start": "next start",
     "lint": "biome check .",
     "format": "biome format --write ."
