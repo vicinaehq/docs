@@ -1,0 +1,19 @@
+# Global keyboard shortcuts
+
+If your environment supports it, Vicinae allows you to assign global keyboard shortcuts to open the launcher window or any other command. {{ className: 'lead' }}
+
+
+| Name | Supported | Comment |
+|------|-----------|---------|
+| X11 | Yes |  |
+| Hyprland | [Pull request](https://github.com/hyprwm/Hyprland/pull/15010) | Through [ext-hotkey-v1](https://github.com/vicinaehq/vicinae-wayland-protocols/tree/main/staging/ext-hotkey), our proposed Wayland protocol |
+| Niri | [Pull request](https://github.com/niri-wm/niri/pull/4145) | Through [ext-hotkey-v1](https://github.com/vicinaehq/vicinae-wayland-protocols/tree/main/staging/ext-hotkey), our proposed Wayland protocol |
+| Other Wayland | - | Only if [ext-hotkey-v1](https://github.com/vicinaehq/vicinae-wayland-protocols/tree/main/staging/ext-hotkey) is implemented by the compositor |
+
+## Set global shortcuts
+
+Just open the settings (ctrl+comma or use the dedicated command) and every command listed will have a shortcut field that you can click to assign a new shortcut. If there is none, it means you environment doesn't support global shortcuts, as per the table above.
+
+You can also go to the "General Settings" tab to change the global shortcut to use to toggle the window.
+
+![](/screenshots/global-shortcuts.png)

@@ -240,7 +240,7 @@ export const userNavigation: Array<NavItem> = [
 		title: 'Manual',
 		links: [
 			{ title: 'Configuration', href: '/config' },
-			{ title: 'Known Caveats', href: '/caveats' },
+			{ title: 'Global Shortcuts', href: '/global-shortcuts' },
 			{ title: 'Telemetry', href: '/telemetry' },
 			{ title: 'dmenu Mode', href: '/dmenu' },
 			{ title: 'Snippets', href: '/snippets' },

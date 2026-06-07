@@ -50,7 +50,12 @@ layerrule {
 On first startup, Vicinae will use a lot of CPU in order to populate the file index.
 </Note>
 
+## Global shortcuts
+
+Vicinae supports global shortcuts through the `ext-hotkey-v1` wayland protocol. You can build Hyprland from [this PR](https://github.com/hyprwm/Hyprland/pull/15010) if you want support.
+
 ## uwsm - Universal Wayland Session Manager
+
 If you use [uwsm to launch and manage hyprland](https://wiki.hypr.land/Useful-Utilities/Systemd-start/#uwsm) then as always you should use the provided systemd service to start vicinae as well. Exclude the exec-once line above and run `systemctl --user enable --now vicinae.service` instead; vicinae will start immediately and launch on boot moving forward.
 
 ## Bind to a custom command

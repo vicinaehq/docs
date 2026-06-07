@@ -37,6 +37,10 @@ Niri recently got official blur support and through the use of the `ext-backgrou
 
 You should not need to add any specific configuration for blur to work.
 
+## Global shortcuts
+
+Vicinae supports global shortcuts through the `ext-hotkey-v1` wayland protocol. You can build niri from [this PR](https://github.com/niri-wm/niri/pull/4145) if you want support.
+
 ## Focus window on activation
 
 Common vicinae workflows such as opening a shortcut will spawn a command that may result in opening a new window or tab in an existing application (typically, browsers). vicinae doesn't yet pass a proper [xdg activation token](https://wayland.app/protocols/xdg-activation-v1#xdg_activation_token_v1) to apps it launches, so the compositor may not allow them to steal focus.
