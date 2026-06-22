@@ -49,7 +49,7 @@ If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/n
 {
   # ...
 
-  services.vicinae = {
+  programs.vicinae = {
     enable = true; # default: false
     systemd = {
       enable = true; # default: false
@@ -81,7 +81,7 @@ Alternatively you can use the vicinae package from nixpkgs which is built by Hyd
 ```nix {{ title: 'home.nix' }}
 { pkgs, ... }:
 {
-  services.vicinae = {
+  programs.vicinae = {
     package = pkgs.vicinae;
   };
 }
@@ -98,7 +98,7 @@ inputs.vicinae-extensions = {
 ```
 
 ```nix {{ title: 'home.nix' }}
-services.vicinae = {
+programs.vicinae = {
   enable = true;
   systemd = {
     enable = true;
@@ -149,7 +149,7 @@ To configure extensions with options declaratively, add their configuration as s
 ```nix {{ title: 'home.nix' }}
 {
 #...
-  services.vicinae.settings = {
+  programs.vicinae.settings = {
     providers = {
        # Notice name difference. If declaring install and not installing manually, the name is different
       "@knoopx/nix-0" = {
@@ -212,7 +212,7 @@ In either your `home.nix` or your `configuration.nix` add your sops-nix configur
 Finally, add the sops-nix template file to Vicinae's settings as an import:
 ```nix {{ title: 'home.nix' }}
 {
-  services.vicinae.settings = {
+  programs.vicinae.settings = {
     # NOTE: If you have sops configured in your home.nix, it will be config.sops...
     # otherwise, depending on how your nix is configured, it may be nixosConfig.sops...
     imports = [nixosConfig.sops.templates."vicinae-secrets.json".path];
