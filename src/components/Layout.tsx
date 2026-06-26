@@ -13,6 +13,7 @@ import { Logo } from '@/components/Logo'
 import { Navigation } from '@/components/Navigation'
 import { ReadingProgress } from '@/components/ReadingProgress'
 import { Search } from '@/components/Search'
+import { Sponsors } from '@/components/Sponsors'
 import { SectionProvider, type Section } from '@/components/SectionProvider'
 import { TableOfContents } from '@/components/TableOfContents'
 
@@ -80,8 +81,11 @@ export function Layout({
           <GithubLink />
           <DiscordLink />
         </div>
-        <aside className="fixed top-14 right-0 bottom-0 z-20 hidden w-64 overflow-y-auto border-l border-white/[0.06] px-6 pt-6 pb-8 xl:block">
-          <TableOfContents />
+        <aside className="fixed top-14 right-0 bottom-0 z-20 hidden w-64 flex-col overflow-hidden border-l border-white/[0.06] px-6 pt-6 pb-8 xl:flex">
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <TableOfContents />
+          </div>
+          <Sponsors />
         </aside>
       </div>
     </SectionProvider>
