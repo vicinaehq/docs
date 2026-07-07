@@ -164,7 +164,11 @@ To configure extensions with options declaratively, add their configuration as s
 ```
 
 This will vary depending on the fields that each extension expects. This is not limited to Vicinae extensions, but also works for any other "entrypoint."
-So Raycast should also be configurable. View the "package.json" for your desired extension to see the options
+So Raycast should also be configurable. View the "package.json" for your desired extension to see the options.  
+When installing the extension via nix, extension name will be somethint like @author/ext-id, in the provided example,
+it's **@knoopx**/**nix-0**.  
+To get that name, you can first install the extension either via the home-manager option or vicinae store, then go to the 
+installed extension menu, open the actions menu (default to ctrl+k) and copy author and ID.
 
 ### Declaratively Managing Secrets with sops-nix
 
