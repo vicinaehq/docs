@@ -227,6 +227,7 @@ export const userNavigation: Array<NavItem> = [
 	{
 		title: 'Quickstart',
 		links: [
+			{ title: 'macOS Quickstart', href: '/quickstart/macos' },
 			{ title: 'Hyprland Quickstart', href: '/quickstart/hyprland' },
 			{ title: 'Gnome Quickstart', href: '/quickstart/gnome' },
 			{ title: 'KDE Quickstart', href: '/quickstart/kde' },
