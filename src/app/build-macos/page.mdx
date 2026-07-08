@@ -1,0 +1,59 @@
+# Build for macOS from source
+
+This page explains how to build Vicinae for macOS from source. {{ className: 'lead' }}
+
+<Note>
+macOS support is in **beta**. If you just want to use Vicinae on your Mac, download the notarized `.dmg` from the [install page](/install/macos) instead of building from source.
+</Note>
+
+## Requirements
+
+- A C++23-capable compiler. The macOS build is tested on **macOS Tahoe** with **AppleClang 21**. Older toolchains are not tested and may not work.
+- [Homebrew](https://brew.sh) to install dependencies.
+
+
+## Get the sources
+
+Clone and build:
+
+```bash
+git clone https://github.com/vicinaehq/vicinae.git && cd vicinae
+```
+
+## Install dependencies
+
+From the source tree, install all build dependencies:
+
+```bash
+make mac-deps
+```
+
+This installs the build toolchain via Homebrew and **Qt** from the official binaries (via [aqtinstall](https://github.com/miurahr/aqtinstall)) into `~/Qt`. You can override the Qt version with the `QT_VERSION` environment variable.
+
+<Note>
+The build system automatically picks up the most recent Qt installation found under `~/Qt`. If you want to use a Qt installed somewhere else, pass `-DQT_DIR=/path/to/qt` when configuring with CMake. You can also install QT using Homebrew if you want to.
+</Note>
+
+## Build
+
+<CodeGroup>
+```bash {{ title: 'Make' }}
+make release
+```
+
+```bash {{ title: 'CMake' }}
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -B build
+cmake --build build
+```
+</CodeGroup>
+
+The resulting binaries are placed under `build/bin`: `vicinae-server` (the launcher itself) and `vicinae` (the CLI).
+
+## Assemble the app bundle
+
+You can assemble an `.app` bundle and install it:
+
+```bash
+make mac-bundle
+mv build/Vicinae.app /Applications
+```

@@ -1,0 +1,30 @@
+# Install on macOS
+
+Vicinae ships as a notarized `.dmg` for Apple Silicon Macs. {{ className: 'lead' }}
+
+<Note>
+macOS support is in **beta** since `v0.23.0`. All current Vicinae features are supported on macOS. Please report anything odd using the "Report a Vicinae bug" command.
+</Note>
+
+## Requirements
+
+- macOS Tahoe (26) or newer
+- An Apple Silicon Mac: Intel Macs are not supported
+
+## Install from DMG
+
+Download [Vicinae.dmg](https://github.com/vicinaehq/vicinae/releases/latest/download/Vicinae.dmg) from the [latest release](https://github.com/vicinaehq/vicinae/releases/latest), open it, and drag `Vicinae.app` into your `Applications` folder.
+
+The app is notarized, so no Gatekeeper workaround is needed: just launch it like any regular app. On first launch, an onboarding process will guide you through the initial setup.
+
+## Update
+
+Vicinae will inform you when an update is ready to install. 
+
+## CLI usage
+
+You can access the `vicinae` CLI by symlinking it from the bundle like so:
+
+```bash
+ln -sf /Applications/Vicinae.app/Contents/MacOS/vicinae-cli ~/.local/bin/vicinae
+```

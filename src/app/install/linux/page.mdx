@@ -1,8 +1,80 @@
 import { ImageZoom } from '@/components/ImageZoom'
 
-# Script Installation
+# Install on Linux
 
-Vicinae can be installed using an automated installation script that provides a hassle-free setup experience with minimal configuration required.
+All the ways to install Vicinae on Linux: from your distribution's package repositories, using the installation script, or [building from source](/build). {{ className: 'lead' }}
+
+## Package repositories
+
+The most direct way to install Vicinae, if your distribution is covered. If it's not, use the [install script](#install-script) instead.
+
+### Arch Linux (AUR)
+
+Vicinae is available on the Arch User Repository (AUR) in three variants:
+
+- **Source build**
+  - [vicinae](https://aur.archlinux.org/packages/vicinae) – stable release, compiled from source
+  - [vicinae-git](https://aur.archlinux.org/packages/vicinae-git) – latest development version, compiled from source
+
+- **Prebuilt binary**
+  - [vicinae-bin](https://aur.archlinux.org/packages/vicinae-bin) – stable release, precompiled binary
+
+You can install Vicinae using your preferred AUR helper.
+
+```bash
+yay -S vicinae-bin
+```
+
+### Gentoo
+
+Thanks to [jaredallard](https://github.com/jaredallard) for providing an [ebuild](https://github.com/jaredallard/overlay/tree/main/gui-apps/vicinae) through his overlay!
+
+```bash
+eselect repository add jaredallard-overlay git https://github.com/jaredallard/overlay.git
+emerge --sync jaredallard-overlay
+emerge gui-apps/vicinae
+```
+
+### Fedora and Derivatives
+
+#### COPR
+
+Vicinae is packaged on [COPR](https://copr.fedorainfracloud.org/coprs/quadratech188/vicinae/).
+
+```bash
+dnf copr enable quadratech188/vicinae
+dnf install vicinae
+```
+
+#### Terra
+
+Vicinae is also availible from [Terra](https://terra.fyralabs.com).
+
+Start with installing Terra:
+```bash
+sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+```
+Then install Vicinae:
+```bash
+sudo dnf install vicinae
+```
+On Fedora Atomic:
+```bash
+curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | pkexec tee /etc/yum.repos.d/terra.repo
+sudo rpm-ostree install terra-release vicinae
+```
+Bazzite users don't need to install Terra. Just set `enabled` to `1` in `/etc/yum.repos.d/terra.repo` then use `rpm-ostree`:
+```bash
+sudo rpm-ostree install vicinae
+```
+
+### NixOS
+
+Vicinae ships its own Nix flake and Home Manager module. See the dedicated [NixOS page](/nixos).
+
+## Install script
+
+If your distribution is not covered above, Vicinae can be installed using an automated installation script that provides a hassle-free setup experience with minimal configuration required.
 
 <Note>
 If Vicinae is already packaged by your distribution, you should install it through your package manager instead for better system integration and automatic updates.
@@ -15,7 +87,7 @@ If Vicinae is already packaged by your distribution, you should install it throu
   <em>Installation script by <a href="https://github.com/dagimg-dot">@dagimg-dot</a></em>
 </p>
 
-## Quick Install
+### Quick Install
 
 Run the following command to install Vicinae:
 
@@ -45,7 +117,7 @@ Build: GCC 15.2.0 - Release - LTO
 Provenance: appimage
 ```
 
-## Update
+### Update
 
 To update Vicinae, run the installation script again. It will detect your existing installation (if using the same prefix) and update it.
 
@@ -53,7 +125,7 @@ To update Vicinae, run the installation script again. It will detect your existi
 curl -fsSL https://vicinae.com/install | bash
 ```
 
-## Uninstall
+### Uninstall
 
 To uninstall Vicinae, run the installation script with the `--uninstall` argument:
 
@@ -61,7 +133,7 @@ To uninstall Vicinae, run the installation script with the `--uninstall` argumen
 curl -fsSL https://vicinae.com/install | bash -s -- --uninstall
 ```
 
-## Install with custom prefix
+### Install with custom prefix
 
 By default, the script tries to install Vicinae under `/usr/local`, but for users with specific constraints (e.g., no root access), this might not be desirable.
 
@@ -71,10 +143,14 @@ To accommodate these users, the script provides a `--prefix` option:
 curl -fsSL https://vicinae.com/install | bash -s -- --prefix ~/.local
 ```
 
-### Custom prefix caveats
+#### Custom prefix caveats
 
 In order to have a fully working installation of Vicinae, you need to make sure that:
 
 - The Vicinae server knows where to find the `vicinae-node` binary. If you set your PATH in `~/.bashrc` or `~/.zshrc`, the Vicinae server might not have the correct PATH set, as it might be started before those files are sourced.
 - The Vicinae desktop file that declares the `x-scheme-handler/vicinae` and `x-scheme-handler/raycast` MIME type associations should be searchable by the standard XDG tooling. You can verify this is working by opening any Vicinae deeplink, e.g., `xdg-open vicinae://toggle`.
 If this is not working, some features such as the OAuth extension flow will not work.
+
+## Build from source
+
+If none of the above fits your needs, you can always [build Vicinae from source](/build).
