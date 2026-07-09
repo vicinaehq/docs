@@ -17,18 +17,27 @@ Download [Vicinae.dmg](https://github.com/vicinaehq/vicinae/releases/latest/down
 
 The app is notarized, so no Gatekeeper workaround is needed: just launch it like any regular app. On first launch, an onboarding process will guide you through the initial setup.
 
-## Update
 
-Vicinae will inform you when an update is ready to install. 
-
-## Homebrew install
-
-Soon
-
-## CLI usage
+### CLI usage
 
 You can access the `vicinae` CLI by symlinking it from the bundle like so:
 
 ```bash
 ln -sf /Applications/Vicinae.app/Contents/MacOS/vicinae-cli ~/.local/bin/vicinae
 ```
+
+### Update
+
+Vicinae will inform you when an update is ready to install. 
+
+## Homebrew install
+
+You can install the cask for Vicinae as follows:
+
+```bash
+brew install --cask vicinae
+```
+
+This assumes you will handle updates using `brew` as Vicinae will not propose you to manually update if you installed it from homebrew.
+
+Note that the `vicinae` CLI is also automatically installed and linked for you.
