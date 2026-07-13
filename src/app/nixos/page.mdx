@@ -53,7 +53,7 @@ If you don’t want to compile Vicinae yourself, make sure to enable [Cachix](/n
     enable = true; # default: false
     systemd = {
       enable = true; # default: false
-      autoStart = true; # default: false
+      autoStart = true; # default: true (if systemd.enable is true)
       environment = {
         USE_LAYER_SHELL = 1;
       };
@@ -102,7 +102,7 @@ programs.vicinae = {
   enable = true;
   systemd = {
     enable = true;
-    autoStart = true; # default: false
+    autoStart = true; # default: true (if systemd.enable is true)
     environment = {
       USE_LAYER_SHELL = 1;
     };
