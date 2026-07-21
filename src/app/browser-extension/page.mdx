@@ -16,13 +16,67 @@ If you installed vicinae from the AUR, using the script (as root) or from source
 When possible, these installation mediums automatically generate and install the required native host manifests on your system.
 
 Known exceptions are:
-- NixOS (for now)
 - AppImage install that was not performed as root
 - Any other esoteric packaging method that does not use the cmake install target
 </Note>
 
-- Chromium based browsers: the `/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json` should exist and reference a valid `vicinae-browser=link` binary. You may need to modify the allowed extension ID to match the one of the vicinae extension.
-- Firefox based browsers: the `/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json` should exist and reference a valid `vicinae-browser-link` binary.
+Your browser must be able to find a `com.vicinae.vicinae.json` manifest whose `path` references a valid `vicinae-browser-link` binary. Common system-wide locations on Linux are:
+
+- Chromium: `/etc/chromium/native-messaging-hosts/`
+- Google Chrome: `/etc/opt/chrome/native-messaging-hosts/`
+- Firefox: `/usr/lib/mozilla/native-messaging-hosts/`
+
+If you installed the browser extension manually, make sure the manifest allows the ID of your installed extension.
+
+#### NixOS and Home Manager
+
+When using the Vicinae Home Manager module, native messaging is configured automatically for Google Chrome or Firefox that (only browsers managed by Home Manager):
+
+- `programs.google-chrome.enable = true`
+- `programs.firefox.enable = true`
+
+The corresponding `programs.vicinae.enableChromeIntegration` and `programs.vicinae.enableFirefoxIntegration` options are enabled by default.
+
+For another Chromium-based browser managed by Home Manager, use the browser's `nativeMessagingHosts` option. For example, with Brave:
+
+```nix
+{ config, ... }:
+{
+  programs.brave = {
+    enable = true;
+    nativeMessagingHosts = [ config.programs.vicinae.package ];
+  };
+}
+```
+
+If the browser is not managed by Home Manager, link the manifest into its per-user native messaging directory instead. For example:
+
+```nix
+{ config, ... }:
+let
+  vicinaePackage = config.programs.vicinae.package;
+in
+{
+  home.file.".config/brave/NativeMessagingHosts/com.vicinae.vicinae.json".source =
+    "${vicinaePackage}/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json";
+}
+```
+
+For a system-wide NixOS setup without Home Manager, declare the manifest at the path expected by the browser. For example, with Chromium:
+
+```nix
+{ inputs, pkgs, ... }:
+let
+  vicinaePackage = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
+{
+  environment.etc."chromium/native-messaging-hosts/com.vicinae.vicinae.json".source =
+    "${vicinaePackage}/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json";
+}
+```
+
+For Firefox enabled through NixOS, add the package to `programs.firefox.nativeMessagingHosts.packages`.
+
 
 ### From web extension stores
 
