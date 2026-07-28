@@ -65,27 +65,36 @@ apt install -y \
 ```
 
 ```bash {{ title: 'Fedora' }}
-dnf install -y \
-    qt6-qtbase-devel \
-    qt6-qtsvg-devel \
-    qt6-qtbase-private-devel \
-    qt6-qtwayland-devel \
-    layer-shell-qt-devel \
-    libqalculate-devel \
-    minizip-devel \
-    rapidfuzz-cpp-devel \
-    qtkeychain-qt6-devel \
-    openssl-devel \
-    wayland-devel \
-    glibc-static \
-    libstdc++-static \
-    zlib-devel \
-    zlib-static \
-    abseil-cpp-devel \
-    protobuf-devel \
-    libicu-devel \
-    cmark-gfm-devel
 # cmark-gfm requires a copr (https://copr.fedorainfracloud.org/coprs/quadratech188/cmark-gfm/)
+dnf copr enable quadratech188/cmark-gfm
+
+dnf install -y \
+    abseil-cpp-devel \
+    catch-devel \
+    cmark-gfm-devel \
+    glibc-static \
+    kf6-syntax-highlighting-devel \
+    layer-shell-qt-devel \
+    libasan \
+    libicu-devel \
+    libqalculate-devel \
+    libstdc++-static \
+    minizip-devel \
+    ninja-build \
+    openssl-devel \
+    protobuf-devel \
+    qt6-qtbase-devel \
+    qt6-qtbase-private-devel \
+    qt6-qtshadertools-devel \
+    qt6-qtsvg-devel \
+    qt6-qttools-devel \
+    qt6-qtwayland-devel \
+    qtkeychain-qt6-devel \
+    rapidfuzz-cpp-devel \
+    wayland-devel \
+    xcb-util-keysyms-devel \
+    zlib-devel \
+    zlib-static
 ```
 
 ```bash {{ title: 'Gentoo Linux' }}
