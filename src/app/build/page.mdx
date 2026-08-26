@@ -66,26 +66,34 @@ apt install -y \
 
 ```bash {{ title: 'Fedora' }}
 dnf install -y \
-    qt6-qtbase-devel \
-    qt6-qtsvg-devel \
-    qt6-qtbase-private-devel \
-    qt6-qtwayland-devel \
-    layer-shell-qt-devel \
-    libqalculate-devel \
-    minizip-devel \
-    rapidfuzz-cpp-devel \
-    qtkeychain-qt6-devel \
-    openssl-devel \
-    wayland-devel \
-    glibc-static \
-    libstdc++-static \
-    zlib-devel \
-    zlib-static \
-    abseil-cpp-devel \
-    protobuf-devel \
-    libicu-devel \
-    cmark-gfm-devel
-# cmark-gfm requires a copr (https://copr.fedorainfracloud.org/coprs/quadratech188/cmark-gfm/)
+    cmake \
+    g++ \
+    git \
+    mold \
+    ninja-build \
+    nodejs-npm \
+    'cmake(Qt6Core)' \
+    'cmake(Qt6Qml)' \
+    'pkgconfig(openssl)' \
+    'cmake(Qt6Core)' \
+    'cmake(Qt6Network)' \
+    'cmake(Qt6Svg)' \
+    'cmake(Qt6Concurrent)' \
+    'cmake(Qt6Quick)' \
+    'cmake(Qt6Qml)' \
+    'cmake(Qt6GuiPrivate)' \
+    'cmake(Qt6QuickDialogs2)' \
+    'cmake(Qt6QuickControls2)' \
+    'cmake(Qt6ShaderTools)' \
+    'cmake(Qt6LinguistTools)' \
+    'cmake(KF6SyntaxHighlighting)' \
+    'cmake(LayerShellQt)' \
+    'pkgconfig(xcb-keysyms)' \
+    'pkgconfig(wayland-protocols)' \
+    'cmake(Qt6Keychain)' \
+    'pkgconfig(libqalculate)' \
+    'qt6qml(org.kde.layershell)' \
+    'nodejs(engine)'
 ```
 
 ```bash {{ title: 'Gentoo Linux' }}
