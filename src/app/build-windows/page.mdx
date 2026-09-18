@@ -1,0 +1,55 @@
+# Build for Windows from source
+
+This page explains how to build Vicinae for Windows from source. {{ className: 'lead' }}
+
+<Note>
+Only build Vicinae from source if you are planning on assisting with development. If you just want to use Vicinae, [install it using the installer or the portable build](/install/windows).
+</Note>
+
+## Requirements
+
+- MSVC 19+ (Visual Studio 2019). We **do not** support building Vicinae with other compilers on Windows.
+- The [QT framework](https://www.qt.io/development/qt-framework) (MSVC build). We recommend [aqtinstall](https://github.com/miurahr/aqtinstall) to install QT.
+- perl is required to configure the KDE syntax highlighting package. You probably want to use [Strawberry Perl](https://strawberryperl.com/).
+- [Inno Setup](https://jrsoftware.org/isinfo.php) if you need also need to make the installer.
+- Vicinae has several other dependencies, but they are either vendored or fetched automatically by CMake, so you don't need to do anything special about those.
+
+## Get the sources
+
+Clone and build:
+
+```bash
+git clone https://github.com/vicinaehq/vicinae.git && cd vicinae
+```
+
+## Enter development environment
+
+First you need to make sure the current shell environment has everything needed to build Vicinae. In particular, you should make sure that:
+
+- MSVC is in PATH (`cl.exe`). There are many ways to start a visual studio development environment. You can execute the `./scripts/devshell.ps1` script to do it for you.
+- QT is in PATH. Usually you need to add `\C:\Qt\<version>\msvc2022_64\bin\` to your PATH.
+
+## Build
+
+Configure using the desired preset:
+
+```powershell
+cmake --preset windows-relwithdebinfo
+```
+
+Then build:
+
+```powershell
+cmake --build build-relwithdebinfo
+```
+
+Once built, you can find the portable build at `build-relwithdebinfo/stage`.
+
+## Make installer
+
+You can use `scripts/mkinstaller.ps1` to make the [Inno Setup](https://jrsoftware.org/isinfo.php) installer:
+
+```powershell
+# you can point it to any build directory
+./scripts/mkinstaller.ps1 build-relwithdebinfo
+```
