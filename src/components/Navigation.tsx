@@ -219,6 +219,7 @@ export const userNavigation: Array<NavItem> = [
 			{ title: 'Introduction', href: '/' },
 			{ title: 'Linux', href: '/install/linux' },
 			{ title: 'macOS', href: '/install/macos' },
+			{ title: 'Windows', href: '/install/windows' },
 			{ title: 'Build from source (Linux)', href: '/build' },
 			{ title: 'Build from source (macOS)', href: '/build-macos' },
 			{ title: 'Build AppImage from source', href: '/build-appimage' },
