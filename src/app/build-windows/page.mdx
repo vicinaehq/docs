@@ -9,16 +9,19 @@ Only build Vicinae from source if you are planning on assisting with development
 ## Requirements
 
 - MSVC 19+ (Visual Studio 2019). We **do not** support building Vicinae with other compilers on Windows.
+- The [cmake](https://cmake.org/) build system
 - The [QT framework](https://www.qt.io/development/qt-framework) (MSVC build). We recommend [aqtinstall](https://github.com/miurahr/aqtinstall) to install QT.
 - perl is required to configure the KDE syntax highlighting package. You probably want to use [Strawberry Perl](https://strawberryperl.com/).
 - [Inno Setup](https://jrsoftware.org/isinfo.php) if you need also need to make the installer.
 - Vicinae has several other dependencies, but they are either vendored or fetched automatically by CMake, so you don't need to do anything special about those.
 
+We recommend using PowerShell 5 or higher for the steps that follow.
+
 ## Get the sources
 
-Clone and build:
+Clone the source code:
 
-```bash
+```powershell
 git clone https://github.com/vicinaehq/vicinae.git && cd vicinae
 ```
 
