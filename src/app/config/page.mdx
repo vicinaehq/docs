@@ -28,7 +28,7 @@ Vicinae starts by loading its default configuration, which can be obtained by ru
 vicinae config default
 ```
 
-Then, the user config file (located at `~/.config/vicinae/settings.json` by default) is read and merged with the default configuration file, overriding any default value.
+Then, the user config file (located at `~/.config/vicinae/settings.json` on Linux and macOS, `%LOCALAPPDATA%\vicinae\config\settings.json` on Windows) is read and merged with the default configuration file, overriding any default value.
 
 This user config file needs to be readable **and** writable as most configuration changes made through the GUI will be written to it. If you're dealing with a read-only config , the recommended approach is to use imports as described below.
 
@@ -43,7 +43,7 @@ It is possible to split up configuration by importing other config files from th
 To do so, you simply need to add the files to import to the `imports` array. Files imported in this way are merged before the main user configuration file is considered and are never touched by vicinae directly,
 allowing them to be freely formatted and annotated with custom comments.
 
-```json {{ title: '~/.config/vicinae/settings.json' }}
+```json {{ title: 'settings.json' }}
 {
 	"imports": [
 		"base_config.json",

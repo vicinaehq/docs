@@ -20,6 +20,8 @@ Create a complete theme template with all available color keys and documentation
 vicinae theme template > ~/.local/share/vicinae/themes/my-new-theme.toml
 ```
 
+On Windows, use `%LOCALAPPDATA%\vicinae\data\themes` instead.
+
 This command outputs a template to stdout, which you can redirect to a file. The template includes:
 - All available metadata fields
 - Every color table and key
@@ -69,14 +71,24 @@ This command prints the search paths in order of precedence. Themes are loaded f
 
 ## Typical Search Paths
 
-The paths usually follow the XDG Base Directory specification:
+On Linux, the paths follow the XDG Base Directory specification:
 
-1. `$HOME/.local/share/vicinae/themes` (user themes)
+1. `~/.local/share/vicinae/themes` (user themes)
 2. `/usr/local/share/vicinae/themes` (system-wide themes)
 3. `/usr/share/vicinae/themes` (distribution themes)
 
+On macOS:
+
+1. `~/.local/share/vicinae/themes` (user themes)
+2. `Vicinae.app/Contents/Resources/themes` (bundled themes)
+
+On Windows:
+
+1. `%LOCALAPPDATA%\vicinae\data\themes` (user themes)
+2. `themes` in the Vicinae install directory (bundled themes)
+
 <Note>
-It's recommended to place custom themes in `$HOME/.local/share/vicinae/themes` to avoid conflicts with system updates.
+Always place custom themes in the user themes directory to avoid conflicts with updates.
 </Note>
 
 ### Theme Shadowing
