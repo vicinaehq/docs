@@ -6,45 +6,55 @@ Vicinae integrates with your filesystem in order to provide you with snappy file
 
 ## Environment support
 
-By default, Vicinae will use whatever the default file search provider is on the running platform:
-- on macOS, it uses Spotlight directly
-- on Linux, Vicinae comes with its own file indexing solution
+Vicinae uses the best file search backend available on each platform:
 
-<Note>
-At the moment, it is not possible to run the custom file indexer solution on anything other than Linux.
-</Note>
+| Platform | Backend |
+| -------- | ------- |
+| Linux    | Vicinae's own file indexer |
+| macOS    | Spotlight |
+| Windows  | [Everything](https://www.voidtools.com/) if it is running, Windows Search otherwise |
 
 ## Search files
 
 You can search files in one of two ways:
 
-- From the root search, only if the relevant option has been explictly enabled in the main Vicinae settings. Root file search is performed asynchronously so you should expect a slight delay before file results show up.
-- Using the dedicated [Search Files](vicinae://launch/files/search) command, which provides a nice preview of the file's content and generally more actions.
+- Using the dedicated [Search Files](vicinae://launch/files/search) command. With an empty query, it shows your recent files. Results can be filtered by category (documents, images, etc.) and come with a preview of the file's content.
+- From the root search, if `search_files_in_root` is enabled in the settings. Root file search is asynchronous, so expect a slight delay before file results show up.
 
-## Spotlight (macOS)
+## Linux
 
-Spotlight owns the index, so there is nothing for Vicinae to build or rebuild: it only queries it.
+Vicinae ships its own file indexer, which runs in the background as a separate process.
 
-## Linux (custom file indexer)
-
-Vicinae will start a **full scan** on first startup.
-
-A full scan will go through every single file and directory present at the configured search locations and index them. By default, we only index the contents of the home directory.
+On first startup, it runs a **full scan** of the configured search paths. After that, the index is kept up to date by watching for filesystem changes and running lightweight incremental scans.
 
 <Warning>
-It is expected for Vicinae to use a lot of CPU during initial file indexing, as the priority is to build the base index as fast as possible.
-Subsequent indexing is done incrementally and is way less CPU intensive.
+It is expected for Vicinae to use a lot of CPU during the initial scan, as the priority is to build the base index as fast as possible.
 </Warning>
 
-## Search paths
+The following can be changed from the file search extension settings:
 
-By default we only search files and folders that are under the current user's home directory.
-
-You can change the list of searched locations from the file search extension settings:
-
-<Note>
-Adding new search locations might trigger new indexing tasks immediately.
-</Note>
+- **Enabled**: turning it off stops the indexer entirely, and file search becomes unavailable.
+- **Search paths**: directories to index. Defaults to your home directory.
+- **Excluded search paths**: directories to skip.
 
 ![Edit search paths from settings](/search-locations.webp)
 
+## macOS
+
+Spotlight owns the index, so there is nothing for Vicinae to build: it only queries it.
+
+## Windows
+
+By default, Vicinae uses Everything if it is running and falls back to Windows Search otherwise. You can force one or the other with the **Search backend** setting.
+
+If you run a non-default Everything instance (e.g. the 1.5 alpha, which runs as `1.5a`), set its name in the **Everything instance** setting.
+
+## CLI
+
+Indexed files can also be queried from the command line:
+
+```bash
+vicinae fs query "my query"
+```
+
+Run `vicinae fs query --help` for the available options (limit, category, JSON output).
