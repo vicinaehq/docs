@@ -10,7 +10,7 @@ Do **not** install the AppImage directly.
 
 ## How to set a keyboard shortcut to open vicinae?
 
-Vicinae doesn't support global shortcuts at the moment. You should use whatever is the preferred way to set global shortcuts for your environment. If there is a quickstart guide for your environment, this is probably explained there.
+See [global shortcuts](/global-shortcuts). If your environment is not supported, use whatever is the preferred way to set global shortcuts for your environment. If there is a quickstart guide for your environment, this is probably explained there.
 
 ## How to set a keyboard shortcut to open a specific command?
 
@@ -79,9 +79,11 @@ Starting with v0.20.4, vicinae sets this value to a slightly lower default if th
 
 ## How to fix: "extension manager is not running" ?
 
-This likely means you don't have [nodejs](https://nodejs.org) installed on your system, which is required if you want to run third-party extensions.
+[Node.js](https://nodejs.org) is required to run third-party extensions.
 
-You should install a recent enough version of node (>= 20) however you like and make sure the `node` binary is in your `PATH`.
+The AppImage, macOS and Windows builds download their own Node runtime automatically on first use. If that fails, check the logs.
+
+Other builds (distribution packages, source builds) use the system `node`: install a recent enough version (>= 20) and make sure the `node` binary is in your `PATH`. You can also point vicinae to a specific binary using the `VICINAE_NODE_BIN` environment variable.
 
 Most of the packages distributing vicinae do list `nodejs` as an optional dependency, but maybe the particular one you used doesn't. In that case you are encouraged to reach out to the maintainer of that package.
 

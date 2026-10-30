@@ -10,7 +10,6 @@ In order to declare a command as a no-view command, you need to set the `mode` o
 {
   "name": "my-first-command",
   "title": "My First Command",
-  "subtitle": "My first subtitle",
   "description": "My first command description",
   "mode": "no-view"
 }
@@ -24,8 +23,7 @@ When a no-view command is launched from the root search, the code inside the fun
 The command is unloaded when the function returns **or** if another command is launched (command execution is non-blocking).
 
 <Warning>
-No-view commands are not meant to execute long-running logic. There is currently no way for extensions to do this outside of using external daemons (not recommended).
-This will likely be addressed in the future.
+No-view commands are not meant to execute long-running logic. To run code periodically in the background, set the command's `interval` field in the manifest (e.g. `"interval": "10m"`).
 </Warning>
 
 ## No-view command implementation

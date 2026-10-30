@@ -106,7 +106,8 @@ The installation script will automatically:
 - Extract Vicinae and all its runtime dependencies to `/usr/local/lib/vicinae`
 - Create symbolic links for binaries in your PATH
 - Install desktop files, icons, and default themes
-- Set up `vicinae-node` for seamless TypeScript extension support. This is a regular Node.js binary included to run extensions.
+
+Extensions run on a pinned Node.js 22 runtime that Vicinae downloads on first use, so no system Node.js is needed.
 
 After installation completes, verify it was successful:
 
@@ -147,7 +148,6 @@ curl -fsSL https://vicinae.com/install | bash -s -- --prefix ~/.local
 
 In order to have a fully working installation of Vicinae, you need to make sure that:
 
-- The Vicinae server knows where to find the `vicinae-node` binary. If you set your PATH in `~/.bashrc` or `~/.zshrc`, the Vicinae server might not have the correct PATH set, as it might be started before those files are sourced.
 - The Vicinae desktop file that declares the `x-scheme-handler/vicinae` and `x-scheme-handler/raycast` MIME type associations should be searchable by the standard XDG tooling. You can verify this is working by opening any Vicinae deeplink, e.g., `xdg-open vicinae://toggle`.
 If this is not working, some features such as the OAuth extension flow will not work.
 

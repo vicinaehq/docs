@@ -8,7 +8,6 @@ Theme files use the `.toml` extension and follow a structured format. Here's a m
 
 ```toml
 [meta]
-version = 1
 name = "Catppuccin Mocha"
 description = "Cozy feeling with color-rich accents."
 variant = "dark"
@@ -39,7 +38,6 @@ The `[meta]` table contains information about the theme itself. The following fi
 
 ### Required Fields
 
-- **version** - Theme format version (currently `1`)
 - **name** - Display name for the theme
 - **description** - Brief description of the theme's appearance or style
 - **variant** - Either `"dark"` or `"light"`
@@ -69,7 +67,7 @@ The most commonly used color tables include:
 - And many more specialized tables for specific UI components
 
 <Note>
-Use `vicinae theme template` to see all available color tables and keys.
+Use `vicinae theme template` to see an example covering the most common color tables and keys.
 </Note>
 
 If you need additional color customization options that are not currently available, you can request them as a feature on the [GitHub issue tracker](https://github.com/vicinaehq/vicinae/issues).
@@ -125,7 +123,9 @@ Not all values need to be valid - invalid colors will fallback to the parent the
 
 ### Fatal Errors
 
-- Missing `meta.name` or `meta.description` fields
+- Invalid TOML syntax
+- Missing `[meta]` table
+- Missing `meta.name`, `meta.description` or `meta.variant` fields
 - Circular color references (e.g., color A references B, which references A)
 
 If a theme fails to load, an error message will appear in the logs, and the theme won't be available in theme selectors.

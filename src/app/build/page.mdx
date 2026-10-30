@@ -29,15 +29,15 @@ pacman -Syu				\
     npm					\
     qt6-base			\
     qt6-svg				\
-    protobuf			\
+    qt6-declarative		\
+    qt6-shadertools		\
+    qt6-tools			\
     cmark-gfm			\
     layer-shell-qt		\
     libqalculate		\
-    minizip				\
     qtkeychain-qt6		\
-    rapidfuzz-cpp		\
-    icu					\
-    qt6-tools			\
+    syntax-highlighting	\
+    extra-cmake-modules	\
     catch2				\
     wayland-protocols
 ```
@@ -50,21 +50,24 @@ apt install -y \
     nodejs  \
     npm \
     qt6-base-dev \
+    qt6-base-private-dev \
     qt6-svg-dev \
+    qt6-declarative-dev \
+    qt6-shadertools-dev \
+    qt6-tools-dev \
     qt6-wayland-dev \
-    libqt6svg6  \
-    libprotobuf-dev \
-    cmark-gfm \
-    layer-shell-qt  \
+    libcmark-gfm-dev \
+    libcmark-gfm-extensions-dev \
     liblayershellqtinterface-dev \
     libqalculate-dev  \
-    libminizip-dev \
-    libabsl-dev \
-    libcmark-gfm-dev \
-    zlib1g-dev \
     qtkeychain-qt6-dev  \
-    librapidfuzz-cpp-dev \
-    libicu-dev
+    libkf6syntaxhighlighting-dev \
+    extra-cmake-modules \
+    libssl-dev \
+    libxkbcommon-dev \
+    libudev-dev \
+    libxcb-keysyms1-dev \
+    wayland-protocols
 ```
 
 ```bash {{ title: 'Fedora' }}
@@ -72,12 +75,9 @@ dnf install -y \
     cmake \
     g++ \
     git \
-    mold \
     ninja-build \
     nodejs-npm \
-    'cmake(Qt6Core)' \
-    'cmake(Qt6Qml)' \
-    'pkgconfig(openssl)' \
+    extra-cmake-modules \
     'cmake(Qt6Core)' \
     'cmake(Qt6Network)' \
     'cmake(Qt6Svg)' \
@@ -89,11 +89,16 @@ dnf install -y \
     'cmake(Qt6QuickControls2)' \
     'cmake(Qt6ShaderTools)' \
     'cmake(Qt6LinguistTools)' \
+    'cmake(Qt6DBus)' \
+    'cmake(Qt6WaylandClient)' \
     'cmake(KF6SyntaxHighlighting)' \
     'cmake(LayerShellQt)' \
+    'cmake(Qt6Keychain)' \
+    'pkgconfig(openssl)' \
+    'pkgconfig(xkbcommon)' \
+    'pkgconfig(libudev)' \
     'pkgconfig(xcb-keysyms)' \
     'pkgconfig(wayland-protocols)' \
-    'cmake(Qt6Keychain)' \
     'pkgconfig(libqalculate)' \
     'qt6qml(org.kde.layershell)' \
     'nodejs(engine)'
@@ -102,29 +107,35 @@ dnf install -y \
 ```bash {{ title: 'Gentoo Linux' }}
 emerge -av			\
 	qtkeychain		\
-	qtbase			\
-	minizip-ng		\
-	rapidfuzz-cpp	\
+	dev-qt/qtbase	\
+	dev-qt/qtsvg	\
+	dev-qt/qtdeclarative	\
+	dev-qt/qtshadertools	\
+	dev-qt/qttools	\
+	dev-qt/qtwayland	\
+	kde-frameworks/syntax-highlighting	\
+	kde-frameworks/extra-cmake-modules	\
 	layer-shell-qt	\
 	libqalculate	\
 	nodejs			\
 	cmake			\
 	cmark-gfm		\
-	dev-qt/qtsvg	\
-	protobuf		\
-	dev-build/ninja \
-	dev-libs/icu
+	dev-build/ninja
 ```
 </CodeGroup>
+
+<Note>
+Qt 6.9 or newer is required.
+
+If your distribution does not package `cmark-gfm`, pass `-DUSE_SYSTEM_CMARK_GFM=OFF` to use the vendored copy.
+</Note>
 
 ## Recommended build tools
 
 In order to make building and rebuilding Vicinae easier we recommend installing the following:
 
-- Install `ccache` to automatically cache most compilations and significantly decrease build times.
-- Install the `mold` linker to link the Vicinae binary significantly faster.
-
-All you need is to install these tools, the Vicinae build system will take care of the rest for you.
+- Install `ccache` (or `sccache`) to automatically cache most compilations and significantly decrease build times. It is detected and used automatically.
+- Install the `mold` linker to link the Vicinae binary significantly faster. It is not picked up automatically: pass `-DCMAKE_LINKER_TYPE=MOLD` at configure time.
 
 ## Build Flags
 
@@ -136,9 +147,9 @@ Flags are easily identified by the use of the `option` cmake function:
 ```cmake
 option(LTO "Enable Link Time Optimization (LTO). This will result in better performance, but greatly increased compile time." OFF)
 option(NOSTRIP "Never strip debug symbols from the binary, even in release mode. Note that symbols are never stripped for debug releases." OFF)
-option(USE_SYSTEM_PROTOBUF "Use system protobuf instead of building it from source" ON)
-option(USE_SYSTEM_ABSEIL "Use system abseil (libabsl) instead of building it from source" ON)
-option(USE_SYSTEM_CMARK_GFM "Use system cmark-gfm (github's fork of cmark) instead of building it from source" ON)
+option(USE_SYSTEM_CMARK_GFM "Use system cmark-gfm (github's fork of cmark) instead of the vendored copy under vendor/cmark-gfm" ${USE_SYSTEM_DEFAULT})
+option(USE_SYSTEM_KF6 "Use system KDE syntax highlighting library for markdown code block highlight support" ${USE_SYSTEM_DEFAULT})
+option(USE_SYSTEM_QT_KEYCHAIN "Use system qt-keychain instead of building it from source. Note: still depends on system libsecret." ${USE_SYSTEM_DEFAULT})
 ```
 
 You can enable or disable a given option by passing a `-D<OPTION>=ON/OFF` flag to the `cmake` program during the *configuration* step. See the CMake code examples below.
@@ -150,9 +161,6 @@ or are generally not easy to install through traditional means.
 
 The main goal of this is to make pre-built binaries more portable across different distributions that ship different versions of the same package.
 
-For instance, `libprotobuf` updates very often and offers no retro-compatibility. This essentially means that the distributed binaries become outdated as soon as the distribution updates
-its protobuf version. By statically linking against protobuf, we embed a given version of protobuf in the binary, and this specific, local version is the one going to be used for the entire lifetime of the binary.
-
 <Warning>
 If building from source you have very few reasons to statically link against libraries. This is mostly intended to help people packaging Vicinae as a standalone binary.
 </Warning>
@@ -161,17 +169,13 @@ For reference, this is the CMake configure command we use to build our releases:
 
 ```bash
 cmake -G Ninja .. \
+	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_POLICY_VERSION_MINIMUM=3.5  \
 	-DLTO=ON \
-	-DUSE_SYSTEM_PROTOBUF=OFF \
-	-DUSE_SYSTEM_ABSEIL=OFF \
-	-DUSE_SYSTEM_CMARK_GFM=OFF \
+	-DUSE_SYSTEM_CMARK_GFM=OFF
 ```
 
-This will:
-	- instruct `cmake` to download a copy of a specific version of `protobuf`, `abseil`, `cmark-gfm` and `minizip-ng`
-	- build them alongside the main Vicinae code base
-	- link them all together as a single binary
+This builds the vendored copy of `cmark-gfm` alongside the main Vicinae code base and links it statically.
 
 <Note>
 We may add static linking options for other libraries down the road.
@@ -189,10 +193,10 @@ git clone https://github.com/vicinaehq/vicinae.git && cd vicinae
 ## Release Build
 
 <Warning>
-This is a generic, unoptimized build. If you are looking to build an optimized version for your specific system, read further.
+This is a generic build that is not tuned for your CPU. If you are looking to build an optimized version for your specific system, read further.
 </Warning>
 
-To build a generic release build without LTO enabled:
+To build a generic release build:
 
 <CodeGroup>
 ```bash {{ title: 'Make' }}
@@ -200,10 +204,12 @@ make release
 ```
 
 ```bash {{ title: 'CMake' }}
-cmake -G Ninja -B build
+cmake -DLTO=ON -G Ninja -B build
 cmake --build build 
 ```
 </CodeGroup>
+
+`make release` enables link-time optimizations, which makes linking a lot slower. Drop `-DLTO=ON` from the CMake command for a faster build.
 
 ## Optimized Release Build
 
@@ -244,7 +250,7 @@ cmake --build build
 ```
 </CodeGroup>
 
-This will compile with `-g3`, enable sanitizers (asan + ubsan) and QT debug logs.
+This will compile with `-g3` and QT debug logs. `make debug` also enables AddressSanitizer (`-DENABLE_SANITIZERS=ON`).
 
 ## Install built binaries
 
@@ -259,3 +265,9 @@ sudo make install
 sudo cmake --install build --prefix "$HOME/.local" 
 ```
 </CodeGroup>
+
+On Linux, snippet expansion and paste need the input server to have access to input devices. Grant it the required capability (adjust the prefix to your install location):
+
+```bash
+sudo setcap cap_dac_override=ep /usr/local/libexec/vicinae/vicinae-input-server
+```

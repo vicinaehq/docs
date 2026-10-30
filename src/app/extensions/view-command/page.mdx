@@ -10,7 +10,6 @@ In order to declare a command as a view command, you need to set the `mode` of t
 {
   "name": "my-first-command",
   "title": "My First Command",
-  "subtitle": "My first subtitle",
   "description": "My first command description",
   "mode": "view"
 }
@@ -28,6 +27,8 @@ From the entrypoint, all you need to do is to export a React component as the de
 
 ```tsx {{ title: 'my-first-command.tsx' }}
 import { Detail, ActionPanel, Action, showToast } from '@vicinae/api';
+
+const md = '# Hello from my first command!';
 
 export default function MyFirstCommand() {
 	return (
@@ -82,6 +83,8 @@ import {
 	useNavigation 
 } from '@vicinae/api';
 
+const md = '# Main view';
+
 // View to push on top of the main view
 const ListView = () => {
 	const { push, pop } = useNavigation();
@@ -95,7 +98,7 @@ const ListView = () => {
 					<ActionPanel>
 						<Action 
 							title="push myself!" 
-							icon={Icon.Window} 
+							icon={Icon.AppWindow} 
 							onAction={() => push(<ListView />)} 
 						/>
 					</ActionPanel>

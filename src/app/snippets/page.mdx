@@ -24,9 +24,9 @@ If you filled in the `keyword` field while creating your snippet, then you can e
 
 ### Undo expansion
 
-Since snippet text injection is carried by a clipboard paste, the preferred way to undo a snippet is to use the mechanism provided by the current app in order to undo the last action (here, a clipboard paste). Most of the time, a single `Ctrl-Z` works.
+On Linux, snippet text injection is carried by a clipboard paste (on macOS the text is typed directly, and on Windows only snippets longer than 100 characters are pasted). When it is pasted, the preferred way to undo a snippet is to use the mechanism provided by the current app in order to undo the last action (here, a clipboard paste). Most of the time, a single `Ctrl-Z` works.
 
-For shorter snippets or in apps that do not have a designated way to undo a clipboard paste, you can just press `ESC` to undo the expansion using vicinae's builtin undo mechanism. Unlike native undo, this will also write the initial keyword back.
+For shorter snippets or in apps that do not have a designated way to undo a clipboard paste, you can press `Backspace` immediately after the expansion to undo the expansion using vicinae's builtin undo mechanism. Unlike native undo, this will also write the initial keyword back.
 
 <Warning>
 Undoing long snippets can take a long time as undo is implemented by sending a series of backspaces that need to be sent at a fixed interval (and, may not even be interpreted properly in some apps).
@@ -106,7 +106,7 @@ You can use the `{date}` placeholder to expand the current date in the specified
 {date format="yyyy-MM-dd hh:mm"}
 ```
 
-The format is the [QDate format](https://doc.qt.io/qt-6/qdate.html#toString-2).
+The format is the [QDateTime format](https://doc.qt.io/qt-6/qdatetime.html).
 
 ### UUID
 
@@ -132,7 +132,7 @@ The main reason `vicinae-input-server` can fail to start is if it's not given th
 This is normally done at post install time by the package manager. If you are using a non conventional packaging method, you may need to run `setcap` on the input server manually like so:
 
 ```bash
-sudo setcap "cap_dac_override+ep" $prefix/libexec/vicinae-input-server
+sudo setcap "cap_dac_override+ep" $prefix/libexec/vicinae/vicinae-input-server
 ```
 
 Where `$prefix` is the installation prefix of vicinae, typically `/usr`.

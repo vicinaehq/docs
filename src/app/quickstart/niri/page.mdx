@@ -39,13 +39,13 @@ You should not need to add any specific configuration for blur to work.
 
 ## Global shortcuts
 
-Vicinae supports global shortcuts through the `ext-hotkey-v1` wayland protocol. You can build niri from [this PR](https://github.com/niri-wm/niri/pull/4145) if you want support.
+Vicinae supports global shortcuts through the `xx-hotkey-v1` wayland protocol. You can build niri from [this PR](https://github.com/niri-wm/niri/pull/4145) if you want support.
 
 ## Focus window on activation
 
-Common vicinae workflows such as opening a shortcut will spawn a command that may result in opening a new window or tab in an existing application (typically, browsers). vicinae doesn't yet pass a proper [xdg activation token](https://wayland.app/protocols/xdg-activation-v1#xdg_activation_token_v1) to apps it launches, so the compositor may not allow them to steal focus.
+Common vicinae workflows such as opening a shortcut will spawn a command that may result in opening a new window or tab in an existing application (typically, browsers). vicinae passes an [xdg activation token](https://wayland.app/protocols/xdg-activation-v1#xdg_activation_token_v1) to apps it launches, but the app still has to use it, so the compositor may not always let them steal focus.
 
-A straightforward fix is to enable the following option in your niri config:
+If that happens, you can enable the following option in your niri config:
 
 ```ini
 # ~/.config/niri/config.kdl

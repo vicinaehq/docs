@@ -10,6 +10,14 @@ Vicinae fully integrates with your system clipboard and includes a powerful clip
 
 Clipboard behavior can vary significantly depending on the desktop environment or compositor in use. Below is a table showing which environments Vicinae currently supports.
 
+| Environment | Backend |
+|-------------|---------|
+| GNOME | Requires the [Vicinae GNOME extension](https://github.com/dagimg-dot/vicinae-gnome-extension) |
+| Wayland (other compositors) | `ext-data-control-v1` protocol |
+| X11 | Native X11 clipboard |
+| macOS | Native |
+| Windows | Native |
+
 ## Introduction
 
 When launched, Vicinae starts a clipboard server that monitors clipboard activity in the current environment.

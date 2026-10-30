@@ -15,6 +15,7 @@ This is what the manifest from the [create extension page](/extensions/create) l
 
 ```json
 {
+  "$schema": "https://raw.githubusercontent.com/vicinaehq/vicinae/refs/heads/main/extra/schemas/extension.json",
   "name": "my-first-extension",
   "title": "My First Extension",
   "description": "This is my very first extension",
@@ -23,12 +24,11 @@ This is what the manifest from the [create extension page](/extensions/create) l
   "author": "aurelle",
   "contributors": [],
   "pastContributors": [],
-  "icon": "extension_icon.webp",
+  "icon": "extension_icon.png",
   "commands": [
     {
       "name": "my-first-command",
       "title": "My First Command",
-      "subtitle": "My first subtitle",
       "description": "My first command description",
       "mode": "view"
     }
@@ -36,13 +36,16 @@ This is what the manifest from the [create extension page](/extensions/create) l
   "preferences": [],
   "scripts": {
     "build": "vici build",
-    "dev": "vici develop"
+    "dev": "vici develop",
+    "format": "biome format --write src",
+    "lint": "vici lint"
   },
   "dependencies": {
-    "@vicinae/api": "^0.8.2"
+    "@vicinae/api": "^0.29.2"
   },
   "devDependencies": {
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "@biomejs/biome": "2.3.2"
   }
 }
 ```
@@ -78,7 +81,7 @@ A preference object looks like this:
 - `name` is the identifier of the preference, which should remain in slugified form
 - `title` is the display name of the preference, shown to users
 - `required` indicates whether the preference must be set. If required and no default value is provided, Vicinae will ask the user to supply it before the command can start.
-- `type` is the type of preference. Currently supported: `textfield`, `password`, `checkbox`, `dropdown`, `file`, and `directory`.
+- `type` is the type of preference. Currently supported: `textfield`, `password`, `checkbox`, `dropdown`, `appPicker`, `file`, and `directory`.
 
 If a preference is of type `dropdown` an additional `data` field is expected:
 

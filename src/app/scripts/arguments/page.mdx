@@ -36,6 +36,6 @@ print(source + " to " + destination)
 | Field | Description | Required |
 |-------|-------------|----------|
 | `type` | The argument type. Supported values: `"text"`, `"password"` (redacted text). | Yes |
-| `placeholder` | Placeholder text for the input field. | Yes |
+| `placeholder` | Placeholder text for the input field. Defaults to the argument name. | No |
 | `optional` | Set to `true` if you want to mark the argument as optional. The argument is considered required by default - vicinae will not allow executing the script if the argument is empty. | No |
 | `percentEncoded` | URL encodes the text provided as an argument if set to true. | No |

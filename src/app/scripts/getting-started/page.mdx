@@ -22,7 +22,7 @@ It is possible to add additional directories from which to source scripts in the
 
 ## Example script
 
-The only requirement for a script file is to be a plain text file with three directives on top. Here is a typical Python script:
+The only requirement for a script file is to be a plain text file with two directives on top (`schemaVersion` and `title`). Here is a typical Python script:
 
 ```python
 #!/usr/bin/env python3
@@ -39,13 +39,13 @@ The `@vicinae.schemaVersion` directive should always be set to 1 and may be used
 
 The `@vicinae.title` directive tells Vicinae what name the script goes by, so that you can search it using this name.
 
-The `@vicinae.mode` directive dictates how the output of the script should be presented. `fullOutput` will push a new view and print the output there.
+The `@vicinae.mode` directive dictates how the output of the script should be presented. `fullOutput` (the default) will push a new view and print the output there.
 
-These three directives are required in order for Vicinae to index the script, but other directives are available to further customize the script. See the [directives page](/scripts/directives) for an exhaustive list.
+Only `schemaVersion` and `title` are required in order for Vicinae to index the script, but other directives are available to further customize the script. See the [directives page](/scripts/directives) for an exhaustive list.
 
-Script files should be given executable permission. The shebang line on top `#!/usr/bin/env python3` indicates to the executable loader what interpreter should be used to execute the script.
+The shebang line on top `#!/usr/bin/env python3` tells Vicinae what interpreter should be used to execute the script. If there is no shebang, the interpreter is guessed from the file extension (e.g `.py`, `.sh`, `.js`). In both cases, the script doesn't need executable permission.
 
-Note that it is possible to specify a fully custom command line by using the `@vicinae.exec` directive, removing the need to make the script executable or use a shebang.
+Note that it is possible to specify a fully custom command line by using the `@vicinae.exec` directive.
 
 <Note>
 You can generate a script template similar to this one with the `vicinae script template --title "My Script" --lang=python` command.
@@ -53,6 +53,6 @@ You can generate a script template similar to this one with the `vicinae script 
 
 ## Reloading scripts
 
-Script directories are scanned at startup and every once in a while, but can also be reloaded manually using the Vicinae "Reload Script Directories" command, directly available from the root search.
+Script directories are scanned at startup and every 15 minutes, but can also be reloaded manually using the Vicinae "Reload Script Directories" command, directly available from the root search.
 
 Only top-level script directories are watched for changes, not subdirectories.

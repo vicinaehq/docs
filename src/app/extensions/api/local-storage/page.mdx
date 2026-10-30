@@ -50,11 +50,11 @@ Common approaches include stringifying JSON using `JSON.stringify` or encoding b
 ```ts
 // store json data
 const json = await res.json();
-await LocalStorage.set('myData', JSON.stringify(json));
+await LocalStorage.setItem('myData', JSON.stringify(json));
 
 // store binary data
 const blob = readFileSync('./my_icon.png').toString('base64');
-await LocalStorage.set('icon', blob);
+await LocalStorage.setItem('icon', blob);
 ```
 
 ## LocalStorage or Cache?

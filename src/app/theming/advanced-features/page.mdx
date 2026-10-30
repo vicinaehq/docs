@@ -39,6 +39,8 @@ Even without explicitly setting `inherits`, all themes automatically inherit fro
 - Dark themes inherit from `vicinae-dark`
 - Light themes inherit from `vicinae-light`
 
+`vicinae-dark` and `vicinae-light` are built in: a theme file named `vicinae-dark.toml` or `vicinae-light.toml` is ignored.
+
 <Warning>
 Make sure your theme uses a unique filename (theme ID). If you use the same filename as the theme you're inheriting from, the overridden theme won't be inheritable by other themes.
 </Warning>
@@ -102,11 +104,7 @@ You can combine opacity and lightness modifications:
 
 ```toml
 [colors.core]
-subtle_accent = {
-  name = "colors.accents.blue",
-  darker = 150,
-  opacity = 0.6
-}
+border = { name = "colors.accents.blue", darker = 150, opacity = 0.6 }
 ```
 
 This creates a darker, semi-transparent version of the blue accent color.

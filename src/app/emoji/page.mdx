@@ -14,7 +14,7 @@ From there you can copy, pin or add custom keywords to index a specific emoji.
 
 Currently, Vicinae uses a somewhat hacky method in order to figure out what emoji font should be used.
 
-If Vicinae doesn't pick up the emoji font you would like it to, it is possible to override it by setting the `EMOJI_FONT` environment variable to the font family of your choice.
+On Linux, if Vicinae doesn't pick up the emoji font you would like it to, it is possible to override it by setting the `EMOJI_FONT` environment variable to the font family of your choice.
 
 For instance:
 
@@ -22,7 +22,9 @@ For instance:
 EMOJI_FONT=Twemoji vicinae server
 ```
 
+On macOS and Windows, the system emoji font (Apple Color Emoji, Segoe UI Emoji) is always used and `EMOJI_FONT` is ignored.
+
 <Note>
-If the family doesn't exist, a warning will be printed out and the regular emoji font selection logic will apply.
+If the family doesn't exist, a warning is printed and Qt falls back to its own font matching.
 </Note>
 
