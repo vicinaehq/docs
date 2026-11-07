@@ -2,7 +2,13 @@
 
 Vicinae can turn your voice into text and paste it into the active window. Transcription can run entirely on your machine, or through a cloud provider.
 
+![](/dictation.png)
+
 ## Setup
+
+<Warning>
+For Nix users: if local transcription is wanted you need to override the nix package with `withLocalAI = true`. This will turn on the whisper.cpp support and add an additional built-in provider from which you can download openweight transcription models.
+</Warning>
 
 Dictation needs a transcription model. You can either:
 
