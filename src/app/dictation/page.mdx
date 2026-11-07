@@ -1,0 +1,69 @@
+# Dictation
+
+Vicinae can turn your voice into text and paste it into the active window. Transcription can run entirely on your machine, or through a cloud provider.
+
+## Setup
+
+Dictation needs a transcription model. You can either:
+
+- Download a local model from the **Built-in** provider in the [AI settings](/ai#providers).
+- Add a provider that offers transcription.
+
+Then select it in the **Transcription model** setting of the dictation extension.
+
+<Note>
+On macOS, Vicinae will ask for microphone access the first time you dictate.
+</Note>
+
+## Dictating
+
+Run the [Dictate](vicinae://launch/dictation/dictate) command to start recording. A HUD shows that recording is in progress. Run it again to stop and transcribe.
+
+Dictate is best used with a [global shortcut](/global-shortcuts):
+
+- **Press** the shortcut to start, press it again to stop.
+- **Hold** the shortcut to talk, release it to stop (push-to-talk).
+
+Once transcribed, the text is pasted to the active window, or copied to the clipboard, depending on the **Dictation Action** setting. If pasting fails, the text is copied to the clipboard instead.
+
+Past dictations can be found in [Dictation History](vicinae://launch/dictation/history).
+
+## Vocabulary
+
+The [Vocabulary](vicinae://launch/dictation/vocab) command lets you list names and terms you use often, so that they are spelled correctly. Words can be added quickly with [Add Word to Vocabulary](vicinae://launch/dictation/add-vocab).
+
+Each entry can have an optional hint describing what it refers to. Hints are not used for transcription, but help the rewriting model (see [styles](#styles)) pick the right word.
+
+Vocabulary is used to bias the transcription model towards the right spelling, but it is not a guarantee. Vicinae does not replace words based on similarity after the fact, as this proved too unreliable.
+
+<Note>
+For best results, configure a [style](#styles): the rewriting model receives your vocabulary and is much better at fixing misheard terms than the transcription model alone.
+</Note>
+
+## Styles
+
+Styles let an AI model rewrite what you dictate before it is pasted: fix punctuation, remove filler words, change the tone, translate...
+
+A style is made of:
+
+- A **name**
+- **Instructions** describing how to rewrite the text
+- The **model** to use for rewriting
+- The **apps** it applies to
+
+An app belongs to at most one style, and a default style can be set to cover every app without its own. This makes it possible, for instance, to have a casual style for chat apps and a more formal one for your email client.
+
+Styles are managed with [Manage Dictation Styles](vicinae://launch/dictation/styles) and [Create Dictation Style](vicinae://launch/dictation/create-style).
+
+## CLI and deeplinks
+
+Dictation can be controlled from the command line, which is handy to bind it from your window manager or compositor:
+
+```bash
+vicinae dictation start   # start recording, no-op if already recording
+vicinae dictation stop    # stop recording and transcribe
+vicinae dictation toggle  # start, or stop and transcribe if recording
+vicinae dictation cancel  # discard the current dictation
+```
+
+The same actions are available as deeplinks: `vicinae://dictation/<start|stop|toggle|cancel>`.

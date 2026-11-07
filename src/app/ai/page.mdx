@@ -1,0 +1,48 @@
+# AI
+
+Vicinae can connect to local and cloud AI providers. The models you configure power Quick AI, AI Chat, [dictation](/dictation) and extensions that use the AI API.
+
+## Providers
+
+Providers are managed from the **AI** section of the settings window. Vicinae supports cloud APIs, self-hosted servers, the Claude Code and Codex CLIs, and can also download and run some models itself.
+
+The AI extension settings let you pick the default model and give custom instructions that apply to Quick AI and AI Chat.
+
+## Quick AI
+
+[Quick AI](vicinae://launch/ai/quick) lets you ask a question straight from the launcher. It is also available as a [fallback command](/fallback-commands), so you can type a question in the root search and send it to the model directly.
+
+## AI Chat
+
+[AI Chat](vicinae://launch/ai/chat) opens your conversations in a dedicated window. Conversations are saved and can be picked up again with:
+
+- [Open Last AI Chat](vicinae://launch/ai/last-chat) to resume the most recent conversation.
+- [Browse AI Conversations](vicinae://launch/ai/conversations) to search and reopen older ones.
+
+Images and text files can be attached to messages, provided the selected model supports them.
+
+## Tools
+
+Models that support tool calling can use tools provided by Vicinae's built-in extensions, for instance to search files, read your clipboard history or run shell commands.
+
+Each tool can be allowed, set to ask for approval, or disabled from the settings page of the extension that provides it. Tools can also be turned off entirely from the AI extension settings.
+
+## CLI
+
+Configured models can also be used from the command line:
+
+```bash
+# list models usable with `ask`
+vicinae ai models
+
+# ask a one-off question, stdin is passed as context
+git diff | vicinae ai ask "write a commit message for this diff"
+```
+
+Run `vicinae ai ask --help` for the available options (model, system prompt, attachments, streaming).
+
+## Limitations
+
+- The Claude Code and Codex providers do not support tool calling.
+- Custom tools provided by extensions are not available yet.
+- Advanced generation settings such as thinking effort or temperature cannot be configured yet.
