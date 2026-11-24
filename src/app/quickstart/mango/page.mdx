@@ -1,0 +1,47 @@
+# Mango Quickstart
+
+This guide shows the best way to quickly get started with Vicinae on [Mango](https://github.com/mangowm/mango).
+
+## Main configuration
+
+Add the following to your Mango configuration, and you are good to go.
+
+```ini
+# ~/.config/mango/config.conf
+
+exec_once=vicinae server
+
+# use whatever shortcut floats your boat
+bind=SUPER,space,spawn,vicinae toggle
+```
+
+<Note>
+  On first startup, Vicinae will use a lot of CPU in order to populate the file
+  index.
+</Note>
+
+## Bind to a custom command
+
+You can easily create a binding to open any vicinae command directly:
+
+```ini
+# ~/.config/mango/config.conf
+
+bind=SUPER,P,spawn,vicinae vicinae://launch/clipboard/history
+```
+
+You can do a lot with this: [learn more about deeplinks](/deeplinks).
+
+## Blur
+
+Mango applies blur itself through scenefx. It does not implement the
+`ext-background-effect-v1` protocol that Vicinae uses to request blur
+automatically, but you can enable blur manually in your Mango configuration
+(including for Vicinae's launcher surface):
+
+```ini
+# ~/.config/mango/config.conf
+
+blur=1
+blur_layer=1
+```

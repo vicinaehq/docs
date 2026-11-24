@@ -235,6 +235,7 @@ export const userNavigation: Array<NavItem> = [
 			{ title: 'KDE Quickstart', href: '/quickstart/kde' },
 			{ title: 'Cosmic Desktop Quickstart', href: '/quickstart/cosmic' },
 			{ title: 'Niri Quickstart', href: '/quickstart/niri' },
+			{ title: 'Mango Quickstart', href: '/quickstart/mango' },
 			{ title: 'General Quickstart', href: '/quickstart/generic' },
 		],
 	},
